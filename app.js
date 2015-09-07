@@ -10,7 +10,7 @@ app.get('/', function(req, res){
 });
 
 app.listen(port, function(){
-    console.log('Server running at port: ' + port);
+    console.log('Gulp running at port: ' + port);
 });
 
 
