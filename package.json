@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ejs": "^2.3.3",
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "mongoose": "^4.1.5"
   }
 }
