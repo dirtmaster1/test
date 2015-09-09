@@ -1,7 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose');
 
-var db = mongoose.connect('mongodb://localhost/gameData');
+var db = mongoose.connect('mongodb://localhost:3000/gameData');
 
 var app = express();
 
@@ -18,8 +18,6 @@ router.route('/game')
     });
 
 app.use('/api', router);
-
-
 
 app.get('/', function(req, res){
     res.render('index.ejs');
