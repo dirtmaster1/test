@@ -1,12 +1,12 @@
 var express = require('express'),
     mongoose = require('mongoose');
 
-var db = mongoose.connect('mongodb://localhost/gameData');
+//var db = mongoose.connect('mongodb://localhost:9000/gameData');
 
 var app = express();
 
 //establish port, uses process.env.Port settings since it is initialized in ./gulpfile.js
-var port = process.env.Port || 3000;
+var port = process.env.PORT || 3000;
 
 //set up route to game data
 var router = express.Router();
