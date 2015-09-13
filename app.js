@@ -1,11 +1,16 @@
 var express = require('express'),
     mongoose = require('mongoose');
 
-var db = mongoose.connect('mongodb://localhost:27017/gameData', function (err) {
+var db = mongoose.connect('mongodb://localhost/gameData', function (err) {
     if (err) {
         console.log(err);
     }
 });
+
+var GameData = require('./models/gameDataModel.js');
+
+
+var data = new GameData({});
 
 var app = express();
 
@@ -17,8 +22,22 @@ var router = express.Router();
 
 router.route('/game')
     .get(function(req, res){
-        var responseJson = {gameData: "data"};
-        res.json(responseJson);
+
+        //sanitize incoming request parameters
+        var query = {};
+
+        if(req.query.data)
+        {
+            query.data = req.query.data;
+        }
+        gameData.find(function(err,data){
+            if(err) {
+                res.status(500).send(err);
+            }
+            else {
+                res.json(data);
+            }
+        });
     });
 
 app.use('/api', router);
