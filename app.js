@@ -9,9 +9,6 @@ var db = mongoose.connect('mongodb://localhost/gameData', function (err) {
 
 var GameData = require('./models/gameDataModel.js');
 
-
-var data = new GameData({});
-
 var app = express();
 
 //establish port, uses process.env.Port settings since it is initialized in ./gulpfile.js
@@ -30,7 +27,8 @@ router.route('/game')
         {
             query.data = req.query.data;
         }
-        gameData.find(function(err,data){
+
+        GameData.find(function(err,data){
             if(err) {
                 res.status(500).send(err);
             }
