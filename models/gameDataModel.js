@@ -1,5 +1,7 @@
-var mongoose  = require('mongoose'),
-    Schema = mongoose.Schema;
+var mongoose;
+var Schema;
+mongoose = require('mongoose');
+Schema = mongoose.Schema;
 
 var gameDataModel = new Schema({
     levelData: [],
@@ -7,4 +9,4 @@ var gameDataModel = new Schema({
     modelData: []
 });
 
-module.exports = mongoose.model('GameData', gameDataModel);
+module.exports = mongoose.model('GameData', gameDataModel, 'GameData');

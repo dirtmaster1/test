@@ -1,7 +1,7 @@
 var express = require('express'),
     mongoose = require('mongoose');
 
-var db = mongoose.connect('mongodb://localhost/gameData', function (err) {
+var db = mongoose.connect('mongodb://localhost/test', function (err) {
     if (err) {
         console.log(err);
     }
