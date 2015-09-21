@@ -8,6 +8,7 @@ var db = mongoose.connect('mongodb://localhost/test', function (err) {
 });
 
 var GameData = require('./models/gameDataModel.js');
+var CardData  = require('./models/cardDataModel.js');
 
 var app = express();
 
@@ -37,6 +38,29 @@ router.route('/game')
             }
         });
     });
+
+router.route('/cards')
+    .get(function(req, res){
+
+        //sanitize incoming request parameters
+        var query = {};
+
+        if(req.query.id)
+        {
+            query.id = req.query.id;
+        }
+
+        CardData.find({code:"LEA"},'code',function(err,data){
+            if(err) {
+                res.status(500).send(err);
+            }
+            else {
+                res.json(data);
+            }
+        });
+    });
+
+
 
 app.use('/api', router);
 

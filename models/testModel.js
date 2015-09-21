@@ -8,4 +8,4 @@ var testModel = new Schema({
     name: {type: String}
 });
 
-module.exports = mongoose.model('test', testModel);
+module.exports = mongoose.model('Test', testModel);
