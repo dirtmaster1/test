@@ -50,7 +50,7 @@ router.route('/cards')
             query.id = req.query.id;
         }
 
-        CardData.find({code:"LEA"},'code',function(err,data){
+        CardData.find({code:"LEA"},'cards',function(err,data){
             if(err) {
                 res.status(500).send(err);
             }
@@ -59,8 +59,6 @@ router.route('/cards')
             }
         });
     });
-
-
 
 app.use('/api', router);
 
