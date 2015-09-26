@@ -11,6 +11,7 @@ var GameData = require('./models/gameDataModel.js');
 var CardData  = require('./models/cardDataModel.js');
 
 var app = express();
+app.use(express.static(__dirname + '/public'));
 
 //establish port, uses process.env.Port settings since it is initialized in ./gulpfile.js
 var port = process.env.PORT || 3000;
