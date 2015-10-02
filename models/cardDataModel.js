@@ -5,7 +5,8 @@ Schema = mongoose.Schema;
 
 var cardModel = new Schema({
     _id : {type: Number},
-    code: {type: String}
+    code: {type: String},
+    name: {type: String}
 });
 
 module.exports = mongoose.model('Card', cardModel, 'CardArrayData');

@@ -15,10 +15,8 @@
 
         $http.get("http://localhost:8000/api/cards")
             .then(onComplete, onError);
-
-
     };
 
     app.controller('CardCtrl',["$scope", "$http", CardCtrl]);
-})()
+})(document)
 
