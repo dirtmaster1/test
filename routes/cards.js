@@ -14,7 +14,7 @@ router.route('/')
             query.code = req.query.code;
         }
 
-        Card.find(query,{name:1,code:1},function(err,data){
+        Card.find(query,{name:1,code:1,cards:1},function(err,data){
             if(err) {
                 res.status(500).send(err);
             }

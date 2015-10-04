@@ -9,7 +9,14 @@
 </head>
 <body ng-controller="CardCtrl">
 <!--<script src="/javascripts/threeCube.js"></script>-->
-{{message}}
+<div class =  "container">
+  <div class =  "row">
+    <div class = "col-xs-4 form-group">
+      <label for="cardSetDropDownList">Card Set Name:</label>
+      <select class="form-control" ng-change="updateCardGrid()" id="cardSetDropDownList" ng-model="selectedCardSet" ng-options="cardSet.code as cardSet.name for cardSet in cardSets"></select>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.6/angular.min.js"></script>
