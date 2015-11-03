@@ -26,10 +26,9 @@
             .then(onComplete, onError);
 
     $scope.updateCardGrid = function(){
-        alert('Card Set Changed to ' + $scope.selectedCardSet);
         $scope.selectedCards = $scope.cards.filter(function(obj){
             return obj.code == $scope.selectedCardSet;
-        })
+        })[0].cards
     }
     };
 

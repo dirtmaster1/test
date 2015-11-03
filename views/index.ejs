@@ -2,6 +2,7 @@
 <head>
   <title>blocks</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link href="/content/style.css" rel="stylesheet">
   <style>
     body { margin: 0; }
     canvas { width: 100px; height: 100px }
@@ -14,6 +15,22 @@
     <div class = "col-xs-4 form-group">
       <label for="cardSetDropDownList">Card Set Name:</label>
       <select class="form-control" ng-change="updateCardGrid()" id="cardSetDropDownList" ng-model="selectedCardSet" ng-options="cardSet.code as cardSet.name for cardSet in cardSets"></select>
+    </div>
+  </div>
+  <div class =  "row headerRow">
+    <div class = "col-xs-12">
+      <div class = "col-xs-3">Card Name</div>
+      <div class = "col-xs-3">Rarity</div>
+      <div class = "col-xs-3">Type</div>
+      <div class = "col-xs-3">Mana Cost</div>
+    </div>
+  </div>
+  <div class =  "row">
+    <div class = "col-xs-12" ng-repeat="card in selectedCards">
+      <div class = "col-xs-3">{{card.name}}</div>
+      <div class = "col-xs-3">{{card.rarity}}</div>
+      <div class = "col-xs-3">{{card.type}}</div>
+      <div class = "col-xs-3">{{card.manaCost}}</div>
     </div>
   </div>
 </div>
