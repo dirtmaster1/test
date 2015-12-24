@@ -21,7 +21,7 @@ var game = require('./routes/game.js');
 
 
 app.use('/api/cards', cards);
-app.use('/api/game', game);
+app.use('/game', game);
 
 app.get('/', function(req, res){
     res.render('index.ejs');
