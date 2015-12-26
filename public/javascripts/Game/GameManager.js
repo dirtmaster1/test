@@ -1,4 +1,6 @@
-var gameManager = (function ()
+var game = game ||{};
+
+game.gameManager = (function ()
 {
   "use strict";
 
@@ -11,24 +13,22 @@ var gameManager = (function ()
       );
 
     function init(){
-      var light,
-          light2,
-          pyramid;
-
-      camera.position.z = 200;
-      camera.position.y = 20;
+      var spotLight1,
+          spotLight2,
+          ambientLight,
+          playerShip;
 
       scene.add(this.camera);
 
-      light = new THREE.SpotLight(new THREE.Color("#ffffff"));
-      light.position.set(-50, 100, 0);
-      scene.add(light);
+      spotLight1 = new THREE.SpotLight(new THREE.Color("#ffffff"));
+      spotLight1.position.set(-50, 100, 0);
+      scene.add(spotLight1);
 
-      light2 = new THREE.SpotLight(new THREE.Color("#ffffff"));
-      light2.position.set(50, 100, 0);
-      scene.add(light2);
+      spotLight2 = new THREE.SpotLight(new THREE.Color("#ffffff"));
+      spotLight2.position.set(50, 100, 0);
+      scene.add(spotLight2);
 
-      var ambientLight = new THREE.AmbientLight(0xbbbbbb);
+      ambientLight = new THREE.AmbientLight(0xbbbbbb);
       scene.add(ambientLight);
 
       var material = new THREE.MeshPhongMaterial({
@@ -42,14 +42,22 @@ var gameManager = (function ()
           opacity: 0.75
       });
 
-      pyramid = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
+        playerShip = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
+        playerShip.name = 'playerShip';
 
-      scene.add(pyramid);
+      scene.add(playerShip);
   };
+
+    function update(){
+        var playerShip = scene.getObjectByName('playerShip');
+        playerShip.rotation.x += 0.01;
+        playerShip.rotation.y += 0.01;
+    }
 
   return{
       scene: scene,
       camera: camera,
-      init: init
+      init: init,
+      update: update
   }
 })();

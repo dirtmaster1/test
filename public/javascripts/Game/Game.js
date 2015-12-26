@@ -1,22 +1,24 @@
-var game = (function() {
+game.run = (function() {
     "use strict";
     var renderer = new THREE.WebGLRenderer();
+    var manager = game.gameManager;
 
     initialize();
     render();
 
     function initialize() {
-        gameManager.init();
+        manager.init();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("container").appendChild(renderer.domElement);
     }
 
     function render() {
-        renderer.render(gameManager.scene, gameManager.camera);
+        manager.update();
+        renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }
 
     return {
-        scene: gameManager.scene
+        scene: manager.scene
     }
 })();
