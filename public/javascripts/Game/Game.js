@@ -7,7 +7,7 @@ game.run = (function() {
     render();
 
     function initialize() {
-        manager.init();
+        manager.sceneInit();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("container").appendChild(renderer.domElement);
     }

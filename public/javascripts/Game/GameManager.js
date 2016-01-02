@@ -12,7 +12,7 @@ game.gameManager = (function ()
           1000
       );
 
-    function init(){
+    function sceneInit(){
       var spotLight1,
           spotLight2,
           ambientLight,
@@ -57,7 +57,7 @@ game.gameManager = (function ()
   return{
       scene: scene,
       camera: camera,
-      init: init,
+      sceneInit: sceneInit,
       update: update
   }
 })();
