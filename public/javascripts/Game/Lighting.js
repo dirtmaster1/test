@@ -3,7 +3,7 @@ game.lighting = (function(){
         spotLight2,
         ambientLight;
 
-    function lightingInit(scene) {
+    function Init(scene) {
         spotLight1 = new THREE.SpotLight(new THREE.Color("#ffffff"));
         spotLight1.position.set(-50, 100, 0);
         scene.add(spotLight1);
@@ -17,7 +17,7 @@ game.lighting = (function(){
     }
 
     return{
-        lightingInit : lightingInit
+        Init : Init
     }
 
 })();

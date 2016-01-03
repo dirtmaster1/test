@@ -1,5 +1,3 @@
-var game = game ||{};
-
 game.gameManager = (function ()
 {
   "use strict";
@@ -11,18 +9,21 @@ game.gameManager = (function ()
           1,
           1000
       );
+  var lighting = game.lighting;
+  var player  =  game.player;
 
-    function sceneInit(){
+    function Init(){
 
-      game.lighting.lightingInit(scene);
-      scene.add(game.player.playerShip);
+      lighting.Init(scene);
+      scene.add(player.ship);
 
-      camera.position.set(-100,0,0);
+      camera.position.set(0,0,100);
+      camera.up = new THREE.Vector3(0,1,0);
       camera.lookAt(scene.getObjectByName('playerShip').position);
       scene.add(camera);
   };
 
-    function update(){
+    function Update(){
         var playerShip = scene.getObjectByName('playerShip');
         //playerShip.rotation.x += 0.01;
         //playerShip.rotation.y += 0.01;
@@ -31,7 +32,7 @@ game.gameManager = (function ()
   return{
       scene: scene,
       camera: camera,
-      sceneInit: sceneInit,
-      update: update
+      Init: Init,
+      Update: Update
   }
 })();

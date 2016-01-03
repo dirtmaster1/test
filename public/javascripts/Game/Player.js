@@ -1,7 +1,7 @@
 game.player = (function(){
     'use strict';
 
-    var playerShip;
+    var ship;
 
     var material = new THREE.MeshPhongMaterial({
         color: 0x0088aa,
@@ -14,10 +14,10 @@ game.player = (function(){
         opacity: 0.75
     });
 
-    playerShip = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
-    playerShip.name = 'playerShip';
+    ship = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
+    ship.name = 'playerShip';
 
     return{
-        playerShip: playerShip
+        ship: ship
     }
 })();

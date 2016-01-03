@@ -7,13 +7,13 @@ game.run = (function() {
     render();
 
     function initialize() {
-        manager.sceneInit();
+        manager.Init();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("container").appendChild(renderer.domElement);
     }
 
     function render() {
-        manager.update();
+        manager.Update();
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }
