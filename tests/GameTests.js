@@ -23,11 +23,12 @@ describe('Game', function(){
         it('should be behind player ship', function(){
 
             manager.sceneInit();
-            var playerShipPos = manager.scene.getObjectByName('playerShip', true).position;
+            var playerShip = manager.scene.getObjectByName('playerShip', true);
             var cameraPos = manager.camera.position;
-            var distance = cameraPos.distanceTo(playerShipPos);
+            var distance = cameraPos.distanceTo(playerShip.position);
 
             expect(distance).toBe(100);
+            expect(playerShip.rotation).toBe(manager.camera.rotation);
         })
     })
 

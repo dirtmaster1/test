@@ -13,45 +13,19 @@ game.gameManager = (function ()
       );
 
     function sceneInit(){
-      var spotLight1,
-          spotLight2,
-          ambientLight,
-          playerShip;
 
-      scene.add(this.camera);
+      game.lighting.lightingInit(scene);
+      scene.add(game.player.playerShip);
 
-      spotLight1 = new THREE.SpotLight(new THREE.Color("#ffffff"));
-      spotLight1.position.set(-50, 100, 0);
-      scene.add(spotLight1);
-
-      spotLight2 = new THREE.SpotLight(new THREE.Color("#ffffff"));
-      spotLight2.position.set(50, 100, 0);
-      scene.add(spotLight2);
-
-      ambientLight = new THREE.AmbientLight(0xbbbbbb);
-      scene.add(ambientLight);
-
-      var material = new THREE.MeshPhongMaterial({
-          color: 0x0088aa,
-          ambient: 0x0088aa,
-          specular: 0x003344,
-          shininess: 100,
-          shading: THREE.FlatShading,
-          side: THREE.DoubleSide,
-          transparent: true,
-          opacity: 0.75
-      });
-
-        playerShip = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
-        playerShip.name = 'playerShip';
-
-      scene.add(playerShip);
+      camera.position.set(-100,0,0);
+      camera.lookAt(scene.getObjectByName('playerShip').position);
+      scene.add(camera);
   };
 
     function update(){
         var playerShip = scene.getObjectByName('playerShip');
-        playerShip.rotation.x += 0.01;
-        playerShip.rotation.y += 0.01;
+        //playerShip.rotation.x += 0.01;
+        //playerShip.rotation.y += 0.01;
     }
 
   return{
