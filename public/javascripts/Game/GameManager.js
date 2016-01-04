@@ -1,37 +1,29 @@
+var game = game ||{};
 game.gameManager = (function ()
 {
   "use strict";
 
   var scene = new THREE.Scene();
-  var camera = new THREE.PerspectiveCamera(
-          35,
-          window.innerWidth / window.innerHeight,
-          1,
-          1000
-      );
-  var lighting = game.lighting;
-  var player  =  game.player;
+  var camera = game.camera;
 
-    function Init(){
+  function Init(){
+     var lighting = game.lighting;
+     var player  =  game.player;
 
-      lighting.Init(scene);
-      scene.add(player.ship);
-
-      camera.position.set(0,0,100);
-      camera.up = new THREE.Vector3(0,1,0);
-      camera.lookAt(scene.getObjectByName('playerShip').position);
-      scene.add(camera);
+     lighting.Init(scene);
+     player.Init(scene);
+     camera.Init(scene);
   };
 
-    function Update(){
+  function Update(){
         var playerShip = scene.getObjectByName('playerShip');
         //playerShip.rotation.x += 0.01;
         //playerShip.rotation.y += 0.01;
-    }
+  }
 
   return{
       scene: scene,
-      camera: camera,
+      camera: camera.perspective,
       Init: Init,
       Update: Update
   }

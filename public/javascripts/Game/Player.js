@@ -1,3 +1,4 @@
+var game = game ||{};
 game.player = (function(){
     'use strict';
 
@@ -17,7 +18,12 @@ game.player = (function(){
     ship = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
     ship.name = 'playerShip';
 
+    function Init(scene){
+        scene.add(ship);
+    }
+
     return{
-        ship: ship
+        ship: ship,
+        Init: Init
     }
 })();

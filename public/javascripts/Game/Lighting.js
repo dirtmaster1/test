@@ -1,3 +1,4 @@
+var game = game ||{};
 game.lighting = (function(){
     var spotLight1,
         spotLight2,

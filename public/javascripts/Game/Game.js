@@ -1,3 +1,4 @@
+var game = game ||{};
 game.run = (function() {
     "use strict";
     var renderer = new THREE.WebGLRenderer();
