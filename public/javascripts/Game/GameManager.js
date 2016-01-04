@@ -5,6 +5,7 @@ game.gameManager = (function ()
 
   var scene = new THREE.Scene();
   var camera = game.camera;
+  var UI = game.userInterface;
 
   function Init(){
      var lighting = game.lighting;
@@ -13,6 +14,7 @@ game.gameManager = (function ()
      lighting.Init(scene);
      player.Init(scene);
      camera.Init(scene);
+     UI.Init(scene);
   };
 
   function Update(){

@@ -2,8 +2,6 @@ var game = game ||{};
 game.player = (function(){
     'use strict';
 
-    var ship;
-
     var material = new THREE.MeshPhongMaterial({
         color: 0x0088aa,
         ambient: 0x0088aa,
@@ -15,7 +13,7 @@ game.player = (function(){
         opacity: 0.75
     });
 
-    ship = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
+    var ship = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
     ship.name = 'playerShip';
 
     function Init(scene){
@@ -26,4 +24,8 @@ game.player = (function(){
         ship: ship,
         Init: Init
     }
+})();
+
+game.controls = (function(){
+
 })();

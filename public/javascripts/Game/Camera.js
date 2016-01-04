@@ -10,6 +10,7 @@ game.camera = (function(){
     );
     perspectiveCamera.position.set(0,0,100);
     perspectiveCamera.up = new THREE.Vector3(0,1,0);
+    perspectiveCamera.name = 'camera';
 
     function Init(scene){
         perspectiveCamera.lookAt(scene.getObjectByName('playerShip').position);
