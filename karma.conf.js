@@ -10,11 +10,15 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine','fixture'],
 
 
     // list of files / patterns to load in the browser
     files: [
+
+      //fixtures
+      'tests/fixtures/*html',
+
       //tests
       'test/*js',
       'tests/*js',
@@ -22,6 +26,7 @@ module.exports = function(config) {
       //three
       'node_modules/three/three.min.js',
       'public/javascripts/Game/Camera.js',
+      'public/javascripts/Game/UserInterface.js',
       'public/javascripts/Game/GameManager.js',
       'public/javascripts/Game/Lighting.js',
       'public/javascripts/Game/Player.js'
@@ -37,6 +42,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '**/*.html'   : ['html2js'],
+      '**/*.json'   : ['json_fixtures']
     },
 
 
@@ -75,5 +82,6 @@ module.exports = function(config) {
     // Concurrency level
     // how many browser should be started simultanous
     concurrency: Infinity
+
   })
 }

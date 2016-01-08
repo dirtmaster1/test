@@ -19,5 +19,10 @@
     "mongoose": "^4.1.5",
     "should": "^7.1.1",
     "sinon": "^1.17.2"
+  },
+  "devDependencies": {
+    "karma-fixture": "^0.2.5",
+    "karma-html2js-preprocessor": "^0.1.0",
+    "karma-json-fixtures-preprocessor": "0.0.5"
   }
 }

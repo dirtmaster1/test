@@ -4,6 +4,18 @@ describe('Game', function(){
     var manager;
 
     beforeEach(function(){
+        fixture.setBase('tests/fixtures')
+    });
+
+    beforeEach(function(){
+        this.result = fixture.load('gameFixture.html');
+    });
+
+    afterEach(function(){
+        fixture.cleanup()
+    });
+
+    beforeEach(function(){
         manager = game.gameManager;
     });
 
@@ -44,6 +56,30 @@ describe('Game', function(){
             expect(playerShip.rotation.y).toBe(Math.abs(manager.camera.rotation.y));
             expect(playerShip.rotation.z).toBe(Math.abs(manager.camera.rotation.z));
             expect(shipDirection.dot(cameraDirection)).toBe(1);
+        })
+    })
+
+    describe('Controls', function(){
+
+        it('should move player ship forward', function(){
+
+            manager.Init();
+
+            //simulate key press
+            function keyPress(key) {
+                var event = document.createEvent('Event');
+                event.keyCode = key;
+                event.initEvent('keydown');
+                document.dispatchEvent(event);
+            }
+
+            keyPress(83);
+
+            manager.Update();
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            expect(playerShip.position.x).toBe(0);
+            expect(playerShip.position.y).toBe(0);
+            expect(playerShip.position.z).toBe(-1);
         })
     })
 
