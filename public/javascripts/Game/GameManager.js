@@ -6,6 +6,7 @@ game.gameManager = (function ()
   var scene = new THREE.Scene();
   var camera = game.camera;
   var UI = game.userInterface;
+  var controls = game.controls;
 
   function Init(){
      var lighting = game.lighting;
@@ -17,8 +18,9 @@ game.gameManager = (function ()
      UI.Init(scene);
   };
 
-  function Update(){
+  function Update(delta){
         var playerShip = scene.getObjectByName('playerShip');
+        controls.Update(delta);
         //playerShip.rotation.x += 0.01;
         //playerShip.rotation.y += 0.01;
   }
@@ -26,6 +28,7 @@ game.gameManager = (function ()
   return{
       scene: scene,
       camera: camera.perspective,
+      controls: controls,
       Init: Init,
       Update: Update
   }

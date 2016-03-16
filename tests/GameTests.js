@@ -26,6 +26,7 @@ describe('Game', function(){
             expect(manager.camera).toBeDefined();
             expect(manager.Init).toBeDefined();
             expect(manager.Update).toBeDefined();
+            expect(manager.controls).toBeDefined();
         })
 
     })
@@ -43,13 +44,13 @@ describe('Game', function(){
             shipMatrix.extractRotation( playerShip.matrix );
 
             var shipDirection = new THREE.Vector3( 0, 0, 1 );
-            shipDirection.applyMatrix4( shipMatrix )
+            shipDirection.applyMatrix4( shipMatrix );
 
             var cameraMatrix = new THREE.Matrix4();
             cameraMatrix.extractRotation( manager.camera.matrix );
 
             var cameraDirection = new THREE.Vector3( 0, 0, 1 );
-            cameraDirection.applyMatrix4( cameraMatrix )
+            cameraDirection.applyMatrix4( cameraMatrix );
 
             expect(distance).toBe(100);
             expect(playerShip.rotation.x).toBe(Math.abs(manager.camera.rotation.x));
@@ -60,6 +61,13 @@ describe('Game', function(){
     })
 
     describe('Controls', function(){
+
+        it('should initialize controls', function(){
+            manager.Init();
+
+            expect(manager.controls).toBeDefined();
+
+        });
 
         it('should move player ship forward', function(){
 
@@ -83,4 +91,4 @@ describe('Game', function(){
         })
     })
 
-})
+});

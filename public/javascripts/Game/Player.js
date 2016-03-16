@@ -26,6 +26,4 @@ game.player = (function(){
     }
 })();
 
-game.controls = (function(){
 
-})();

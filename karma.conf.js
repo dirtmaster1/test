@@ -26,11 +26,11 @@ module.exports = function(config) {
       //three
       'node_modules/three/three.min.js',
       'public/javascripts/Game/Camera.js',
+      'public/javascripts/Game/Controls.js',
       'public/javascripts/Game/UserInterface.js',
       'public/javascripts/Game/GameManager.js',
       'public/javascripts/Game/Lighting.js',
       'public/javascripts/Game/Player.js'
-
     ],
 
 

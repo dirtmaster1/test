@@ -3,6 +3,8 @@ game.run = (function() {
     "use strict";
     var renderer = new THREE.WebGLRenderer();
     var manager = game.gameManager;
+    //game time
+    var clock = new THREE.Clock();
 
     initialize();
     render();
@@ -14,7 +16,8 @@ game.run = (function() {
     }
 
     function render() {
-        manager.Update();
+        var delta = clock.getDelta();
+        manager.Update(delta);
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }
