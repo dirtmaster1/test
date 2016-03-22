@@ -2,6 +2,8 @@
 describe('Game', function(){
 
     var manager;
+    var clock;
+    var keyboard;
 
     beforeEach(function(){
         fixture.setBase('tests/fixtures')
@@ -17,6 +19,8 @@ describe('Game', function(){
 
     beforeEach(function(){
         manager = game.gameManager;
+        clock = new THREE.Clock();
+        keyboard  = new THREEx.KeyboardState();
     });
 
     describe('GameManager', function(){
@@ -81,9 +85,9 @@ describe('Game', function(){
                 document.dispatchEvent(event);
             }
 
-            keyPress(83);
+            keyPress(87);
 
-            manager.Update();
+            manager.Update(clock.getDelta(), keyboard);
             var playerShip = manager.scene.getObjectByName('playerShip');
             expect(playerShip.position.x).toBe(0);
             expect(playerShip.position.y).toBe(0);

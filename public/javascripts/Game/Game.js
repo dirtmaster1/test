@@ -5,6 +5,7 @@ game.run = (function() {
     var manager = game.gameManager;
     //game time
     var clock = new THREE.Clock();
+    var keyboard  = new THREEx.KeyboardState();
 
     initialize();
     render();
@@ -17,7 +18,7 @@ game.run = (function() {
 
     function render() {
         var delta = clock.getDelta();
-        manager.Update(delta);
+        manager.Update(delta, keyboard);
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }

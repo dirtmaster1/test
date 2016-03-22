@@ -18,9 +18,9 @@ game.gameManager = (function ()
      UI.Init(scene);
   };
 
-  function Update(delta){
+  function Update(delta, keyboard){
         var playerShip = scene.getObjectByName('playerShip');
-        controls.Update(delta);
+        controls.Update(delta, keyboard, playerShip);
         //playerShip.rotation.x += 0.01;
         //playerShip.rotation.y += 0.01;
   }

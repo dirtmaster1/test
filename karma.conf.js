@@ -30,7 +30,8 @@ module.exports = function(config) {
       'public/javascripts/Game/UserInterface.js',
       'public/javascripts/Game/GameManager.js',
       'public/javascripts/Game/Lighting.js',
-      'public/javascripts/Game/Player.js'
+      'public/javascripts/Game/Player.js',
+      'public/javascripts/Game/Keyboard.js'
     ],
 
 

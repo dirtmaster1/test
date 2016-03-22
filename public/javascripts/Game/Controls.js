@@ -3,20 +3,14 @@ var game = game ||{};
 game.controls = (function(){
     'use strict';
 
-    function Update(delta){ var test = 1};
-
-    function KeyDown(event, object){
-
-        switch (event.keyCode) {
-            case 83: /*W*/
-                object.position.z -= 1;
-                break;
+    function Update(delta, keyboard, playerShip){
+        if(keyboard.pressed("W"))
+        {
+            playerShip.translateZ(-1);
         }
-    };
-
-    window.addEventListener('keydown', KeyDown, false);
+    }
 
     return{
-        keyDown: KeyDown
+        Update: Update
     }
 })();
