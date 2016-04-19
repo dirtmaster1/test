@@ -13,14 +13,18 @@ describe('Game', function(){
         this.result = fixture.load('gameFixture.html');
     });
 
-    afterEach(function(){
-        fixture.cleanup()
-    });
-
     beforeEach(function(){
         manager = game.gameManager;
+        manager.Init();
         clock = new THREE.Clock();
         keyboard  = new THREEx.KeyboardState();
+    });
+
+    afterEach(function(){
+        for( var i = manager.scene.children.length - 1; i >= 0; i--) {
+            var obj = manager.scene.children[i];
+            manager.scene.remove(obj);}
+        fixture.cleanup()
     });
 
     describe('GameManager', function(){
@@ -39,7 +43,6 @@ describe('Game', function(){
 
         it('should be behind player ship', function(){
 
-            manager.Init();
             var playerShip = manager.scene.getObjectByName('playerShip', true);
             var cameraPos = manager.camera.position;
             var distance = cameraPos.distanceTo(playerShip.position);
@@ -66,32 +69,93 @@ describe('Game', function(){
 
     describe('Controls', function(){
 
+        //simulate key press
+        function keyPress(key) {
+            var event = document.createEvent('Event');
+            event.keyCode = key;
+            event.initEvent('keydown');
+            document.dispatchEvent(event);
+        }
+
         it('should initialize controls', function(){
-            manager.Init();
-
             expect(manager.controls).toBeDefined();
-
         });
 
         it('should move player ship forward', function(){
-
-            manager.Init();
-
-            //simulate key press
-            function keyPress(key) {
-                var event = document.createEvent('Event');
-                event.keyCode = key;
-                event.initEvent('keydown');
-                document.dispatchEvent(event);
-            }
-
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            playerShip.position.set(0,0,0);
             keyPress(87);
 
             manager.Update(clock.getDelta(), keyboard);
-            var playerShip = manager.scene.getObjectByName('playerShip');
+
             expect(playerShip.position.x).toBe(0);
             expect(playerShip.position.y).toBe(0);
             expect(playerShip.position.z).toBe(-1);
+        })
+
+        it('should move player ship backward', function(){
+
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            playerShip.position.set(0,0,0);
+            keyPress(83);
+
+            manager.Update(clock.getDelta(), keyboard);
+
+            expect(playerShip.position.x).toBe(0);
+            expect(playerShip.position.y).toBe(0);
+            expect(playerShip.position.z).toBe(1);
+        })
+
+        it('should move player ship to right', function(){
+
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            playerShip.position.set(0,0,0);
+            keyPress(68);
+
+            manager.Update(clock.getDelta(), keyboard);
+
+            expect(playerShip.position.x).toBe(1);
+            expect(playerShip.position.y).toBe(0);
+            expect(playerShip.position.z).toBe(0);
+        })
+
+        it('should move player ship to left', function(){
+
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            playerShip.position.set(0,0,0);
+            keyPress(65);
+
+            manager.Update(clock.getDelta(), keyboard);
+
+            expect(playerShip.position.x).toBe(-1);
+            expect(playerShip.position.y).toBe(0);
+            expect(playerShip.position.z).toBe(0);
+        })
+
+        it('should move player ship up', function(){
+
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            playerShip.position.set(0,0,0);
+            keyPress(82);
+
+            manager.Update(clock.getDelta(), keyboard);
+
+            expect(playerShip.position.x).toBe(0);
+            expect(playerShip.position.y).toBe(1);
+            expect(playerShip.position.z).toBe(0);
+        })
+
+        it('should move player ship to down', function(){
+
+            var playerShip = manager.scene.getObjectByName('playerShip');
+            playerShip.position.set(0,0,0);
+            keyPress(70);
+
+            manager.Update(clock.getDelta(), keyboard);
+
+            expect(playerShip.position.x).toBe(0);
+            expect(playerShip.position.y).toBe(-1);
+            expect(playerShip.position.z).toBe(0);
         })
     })
 

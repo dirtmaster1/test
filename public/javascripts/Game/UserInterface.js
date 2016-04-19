@@ -3,7 +3,11 @@ game.userInterface = (function ()
 {
     "use strict";
 
-    function Init(scene){
+    function Init(){
+
+    }
+
+    function Update(scene){
         var playerShip = scene.getObjectByName('playerShip');
         var camera = scene.getObjectByName('camera');
 
@@ -20,6 +24,7 @@ game.userInterface = (function ()
         }
 
     return{
+        Update: Update,
         Init: Init
     }
 })();
