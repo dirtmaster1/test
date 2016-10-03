@@ -3,7 +3,7 @@ var game = game ||{};
 game.controls = (function(){
     'use strict';
 
-    function Update(delta, keyboard, playerShip){
+    function Update(delta, keyboard, mouse, playerShip){
         if(keyboard.pressed("W"))
         {
             playerShip.translateZ(-1);

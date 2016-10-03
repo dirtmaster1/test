@@ -6,6 +6,7 @@ game.run = (function() {
     //game time
     var clock = new THREE.Clock();
     var keyboard  = new THREEx.KeyboardState();
+	var mouse = new game.Mouse();
 
     initialize();
     render();
@@ -18,7 +19,7 @@ game.run = (function() {
 
     function render() {
         var delta = clock.getDelta();
-        manager.Update(delta, keyboard);
+        manager.Update(delta, keyboard, mouse);
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }
