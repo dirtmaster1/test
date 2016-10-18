@@ -6,7 +6,7 @@ game.run = (function() {
     //game time
     var clock = new THREE.Clock();
     var keyboard  = new THREEx.KeyboardState();
-	var mouse = new game.Mouse();
+	var mouse = game.Mouse;
 
     initialize();
     render();
