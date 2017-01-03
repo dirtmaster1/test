@@ -18,9 +18,9 @@ game.gameManager = (function ()
      UI.Init(scene);
   };
 
-  function Update(delta, keyboard, mouse){
+  function Update(delta){
         var playerShip = scene.getObjectByName('playerShip');
-        controls.Update(delta, keyboard, mouse, playerShip);
+        controls.Update(delta, playerShip);
         UI.Update(scene);
   }
 

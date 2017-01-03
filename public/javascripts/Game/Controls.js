@@ -2,9 +2,27 @@ var game = game ||{};
 
 game.controls = (function(){
     'use strict';
-
-    function Update(delta, keyboard, mouse, playerShip){
-        if(keyboard.pressed("W"))
+	var keyboard  = new THREEx.KeyboardState();
+	var mouse = new game.Mouse();
+	
+	
+	function Update(delta, playerShip){
+        UpdateKeyboardInput(playerShip);
+		
+		if(mouse != null || mouse != undefined)
+		{
+			playerShip.rotation.x += mouse.xRot;
+			playerShip.rotation.y += mouse.yRot;
+			
+			mouse.xRot = 0;
+			mouse.yRot = 0;
+		}
+    }
+	
+	
+	function UpdateKeyboardInput(playerShip)
+	{
+		if(keyboard.pressed("W"))
         {
             playerShip.translateZ(-1);
         }
@@ -33,7 +51,7 @@ game.controls = (function(){
         {
             playerShip.translateY(-1);
         }
-    }
+	}
 
     return{
         Update: Update

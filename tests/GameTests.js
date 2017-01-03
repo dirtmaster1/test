@@ -3,7 +3,6 @@ describe('Game', function(){
 
     var manager;
     var clock;
-    var keyboard;
 
     beforeEach(function(){
         fixture.setBase('tests/fixtures')
@@ -17,7 +16,6 @@ describe('Game', function(){
         manager = game.gameManager;
         manager.Init();
         clock = new THREE.Clock();
-        keyboard  = new THREEx.KeyboardState();
     });
 
     afterEach(function(){
@@ -67,7 +65,7 @@ describe('Game', function(){
         })
     })
 
-    describe('Controls', function(){
+    describe('Keyboard Controls', function(){
 
         //simulate key press
         function keyPress(key) {
@@ -86,7 +84,7 @@ describe('Game', function(){
             playerShip.position.set(0,0,0);
             keyPress(87);
 
-            manager.Update(clock.getDelta(), keyboard);
+            manager.Update(clock.getDelta());
 
             expect(playerShip.position.x).toBe(0);
             expect(playerShip.position.y).toBe(0);
@@ -99,7 +97,7 @@ describe('Game', function(){
             playerShip.position.set(0,0,0);
             keyPress(83);
 
-            manager.Update(clock.getDelta(), keyboard);
+            manager.Update(clock.getDelta());
 
             expect(playerShip.position.x).toBe(0);
             expect(playerShip.position.y).toBe(0);
@@ -112,7 +110,7 @@ describe('Game', function(){
             playerShip.position.set(0,0,0);
             keyPress(68);
 
-            manager.Update(clock.getDelta(), keyboard);
+            manager.Update(clock.getDelta());
 
             expect(playerShip.position.x).toBe(1);
             expect(playerShip.position.y).toBe(0);
@@ -125,7 +123,7 @@ describe('Game', function(){
             playerShip.position.set(0,0,0);
             keyPress(65);
 
-            manager.Update(clock.getDelta(), keyboard);
+            manager.Update(clock.getDelta());
 
             expect(playerShip.position.x).toBe(-1);
             expect(playerShip.position.y).toBe(0);
@@ -138,7 +136,7 @@ describe('Game', function(){
             playerShip.position.set(0,0,0);
             keyPress(82);
 
-            manager.Update(clock.getDelta(), keyboard);
+            manager.Update(clock.getDelta());
 
             expect(playerShip.position.x).toBe(0);
             expect(playerShip.position.y).toBe(1);
@@ -151,7 +149,7 @@ describe('Game', function(){
             playerShip.position.set(0,0,0);
             keyPress(70);
 
-            manager.Update(clock.getDelta(), keyboard);
+            manager.Update(clock.getDelta());
 
             expect(playerShip.position.x).toBe(0);
             expect(playerShip.position.y).toBe(-1);
