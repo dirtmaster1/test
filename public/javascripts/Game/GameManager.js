@@ -5,23 +5,27 @@ game.gameManager = (function ()
 
   var scene = new THREE.Scene();
   var camera = game.camera;
-  var UI = game.userInterface;
+  var ui = game.userInterface;
   var controls = game.controls;
 
-  function Init(){
+  function Init(keyboard, mouse){
      var lighting = game.lighting;
      var player  =  game.player;
 
      lighting.Init(scene);
      player.Init(scene);
      camera.Init(scene);
-     UI.Init(scene);
   };
 
-  function Update(delta){
+  function Update(delta, keyboard, mouse){
         var playerShip = scene.getObjectByName('playerShip');
-        controls.Update(delta, playerShip);
-        UI.Update(scene);
+        
+		controls.Update(delta, 
+						playerShip, 
+						keyboard, 
+						mouse);
+						
+        ui.Update(scene, mouse);
   }
 
   return{

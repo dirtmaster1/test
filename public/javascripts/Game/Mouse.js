@@ -22,11 +22,11 @@ game.Mouse.prototype.MouseRotate = function(evt, scope) {
 		var deltaX = evt.clientX - scope.mouseX,
             deltaY = evt.clientY - scope.mouseY;
 			
-		mouseX = evt.clientX;
-        mouseY = evt.clientY;	
+		scope.mouseX = evt.clientX;
+        scope.mouseY = evt.clientY;	
 			
-         scope.xRot = (deltaX / 100) * .02;
-		 scope.yRot = (deltaY / 100) * .02;
+         scope.yRot = (deltaX / 100) * 1;
+		 scope.xRot = (deltaY / 100) * 1;
 		 
 		 if(scope.xRot == null || scope.xRot == undefined)
 		 {

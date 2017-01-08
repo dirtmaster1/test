@@ -5,20 +5,22 @@ game.run = (function() {
     var manager = game.gameManager;
     //game time
     var clock = new THREE.Clock();
+	
+	var keyboard  = new THREEx.KeyboardState();
+	var mouse = new game.Mouse();
     
-
     initialize();
     render();
 
     function initialize() {
-        manager.Init();
+        manager.Init(keyboard, mouse);
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.getElementById("container").appendChild(renderer.domElement);
     }
 
     function render() {
         var delta = clock.getDelta();
-        manager.Update(delta);
+        manager.Update(delta, keyboard, mouse);
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }

@@ -3,11 +3,7 @@ game.userInterface = (function ()
 {
     "use strict";
 
-    function Init(){
-
-    }
-
-    function Update(scene){
+    function Update(scene, mouse){
         var playerShip = scene.getObjectByName('playerShip');
         var camera = scene.getObjectByName('camera');
 
@@ -21,10 +17,11 @@ game.userInterface = (function ()
         document.querySelector('#shipRotation').innerHTML = 'Rotation: <br /> x = ' + shipRot.x + ', <br /> y = ' + shipRot.y + ', <br /> z = ' + shipRot.z;
         document.querySelector('#cameraPosition').innerHTML = 'Position: <br /> x = ' + cameraPos.x + ', <br /> y = ' + cameraPos.y + ', <br /> z = ' + cameraPos.z;
         document.querySelector('#cameraRotation').innerHTML = 'Rotation: <br /> x = ' + cameraRot.x + ', <br /> y = ' + cameraRot.y + ', <br /> z = ' + cameraRot.z;
+		document.querySelector('#mousePositionX').innerHTML = 'Position: <br /> x: ' + mouse.mouseX + ',';
+        document.querySelector('#mousePositionY').innerHTML = 'y: ' + mouse.mouseY + '<br />';
         }
 
     return{
-        Update: Update,
-        Init: Init
+        Update: Update
     }
 })();

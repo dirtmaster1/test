@@ -2,12 +2,13 @@ var game = game ||{};
 
 game.controls = (function(){
     'use strict';
-	var keyboard  = new THREEx.KeyboardState();
-	var mouse = new game.Mouse();
 	
-	
-	function Update(delta, playerShip){
-        UpdateKeyboardInput(playerShip);
+	function Update(delta, playerShip, keyboard, mouse){
+        
+		if(keyboard != null || keyboard != undefined)
+		{
+			UpdateKeyboardInput(playerShip, keyboard);
+		}
 		
 		if(mouse != null || mouse != undefined)
 		{
@@ -20,7 +21,7 @@ game.controls = (function(){
     }
 	
 	
-	function UpdateKeyboardInput(playerShip)
+	function UpdateKeyboardInput(playerShip, keyboard)
 	{
 		if(keyboard.pressed("W"))
         {
