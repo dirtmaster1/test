@@ -13,7 +13,7 @@ game.controls = (function(){
 		if(mouse != null || mouse != undefined)
 		{
 			playerShip.rotation.x += mouse.xRot;
-			playerShip.rotation.y += mouse.yRot;
+			playerShip.rotation.y += -mouse.yRot;
 			
 			mouse.xRot = 0;
 			mouse.yRot = 0;

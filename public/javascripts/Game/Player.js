@@ -13,8 +13,9 @@ game.player = (function(){
         opacity: 0.75
     });
 
-    var ship = new THREE.Mesh(new THREE.CylinderGeometry(0, 10, 20, 4, 4), material);
-    ship.name = 'playerShip';
+	var ship = new THREE.Mesh(new THREE.ConeGeometry( 6, 15, 8 ), material);
+
+	ship.name = 'playerShip';
 
     function Init(scene){
         scene.add(ship);
