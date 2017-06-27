@@ -7,11 +7,10 @@ game.gameManager = (function ()
   var camera = game.camera;
   var ui = game.userInterface;
   var controls = game.controls;
+  var lighting = game.lighting;
+  var player  =  game.player;
 
   function Init(keyboard, mouse){
-     var lighting = game.lighting;
-     var player  =  game.player;
-
      lighting.Init(scene);
      player.Init(scene);
      camera.Init(scene);

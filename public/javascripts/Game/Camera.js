@@ -1,4 +1,5 @@
 var game = game ||{};
+
 game.camera = (function(){
     'use strict';
 

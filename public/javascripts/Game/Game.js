@@ -20,7 +20,8 @@ game.run = (function() {
 
     function render() {
         var delta = clock.getDelta();
-        manager.Update(delta, keyboard, mouse);
+		
+		manager.Update(delta, keyboard, mouse);
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }

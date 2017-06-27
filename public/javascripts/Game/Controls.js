@@ -35,22 +35,22 @@ game.controls = (function(){
 
         if(keyboard.pressed("D"))
         {
-            playerShip.translateX(1);
+            playerShip.translateX(-1);
         }
 
         if(keyboard.pressed("A"))
         {
-            playerShip.translateX(-1);
+            playerShip.translateX(1);
         }
 
         if(keyboard.pressed("R"))
         {
-            playerShip.translateY(1);
+            playerShip.translateY(-1);
         }
 
         if(keyboard.pressed("F"))
         {
-            playerShip.translateY(-1);
+            playerShip.translateY(1);
         }
 	}
 
