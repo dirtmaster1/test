@@ -4,8 +4,7 @@ game.lighting = (function(){
 	'use strict';
 	
     var spotLight1,
-        spotLight2,
-        ambientLight;
+        spotLight2;
 
     function Init(scene) {
         spotLight1 = new THREE.SpotLight(new THREE.Color("#ffffff"));

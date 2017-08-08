@@ -9,10 +9,12 @@ game.gameManager = (function ()
   var controls = game.controls;
   var lighting = game.lighting;
   var player  =  game.player;
+  var testing = game.testing;
 
   function Init(keyboard, mouse){
      lighting.Init(scene);
      player.Init(scene);
+	 testing.Init(scene)
      camera.Init(scene);
   };
 
@@ -24,7 +26,8 @@ game.gameManager = (function ()
 						keyboard, 
 						mouse);
 						
-        ui.Update(scene, mouse);
+        camera.Update(scene, playerShip);
+		ui.Update(scene, mouse);
   }
 
   return{

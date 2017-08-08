@@ -37,9 +37,6 @@ game.graphics = (function(){
 	
 			var geometry = new THREE.ConeGeometry( radius, height, radialSegments );
 			
-			//ship.children[ 0 ].geometry.dispose();
-			//ship.children[ 1 ].geometry.dispose();
-
 			model.children[ 0 ].geometry = new THREE.WireframeGeometry( geometry );
 			model.children[ 1 ].geometry = geometry;
 			

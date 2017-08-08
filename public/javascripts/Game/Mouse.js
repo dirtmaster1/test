@@ -26,7 +26,7 @@ game.Mouse.prototype.MouseRotate = function(evt, scope) {
         scope.mouseY = evt.clientY;	
 			
          scope.yRot = (deltaX / 100) * 1;
-		 scope.xRot = (deltaY / 100) * 3;
+		 scope.xRot = (deltaY / 100) * 1;
 		 
 		 if(scope.xRot == null || scope.xRot == undefined)
 		 {

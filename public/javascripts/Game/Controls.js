@@ -15,6 +15,16 @@ game.controls = (function(){
 			playerShip.rotation.x += mouse.xRot;
 			playerShip.rotation.y += -mouse.yRot;
 			
+			if(Math.abs(playerShip.rotation.x) >= Math.PI * 2)
+			 {
+				 playerShip.rotation.x = 0
+			 }
+			 
+			 if(Math.abs(playerShip.rotation.y) >= Math.PI * 2)
+			 {
+				 playerShip.rotation.y = 0
+			 }
+			
 			mouse.xRot = 0;
 			mouse.yRot = 0;
 		}
@@ -35,12 +45,12 @@ game.controls = (function(){
 
         if(keyboard.pressed("D"))
         {
-            playerShip.translateX(-1);
+            playerShip.translateX(1);
         }
 
         if(keyboard.pressed("A"))
         {
-            playerShip.translateX(1);
+            playerShip.translateX(-1);
         }
 
         if(keyboard.pressed("R"))
