@@ -3,9 +3,7 @@ var game = game ||{};
 game.camera = (function(){
     'use strict';
 
-    var isFollowingShip = false;
-	
-	var perspectiveCamera = new THREE.PerspectiveCamera(
+    var perspectiveCamera = new THREE.PerspectiveCamera(
         35,
         window.innerWidth / window.innerHeight,
         1,
@@ -16,27 +14,29 @@ game.camera = (function(){
     perspectiveCamera.name = 'camera';
 
     function Init(scene){
-        perspectiveCamera.lookAt(scene.getObjectByName('playerShip').position);
         scene.add(perspectiveCamera);
     }
 	
-	function Update(scene, ship){
+	function Update(ship){
 		
-		if(isFollowingShip)
-		{
-			var relativeCameraOffset = new THREE.Vector3(0,50,100);
+		var relativeCameraOffset = new THREE.Vector3(10,50,100);
+		var cameraOffset = relativeCameraOffset.applyMatrix4(ship.matrixWorld);
 
-			var cameraOffset = relativeCameraOffset.applyMatrix4(ship.matrixWorld);
+		var cameraUp = new THREE.Vector3(0, 1, 0);
+		var cameraUpMatrix = new THREE.Matrix4();
+		var cameraUpRotMatrix = cameraUpMatrix.makeRotationFromQuaternion(ship.quaternion)
 
-			perspectiveCamera.position.x = cameraOffset.x;
-			perspectiveCamera.position.y = cameraOffset.y;
-			perspectiveCamera.position.z = cameraOffset.z;
-			perspectiveCamera.lookAt( ship.position );							   
-		}
+		perspectiveCamera.position.x = cameraOffset.x;
+		perspectiveCamera.position.y = cameraOffset.y;
+		perspectiveCamera.position.z = cameraOffset.z;
+		perspectiveCamera.up = cameraUp.applyMatrix4(cameraUpRotMatrix);
+		perspectiveCamera.lookAt(ship.position);
+		perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
+		perspectiveCamera.updateProjectionMatrix();		
     }
 
     return{
-        perspective: perspectiveCamera,
+        Camera: perspectiveCamera,
         Init: Init,
 		Update: Update
     }

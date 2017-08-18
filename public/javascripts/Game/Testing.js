@@ -2,8 +2,7 @@ var game = game ||{};
 game.testing = (function(){
     'use strict';
 	
-
-    function Init(scene){
+	function Init(scene){
         
 		var xAxisMaterial = new THREE.LineBasicMaterial({ color: 0x0000ff });
 		var xAxisGeometry = new THREE.Geometry();	

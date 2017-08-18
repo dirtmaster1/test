@@ -2,40 +2,90 @@ var game = game ||{};
 
 game.Mouse = function(){
 	
-	var self	= this;
-	this.xRot = 0;
-	this.yRot = 0;
-	this.mouseX = 0;
-	this.mouseY = 0;
-    this.onMouseMove	= function(event){ self.MouseRotate(event, self); };
+	var self = this;
+	this.mouseDistanceX = 0;
+	this.mouseDistanceY = 0;
+	this.mouseMoveX = 0;
+	this.mouseMoveY = 0;
+	this.mouseDownX = 0;
+	this.mouseDownY = 0;
+    //this.onMouseMove	= function(event){ self.MouseRotate(event, self); };
+	this.mouseDownEventBind = function(event){ self.MouseDown(event, self); };
+	this.mouseMoveEventBind = function(event){ self.MouseMove(event, self); };
+	this.mouseUpEventBind = function(event){ self.MouseUp(event, self); };
+	this.mouseOutEventBind = function(event){ self.MouseOut(event, self); };
+	this.windowHalfX = window.innerWidth / 2;
+    this.windowHalfY = window.innerHeight / 2;
 	
     // bind keyEvents
-    document.addEventListener("mousemove", self.onMouseMove, false);
+    document.addEventListener("mousedown", self.mouseDownEventBind, false);
+	//document.addEventListener("mousemove", self.onMouseMove, false);
+	
 }
 
-game.Mouse.prototype.MouseRotate = function(evt, scope) {
+game.Mouse.prototype.MouseDown = function( event, scope ) {
+
+        event.preventDefault();
+
+        document.addEventListener( 'mousemove', scope.mouseMoveEventBind, false );
+        document.addEventListener( 'mouseup', scope.mouseUpEventBind, false );
+        document.addEventListener( 'mouseout', scope.mouseOutEventBind, false );
+		
+		scope.mouseDownX = event.clientX - scope.windowHalfX;
+		scope.mouseDownY = event.clientY - scope.windowHalfY;
+       
+}
+
+game.Mouse.prototype.MouseMove = function( event, scope ) {
+		
+		scope.mouseDistanceX = (event.clientX - scope.windowHalfX) - scope.mouseDownX;
+		scope.mouseDistanceY = (event.clientY - scope.windowHalfY) - scope.mouseDownY; 
+		
+		scope.mouseDownX = event.clientX - scope.windowHalfX;
+		scope.mouseDownY = event.clientY - scope.windowHalfY;
+		
+}
+
+game.Mouse.prototype.MouseUp = function( event, scope ) {
+
+        document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
+        document.removeEventListener( 'mouseup', scope.mouseUpEventBind, false );
+        document.removeEventListener( 'mouseout', scope.mouseOutEventBind, false );
+
+}
+
+game.Mouse.prototype.MouseOut = function( event, scope ) {
+
+        document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
+        document.removeEventListener( 'mouseup', scope.mouseUpEventBind, false );
+        document.removeEventListener( 'mouseout', scope.mouseOutEventBind, false );
+
+}
+
+
+game.Mouse.prototype.MouseRotate = function(event, scope) {
         
-        evt.preventDefault();
+        event.preventDefault();
 		scope.xRot = 0;
 		scope.yRot = 0;
 		
-		var deltaX = evt.clientX - scope.mouseX,
-            deltaY = evt.clientY - scope.mouseY;
+		var deltaX = event.clientX - scope.mouseMoveX,
+            deltaY = event.clientY - scope.mouseMoveY;
 			
-		scope.mouseX = evt.clientX;
-        scope.mouseY = evt.clientY;	
+		scope.mouseMoveX = event.clientX;
+        scope.mouseMoveY = event.clientY;	
 			
-         scope.yRot = (deltaX / 100) * 1;
-		 scope.xRot = (deltaY / 100) * 1;
+         scope.mouseDistanceY = (deltaX / 100) * 1;
+		 scope.mouseDistanceX = (deltaY / 100) * 1;
 		 
-		 if(scope.xRot == null || scope.xRot == undefined)
+		 if(scope.mouseDistanceX == null || scope.mouseDistanceX == undefined)
 		 {
-			 scope.xRot = 0;
+			 scope.mouseDistanceX = 0;
 		 }
 		 
-		 if(scope.yRot == null || scope.yRot == undefined)
+		 if(scope.mouseDistanceY == null || scope.mouseDistanceY == undefined)
 		 {
-			 scope.yRot = 0;
+			 scope.mouseDistanceY = 0;
 		 }
     }
 

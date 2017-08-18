@@ -1,0 +1,257 @@
+[33mcommit 905b8a73a0b7623d003ffc2a2b9ea00c005b2ba6[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Aug 7 23:19:51 2017 -0500
+
+    added testing, and camera chase
+
+[33mcommit b6df562dcc3ae03000d6832f76e9e61a37d042d3[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Jun 26 21:35:53 2017 -0500
+
+    added graphics
+
+[33mcommit 26ee417faa8835073f26511f37651e7afba41117[m
+Author: Anthony Frazier <Anthony Frazier>
+Date:   Mon Feb 13 13:28:08 2017 -0600
+
+    updated ship orientation in three js library to change forward direction
+
+[33mcommit e7e187d2ded564a4f06fac0bb4d9fad8dbb880c5[m
+Author: Anthony Frazier <Anthony Frazier>
+Date:   Sun Jan 8 15:04:58 2017 -0600
+
+    enchanced mouse rotate, refactored gameManager
+
+[33mcommit 413a7da2c96e6e09746f9eb5e6ef7abe1db570b1[m
+Author: Anthony Frazier <Anthony Frazier>
+Date:   Mon Jan 2 22:35:13 2017 -0600
+
+    added basic moure rotation for player ship
+
+[33mcommit 3a516b9c1f5cd95a3978b9532748ae6039e6323b[m
+Author: Anthony Frazier <Anthony Frazier>
+Date:   Mon Oct 17 21:06:29 2016 -0500
+
+    random commit
+
+[33mcommit 7149e0b6ff74e6b1e5df4c7d9db70da5f07f1509[m
+Author: Anthony Frazier <Anthony Frazier>
+Date:   Mon Oct 3 10:26:39 2016 -0500
+
+    updated gamemanager
+
+[33mcommit 3a03e1a79fe13a12cd5970145784d68a29827e95[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Apr 18 22:10:23 2016 -0500
+
+    added tests for basic movement controls
+
+[33mcommit cdc34395aae371da508363b65e199d3da23e7e98[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Mar 21 21:56:22 2016 -0500
+
+    added players controls
+
+[33mcommit 65338ffe82dec147cfdfe1a752e7027493945c5a[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Tue Mar 15 22:40:38 2016 -0500
+
+    began setup of player controls
+
+[33mcommit e1d2cb05bde81e5466baeddd67723a313abefeaf[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Thu Jan 7 22:10:35 2016 -0600
+
+    set up fixtures, first test for ship controls
+
+[33mcommit 6b3083b8ee55a43a550074f3748f452a72787282[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sun Jan 3 21:51:56 2016 -0600
+
+    added basic UI
+
+[33mcommit 2f41c54d0fd6c97523a026a55b7cdd4b56b3b96f[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sun Jan 3 20:39:34 2016 -0600
+
+    recfatored game manager by abstracting out dependencies into seperate modules
+
+[33mcommit dcd4e9cf2dea25d48fa84c26ef0e72356c95fd42[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sun Jan 3 16:40:42 2016 -0600
+
+    more refactoring of base objects
+
+[33mcommit 9f952c09458f283ef0c4eb3acb5e18a82109a65c[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sat Jan 2 19:57:49 2016 -0600
+
+    refactored gameManager
+
+[33mcommit dcac7a507e7b5a757cc8a8349b09a56431539e40[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sat Jan 2 13:04:44 2016 -0600
+
+    changed tests
+
+[33mcommit f1d1f1ab489f17ae5d444f0af60a45e47672e847[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sat Dec 26 13:15:25 2015 -0600
+
+    set up first test for threejs game
+
+[33mcommit f453f613974991f708360f255618b36ee32957e1[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Fri Dec 25 16:31:20 2015 -0600
+
+    refactored game code
+
+[33mcommit 2ec724514216557032e73bd5207f2f45fe0ee3fa[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Wed Dec 23 22:00:15 2015 -0600
+
+    added route for threejs game added basic logic
+
+[33mcommit 1fb4af27a567a5d87a1da9bab0c396a66b480083[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Thu Dec 17 21:45:37 2015 -0600
+
+    set up karma
+
+[33mcommit c4d4c1dd8d477e710f06b55dc969e5c531fade5b[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Fri Nov 27 23:09:42 2015 -0600
+
+    merge feature1 into master
+
+[33mcommit 2f5dc93c6d0f63c36f23277b412effd1d2a159b7[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Fri Nov 27 22:59:44 2015 -0600
+
+    set up for testing
+
+[33mcommit 992d265d3dd8cac67e23a27bcf54309bfdd02695[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Nov 2 21:14:39 2015 -0600
+
+    added css file
+
+[33mcommit f9e0a01d97347d35e565dd3c0f96d18cdee9b8c8[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Fri Oct 16 21:21:07 2015 -0500
+
+    added .gitignore file
+
+[33mcommit f66161dd86bb3c8702ea767bfeb9882c2e534819[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sat Oct 3 23:18:34 2015 -0500
+
+    added card set drop downlist, set up bootstrap layout, card set ddl sets selectedCards array to selected set
+
+[33mcommit 19053bb619a32ca41b679271f44372a9a71d85fb[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Thu Oct 1 21:08:59 2015 -0500
+
+    set up parameter for card set
+
+[33mcommit 85eb99dbda5f43f1560e3ddf06b0d84f9e3b330b[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Sep 28 13:23:53 2015 -0500
+
+    set up angular controller
+
+[33mcommit ef13f870664e20e17e5bd03dfe54207ae209971a[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sat Sep 26 13:24:09 2015 -0500
+
+    moongoose changes
+
+[33mcommit 1ca682fda5206e0b4ec029f28337dc5ed3612ee0[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Wed Sep 23 22:37:08 2015 -0500
+
+    added angular
+
+[33mcommit f9735757d6c826c9932cbcff9922e4eb8d85d62a[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sun Sep 20 22:05:12 2015 -0500
+
+    able to successfully use mongoose to get card data from
+
+[33mcommit fcecf5c713119cdbee21ea0b6754295e219d7c80[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Thu Sep 17 22:50:45 2015 -0500
+
+    successfully getting collection data from mongodb via mongoose
+
+[33mcommit c85f8ba7f1ad7173a323bee502589dd8b0abc1c9[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Wed Sep 16 22:31:11 2015 -0500
+
+    app.js mod
+
+[33mcommit 2787e3b9cae8b4dbe0a55c9832cc5d81aa0184c1[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sun Sep 13 10:10:50 2015 -0500
+
+    set up mongodb
+
+[33mcommit 4cbf30c2e684c19596efdabc8c0201b9871fd2ed[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Thu Sep 10 20:48:30 2015 -0500
+
+    fixed moongoose conn issue
+
+[33mcommit 880432612614755b023f67e60f6c17ad106f32a5[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Tue Sep 8 22:46:02 2015 -0500
+
+    app.js mod
+
+[33mcommit 1f9e9528923e22c5f3ee1d2174c0ab0a36ea82c5[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Tue Sep 8 22:15:24 2015 -0500
+
+    deleted .idea files
+
+[33mcommit 206d87c2b1a214e3de9d96bb4f76ac20f4c26ef3[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Tue Sep 8 22:09:12 2015 -0500
+
+    changed port in mongoose connection
+
+[33mcommit 1d8a2321890ed9624ac75da5ca065077718b5264[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Tue Sep 8 20:49:39 2015 -0500
+
+    added mongoose and mongodb refs to app.js
+
+[33mcommit b4c5c6be140f8af1b655e86c05425178afa1ee74[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Sep 7 12:54:47 2015 -0500
+
+    fixed issue with gulp set up
+
+[33mcommit 3a7bbd7cc5b94eea786e616f38649fa4d8b74305[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Sep 7 12:49:18 2015 -0500
+
+    added gulp
+
+[33mcommit 45e49bfa6ccc9173d00f6c287f69ff316fdf06e9[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Aug 31 22:20:57 2015 -0500
+
+    added basic three js scene to index page
+
+[33mcommit 0c6f16d792ee30187cc5c32200cb858875b5d9c9[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Mon Aug 31 21:44:39 2015 -0500
+
+    set up app.js to load index.ejs on load
+
+[33mcommit b6cd82bd2e5db75bf6abc1276bb9c4134ccd362c[m
+Author: Anthony Frazier <anthonyfrazier@hotmail.com>
+Date:   Sun Aug 30 22:50:51 2015 -0500
+
+    initial file check in

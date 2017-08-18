@@ -29,9 +29,9 @@ game.userInterface = (function ()
 		document.querySelector('#cameraUp').innerHTML = 'Up: <br /> x = ' + cameraUp.x + 
 														  ', <br /> y = ' + cameraUp.y + 
 														  ', <br /> z = ' + cameraUp.z;															  
-		document.querySelector('#mousePositionX').innerHTML = 'Position: <br /> x: ' + mouse.mouseX + 
+		document.querySelector('#mousePositionX').innerHTML = 'Position: <br /> x: ' + mouse.mouseDownX + 
 																		 ',';
-        document.querySelector('#mousePositionY').innerHTML = 'y: ' + mouse.mouseY + '<br />';
+        document.querySelector('#mousePositionY').innerHTML = 'y: ' + mouse.mouseDownY + '<br />';
         }
 
     return{

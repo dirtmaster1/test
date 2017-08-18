@@ -10,29 +10,31 @@ game.gameManager = (function ()
   var lighting = game.lighting;
   var player  =  game.player;
   var testing = game.testing;
+  var playerShip;
 
   function Init(keyboard, mouse){
      lighting.Init(scene);
      player.Init(scene);
 	 testing.Init(scene)
      camera.Init(scene);
+	 
+	 playerShip = scene.getObjectByName('playerShip');
   };
 
   function Update(delta, keyboard, mouse){
-        var playerShip = scene.getObjectByName('playerShip');
         
 		controls.Update(delta, 
 						playerShip, 
 						keyboard, 
-						mouse);
+						mouse, 
+						camera);
 						
-        camera.Update(scene, playerShip);
-		ui.Update(scene, mouse);
+        ui.Update(scene, mouse);
   }
 
   return{
       scene: scene,
-      camera: camera.perspective,
+      camera: camera.Camera,
       controls: controls,
       Init: Init,
       Update: Update

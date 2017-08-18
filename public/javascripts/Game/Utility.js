@@ -41,10 +41,28 @@ game.graphics = (function(){
 			model.children[ 1 ].geometry = geometry;
 			
 			return model;
+		}
+
+		function CreateBox(color){
+			
+			var model = new THREE.Object3D();
+			var geometry = new THREE.BoxBufferGeometry( 10, 10, 50 );
+			var material = new THREE.MeshPhongMaterial( {
+															color: color,
+															emissive: 0x072534,
+															side: THREE.DoubleSide,
+															shading: THREE.FlatShading
+														} )
+			var	mesh = new THREE.Mesh( geometry, material );
+			
+			model.add(mesh);
+			
+			return model;
 		}	
 			
 		return{
-        CreateCone: CreateCone
+        CreateCone: CreateCone,
+		CreateBox: CreateBox
     }	
 	
 })();	
