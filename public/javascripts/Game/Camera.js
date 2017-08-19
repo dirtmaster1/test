@@ -3,7 +3,9 @@ var game = game ||{};
 game.camera = (function(){
     'use strict';
 
-    var perspectiveCamera = new THREE.PerspectiveCamera(
+    var calculatedZoomAmount = 0;
+	
+	var perspectiveCamera = new THREE.PerspectiveCamera(
         35,
         window.innerWidth / window.innerHeight,
         1,
@@ -17,9 +19,9 @@ game.camera = (function(){
         scene.add(perspectiveCamera);
     }
 	
-	function Update(ship){
+	function Update(ship, zoomAmount){
 		
-		var relativeCameraOffset = new THREE.Vector3(10,50,100);
+		var relativeCameraOffset = new THREE.Vector3(10,50,100 + CalculateZoomAmount(zoomAmount));
 		var cameraOffset = relativeCameraOffset.applyMatrix4(ship.matrixWorld);
 
 		var cameraUp = new THREE.Vector3(0, 1, 0);
@@ -34,6 +36,15 @@ game.camera = (function(){
 		perspectiveCamera.aspect = window.innerWidth / window.innerHeight;
 		perspectiveCamera.updateProjectionMatrix();		
     }
+	
+	function CalculateZoomAmount(zoomAmount)
+	{
+		var adjustedZoomAmount = (zoomAmount/120) * 20;
+		
+		calculatedZoomAmount += adjustedZoomAmount;
+		
+		return calculatedZoomAmount;
+	}
 
     return{
         Camera: perspectiveCamera,

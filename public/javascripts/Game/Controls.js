@@ -7,44 +7,49 @@ game.controls = (function(){
 	
 	function Update(delta, playerShip, keyboard, mouse, camera){
         
-			var isFollowingShip = true;
-				
-			if(mouse.mouseDistanceX != 0 || mouse.mouseDistanceY != 0)
-			{				
-				tmpQuaternion1.set( (-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .6, 
-									(-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .6, 
-									0, 
-									1 )
-									.normalize();
-									
-				console.log('Y rotation speed: ' + (-mouse.mouseDistanceX * delta * .2) + ' mouse.mouseDistanceX: ' + -mouse.mouseDistanceX)	
-				
-				
-				playerShip.quaternion.multiply(tmpQuaternion1);
-				
-				 if(Math.abs(playerShip.rotation.x) >= (Math.PI * 2))
-				 {
-					 playerShip.rotation.x = 0
-				 }
-				 
-				 if(Math.abs(playerShip.rotation.y) >= (Math.PI * 2))
-				 {
-				 	 playerShip.rotation.y = 0
-				 }
-				
-				mouse.mouseDistanceX = 0;
-				mouse.mouseDistanceY = 0;
-			}
-			
-			UpdateKeyboardInput(playerShip, keyboard, delta);
-			
-			if(isFollowingShip)
-				{	
-					camera.Update(playerShip);
-				}
-			
+	var isFollowingShip = true;
+		
+	UpdateKeyboardInput(playerShip, keyboard, delta);
+	UpdateMouseInput(mouse, playerShip, delta)
+	
+	if(isFollowingShip)
+		{	
+			camera.Update(playerShip, -mouse.mouseWheelDelta);
+			mouse.mouseWheelDelta = 0;
+			console.log(mouse.mouseWheelDelta); 
 		}
+	
+	}
     
+	function UpdateMouseInput(mouse, playerShip, delta)
+	{
+		if(mouse.mouseDistanceX != 0 || mouse.mouseDistanceY != 0)
+		{				
+			tmpQuaternion1.set( (-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .6, 
+								(-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .6, 
+								0, 
+								1 )
+								.normalize();
+								
+			console.log('Y rotation speed: ' + (-mouse.mouseDistanceX * delta * .2) + ' mouse.mouseDistanceX: ' + -mouse.mouseDistanceX)	
+			
+			
+			playerShip.quaternion.multiply(tmpQuaternion1);
+			
+			 if(Math.abs(playerShip.rotation.x) >= (Math.PI * 2))
+			 {
+				 playerShip.rotation.x = 0
+			 }
+			 
+			 if(Math.abs(playerShip.rotation.y) >= (Math.PI * 2))
+			 {
+				 playerShip.rotation.y = 0
+			 }
+			
+			mouse.mouseDistanceX = 0;
+			mouse.mouseDistanceY = 0;
+		}
+	}
 	
 	function UpdateKeyboardInput(playerShip, keyboard, delta)
 	{

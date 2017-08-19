@@ -9,18 +9,27 @@ game.Mouse = function(){
 	this.mouseMoveY = 0;
 	this.mouseDownX = 0;
 	this.mouseDownY = 0;
+	this.mouseWheelDelta = 0;
     //this.onMouseMove	= function(event){ self.MouseRotate(event, self); };
 	this.mouseDownEventBind = function(event){ self.MouseDown(event, self); };
 	this.mouseMoveEventBind = function(event){ self.MouseMove(event, self); };
 	this.mouseUpEventBind = function(event){ self.MouseUp(event, self); };
 	this.mouseOutEventBind = function(event){ self.MouseOut(event, self); };
+	this.mouseWheelEventBind = function(event){ self.MouseWheel(event, self); };
 	this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
 	
     // bind keyEvents
     document.addEventListener("mousedown", self.mouseDownEventBind, false);
+	document.addEventListener('mousewheel', self.mouseWheelEventBind, false);
 	//document.addEventListener("mousemove", self.onMouseMove, false);
-	
+}
+
+game.Mouse.prototype.MouseWheel = function( event, scope ) {
+
+        event.preventDefault();
+
+		scope.mouseWheelDelta = event.wheelDelta;
 }
 
 game.Mouse.prototype.MouseDown = function( event, scope ) {
