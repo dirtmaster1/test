@@ -26,17 +26,28 @@ game.gameManager = (function ()
 		controls.Update(delta, 
 						playerShip, 
 						keyboard, 
-						mouse, 
-						camera);
+						mouse);
+						
+		camera.Update(playerShip, mouse);
 						
         ui.Update(scene, mouse);
   }
+  
+  function Reset(mouse) {
+
+        mouse.mouseClick = false;
+		mouse.mouseWheelDelta = 0;
+		mouse.mouseDistanceX = 0;
+		mouse.mouseDistanceY = 0;
+  }
+
 
   return{
       scene: scene,
       camera: camera.Camera,
       controls: controls,
       Init: Init,
-      Update: Update
+      Update: Update,
+	  Reset: Reset
   }
 })();

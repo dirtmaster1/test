@@ -19,9 +19,16 @@ game.camera = (function(){
         scene.add(perspectiveCamera);
     }
 	
-	function Update(ship, zoomAmount){
+	function Update(ship, mouse){
 		
-		var relativeCameraOffset = new THREE.Vector3(10,50,100 + CalculateZoomAmount(zoomAmount));
+		var isFollowingShip = true;
+		if(!isFollowingShip)
+		{	
+		  return;	
+		}
+		
+		var relativeCameraOffset = new THREE.Vector3(0,0,100 + CalculateZoomAmount(-mouse.mouseWheelDelta));
+		
 		var cameraOffset = relativeCameraOffset.applyMatrix4(ship.matrixWorld);
 
 		var cameraUp = new THREE.Vector3(0, 1, 0);

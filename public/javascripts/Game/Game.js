@@ -22,6 +22,8 @@ game.run = (function() {
         var delta = clock.getDelta();
 		
 		manager.Update(delta, keyboard, mouse);
+		manager.Reset(mouse);
+		
         renderer.render(manager.scene, manager.camera);
         requestAnimationFrame(render);
     }

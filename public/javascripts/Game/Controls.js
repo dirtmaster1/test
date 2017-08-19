@@ -4,24 +4,13 @@ game.controls = (function(){
     'use strict';
 	var tmpQuaternion1 = new THREE.Quaternion();
 	
-	
-	function Update(delta, playerShip, keyboard, mouse, camera){
+	function Update(delta, playerShip, keyboard, mouse){
         
-	var isFollowingShip = true;
-		
 	UpdateKeyboardInput(playerShip, keyboard, delta);
-	UpdateMouseInput(mouse, playerShip, delta)
-	
-	if(isFollowingShip)
-		{	
-			camera.Update(playerShip, -mouse.mouseWheelDelta);
-			mouse.mouseWheelDelta = 0;
-			console.log(mouse.mouseWheelDelta); 
-		}
-	
+	UpdateMouseInput(playerShip, mouse, delta)
 	}
     
-	function UpdateMouseInput(mouse, playerShip, delta)
+	function UpdateMouseInput(playerShip, mouse, delta)
 	{
 		if(mouse.mouseDistanceX != 0 || mouse.mouseDistanceY != 0)
 		{				
@@ -45,9 +34,6 @@ game.controls = (function(){
 			 {
 				 playerShip.rotation.y = 0
 			 }
-			
-			mouse.mouseDistanceX = 0;
-			mouse.mouseDistanceY = 0;
 		}
 	}
 	
