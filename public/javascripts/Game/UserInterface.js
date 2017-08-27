@@ -13,13 +13,21 @@ game.userInterface = (function ()
         var cameraPos = camera.position;
         var cameraRot = camera.rotation;
 		var cameraUp = camera.up;
-
+		
+		var distance = ''
+		if(typeof playerShip.userData.target.position !== 'undefined')
+		{
+			distance = playerShip.position.distanceTo(playerShip.userData.target.position);
+		}
+		
         document.querySelector('#shipPosition').innerHTML = 'Position: <br /> x = ' + shipPos.x + 
 																	', <br /> y = ' + shipPos.y + 
 																	', <br /> z = ' + shipPos.z;
         document.querySelector('#shipRotation').innerHTML = 'Rotation: <br /> x = ' + shipRot.x +
 																	', <br /> y = ' + shipRot.y + 
 																	', <br /> z = ' + shipRot.z;
+		document.querySelector('#shipTarget').innerHTML = 'Target: ' + playerShip.userData.target.name;
+		document.querySelector('#shipDistanceToTarget').innerHTML = 'Distance: ' + distance;	
         document.querySelector('#cameraPosition').innerHTML = 'Position: <br /> x = ' + cameraPos.x + 
 																	  ', <br /> y = ' + cameraPos.y + 
 																	  ', <br /> z = ' + cameraPos.z;

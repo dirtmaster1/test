@@ -9,27 +9,29 @@ game.gameManager = (function ()
   var controls = game.controls;
   var lighting = game.lighting;
   var player  =  game.player;
+  var enemy = game.enemy;
   var testing = game.testing;
   var playerShip;
+  var enemyShip;
+  var gameObjects = [];
 
   function Init(keyboard, mouse){
      lighting.Init(scene);
      player.Init(scene);
+	 enemy.Init(scene);
 	 testing.Init(scene)
      camera.Init(scene);
 	 
 	 playerShip = scene.getObjectByName('playerShip');
+	 enemyShip = scene.getObjectByName('enemy_1');
+	 gameObjects.push(playerShip);
+	 gameObjects.push(enemyShip);
   };
 
   function Update(delta, keyboard, mouse){
         
-		controls.Update(delta, 
-						playerShip, 
-						keyboard, 
-						mouse);
-						
-		camera.Update(playerShip, mouse);
-						
+		player.Update(scene, delta, keyboard, mouse, gameObjects);				
+		camera.Update(playerShip, mouse);				
         ui.Update(scene, mouse);
   }
   
@@ -37,8 +39,6 @@ game.gameManager = (function ()
 
         mouse.mouseClick = false;
 		mouse.mouseWheelDelta = 0;
-		mouse.mouseDistanceX = 0;
-		mouse.mouseDistanceY = 0;
   }
 
 

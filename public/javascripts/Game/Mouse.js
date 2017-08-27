@@ -11,7 +11,7 @@ game.Mouse = function(){
 	this.mouseDownY = 0;
 	this.mouseWheelDelta = 0;
 	this.mouseClick = false;
-    //this.onMouseMove	= function(event){ self.MouseRotate(event, self); };
+	this.mousePickVector = new THREE.Vector2();
 	this.mouseDownEventBind = function(event){ self.MouseDown(event, self); };
 	this.mouseMoveEventBind = function(event){ self.MouseMove(event, self); };
 	this.mouseUpEventBind = function(event){ self.MouseUp(event, self); };
@@ -21,11 +21,9 @@ game.Mouse = function(){
 	this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
 	
-    // bind keyEvents
     document.addEventListener('mousedown', self.mouseDownEventBind, false);
 	document.addEventListener('mousewheel', self.mouseWheelEventBind, false);
-	document.addEventListener('mouseclick', self.mouseClickEventBind, false);
-	//document.addEventListener("mousemove", self.onMouseMove, false);
+	document.addEventListener('click', self.mouseClickEventBind, false);
 }
 
 game.Mouse.prototype.MouseClick = function( event, scope ) {
@@ -33,6 +31,7 @@ game.Mouse.prototype.MouseClick = function( event, scope ) {
         event.preventDefault();
 
 		scope.mouseClick = true;
+		scope.MousePick(event, scope);
 }
 
 game.Mouse.prototype.MouseWheel = function( event, scope ) {
@@ -66,11 +65,13 @@ game.Mouse.prototype.MouseMove = function( event, scope ) {
 }
 
 game.Mouse.prototype.MouseUp = function( event, scope ) {
-
-        document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
+		
+		scope.mouseDistanceX = 0;
+		scope.mouseDistanceY = 0;
+        
+		document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
         document.removeEventListener( 'mouseup', scope.mouseUpEventBind, false );
         document.removeEventListener( 'mouseout', scope.mouseOutEventBind, false );
-
 }
 
 game.Mouse.prototype.MouseOut = function( event, scope ) {
@@ -81,30 +82,10 @@ game.Mouse.prototype.MouseOut = function( event, scope ) {
 
 }
 
+game.Mouse.prototype.MousePick = function ( event, scope ) {
+    
+    scope.mousePickVector.x = 2 * (event.clientX / window.innerWidth) - 1;
+    scope.mousePickVector.y = 1 - 2 * (event.clientY / window.innerHeight);
+}
 
-game.Mouse.prototype.MouseRotate = function(event, scope) {
-        
-        event.preventDefault();
-		scope.xRot = 0;
-		scope.yRot = 0;
-		
-		var deltaX = event.clientX - scope.mouseMoveX,
-            deltaY = event.clientY - scope.mouseMoveY;
-			
-		scope.mouseMoveX = event.clientX;
-        scope.mouseMoveY = event.clientY;	
-			
-         scope.mouseDistanceY = (deltaX / 100) * 1;
-		 scope.mouseDistanceX = (deltaY / 100) * 1;
-		 
-		 if(scope.mouseDistanceX == null || scope.mouseDistanceX == undefined)
-		 {
-			 scope.mouseDistanceX = 0;
-		 }
-		 
-		 if(scope.mouseDistanceY == null || scope.mouseDistanceY == undefined)
-		 {
-			 scope.mouseDistanceY = 0;
-		 }
-    }
 
