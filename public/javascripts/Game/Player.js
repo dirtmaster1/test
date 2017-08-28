@@ -3,20 +3,10 @@ game.player = (function(){
     'use strict';
 	
 	var tmpQuaternion = new THREE.Quaternion();
+    var ship = new game.PlayerShip();
 	
-    //todo ship stuff move to other class
-	var graphics = game.graphics;
-	var ship = graphics.CreateCone(6,18,5,0x156289);
-	var axisHelper = new THREE.AxisHelper( 25 );
-	ship.add( axisHelper );
-	ship.name = 'playerShip';
-	ship.rotation.order = 'YZX'
-	
-	var targetDistance = null;
-
-    function Init(scene){
-		ship.userData = { target : {name:'None'}}; 
-        scene.add(ship);
+	function Init(scene){
+		scene.add(ship);
     }
 	
 	function Update(scene, delta, keyboard, mouse, gameObjects)
@@ -24,18 +14,9 @@ game.player = (function(){
 		UpdateKeyboardInput(keyboard, delta);
 		UpdateMouseInput(scene, mouse, delta, gameObjects)
 		
-		if(ship.userData.target.name != 'None')
-		{
-			targetDistance = ship.position.distanceTo(ship.userData.target.position);
-		}
+		ship.userData.target.Update();
 	}
     
-	function UpdateMouseInput(scene,mouse, delta, gameObjects)
-	{
-		UpdateRotation(mouse, delta);
-		UpdateTarget(scene, mouse, gameObjects);
-	}
-	
 	function UpdateTarget(scene, mouse, gameObjects)
 	{
 		if(mouse.mouseClick)
@@ -51,11 +32,16 @@ game.player = (function(){
 
 			if (intersects.length > 0)
 			{
-				ship.userData.target = intersects[0].object.parent;
+				ship.userData.target.Set(intersects[0].object.parent);
 			}
 		}
 	}
 	
+	function UpdateMouseInput(scene,mouse, delta, gameObjects)
+	{
+		UpdateRotation(mouse, delta);
+		UpdateTarget(scene, mouse, gameObjects);
+	}
 	
 	function UpdateRotation(mouse, delta)
 	{
