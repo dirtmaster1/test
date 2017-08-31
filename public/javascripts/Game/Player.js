@@ -16,26 +16,6 @@ game.player = (function(){
 		
 		ship.userData.target.Update();
 	}
-    
-	function UpdateTarget(scene, mouse, gameObjects)
-	{
-		if(mouse.mouseClick)
-		{
-			var mousePickVector = mouse.mousePickVector;
-			var camera = scene.getObjectByName('camera');
-
-			var raycaster = new THREE.Raycaster();
-			
-			raycaster.setFromCamera( mousePickVector, camera );
-		
-			var intersects = raycaster.intersectObjects( gameObjects, true );
-
-			if (intersects.length > 0)
-			{
-				ship.userData.target.Set(intersects[0].object.parent);
-			}
-		}
-	}
 	
 	function UpdateMouseInput(scene,mouse, delta, gameObjects)
 	{
@@ -53,8 +33,27 @@ game.player = (function(){
 								1 )
 								.normalize();
 			
-			
 			ship.quaternion.multiply(tmpQuaternion);
+		}
+	}
+	
+	function UpdateTarget(scene, mouse, gameObjects)
+	{
+		if(mouse.mouseClick)
+		{
+			var mousePickVector = mouse.mousePickVector;
+			var camera = scene.getObjectByName('camera');
+
+			var raycaster = new THREE.Raycaster();
+			
+			raycaster.setFromCamera( mousePickVector, camera );
+		
+			var intersects = raycaster.intersectObjects( gameObjects, true );
+
+			if (intersects.length > 0)
+			{
+				ship.userData.target.Set(intersects[0].object.parent);
+			}
 		}
 	}
 	

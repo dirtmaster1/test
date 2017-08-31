@@ -43,15 +43,17 @@ game.graphics = (function(){
 			return model;
 		}
 
-		function CreateBox(color){
+		function CreateTargetBox(color, width, height, depth){
 			
 			var model = new THREE.Object3D();
-			var geometry = new THREE.BoxBufferGeometry( 10, 10, 50 );
+			var geometry = new THREE.BoxBufferGeometry( width, height, depth );
 			var material = new THREE.MeshPhongMaterial( {
 															color: color,
 															emissive: 0x072534,
 															side: THREE.DoubleSide,
-															shading: THREE.FlatShading
+															shading: THREE.FlatShading,
+															transparent: true,
+															opacity: .5,
 														} )
 			var	mesh = new THREE.Mesh( geometry, material );
 			
@@ -62,7 +64,7 @@ game.graphics = (function(){
 			
 		return{
         CreateCone: CreateCone,
-		CreateBox: CreateBox
+		CreateTargetBox: CreateTargetBox
     }	
 	
 })();	
