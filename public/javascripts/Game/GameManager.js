@@ -17,10 +17,10 @@ game.gameManager = (function ()
 
   function Init(keyboard, mouse){
      lighting.Init(scene);
-     player.Init(scene);
+     camera.Init(scene);
+	 player.Init(scene);
 	 enemy.Init(scene);
 	 testing.Init(scene)
-     camera.Init(scene);
 	 
 	 playerShip = scene.getObjectByName('playerShip');
 	 enemyShip = scene.getObjectByName('enemy_1');
@@ -31,7 +31,7 @@ game.gameManager = (function ()
   function Update(delta, keyboard, mouse){
         
 		player.Update(scene, delta, keyboard, mouse, gameObjects);				
-		camera.Update(playerShip, mouse);				
+		camera.Update(player.ship, mouse);				
         ui.Update(scene, mouse);
   }
   

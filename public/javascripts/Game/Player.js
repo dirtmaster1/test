@@ -4,8 +4,10 @@ game.player = (function(){
 	
 	var tmpQuaternion = new THREE.Quaternion();
     var ship = new game.PlayerShip();
+	var camera = null;
 	
 	function Init(scene){
+		camera = scene.getObjectByName('camera');
 		scene.add(ship);
     }
 	
@@ -13,8 +15,8 @@ game.player = (function(){
 	{
 		UpdateKeyboardInput(keyboard, delta);
 		UpdateMouseInput(scene, mouse, delta, gameObjects)
-		
-		ship.userData.target.Update();
+	
+		ship.userData.target.Update(camera);
 	}
 	
 	function UpdateMouseInput(scene,mouse, delta, gameObjects)

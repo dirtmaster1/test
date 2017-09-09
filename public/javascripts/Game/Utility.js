@@ -61,10 +61,23 @@ game.graphics = (function(){
 			
 			return model;
 		}	
+		
+		function CreateTorus(radius, tubeDiameter, color)
+		{
+			var geometry = new THREE.TorusGeometry( radius, tubeDiameter, 16, 100 );
+			var material = new THREE.MeshBasicMaterial( {
+															color: color,
+															transparent: false
+														} )
+			var torus = new THREE.Mesh( geometry, material );
+			
+			return torus;
+		}
 			
 		return{
         CreateCone: CreateCone,
-		CreateTargetBox: CreateTargetBox
+		CreateTargetBox: CreateTargetBox,
+		CreateTorus: CreateTorus
     }	
 	
 })();	

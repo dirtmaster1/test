@@ -23,6 +23,42 @@ game.Target = function(targeter){
 	  
 	  return false;
 	}
+	
+	//todo move into another class
+	this.shadeCounter = 0;
+	this.changeColorShade = function(hexBaseColor, color, frequency)
+	{
+		var shade = null;
+		
+		if(frequency > 0)
+		{
+			//change to use sine function
+			this.shadeCounter++;
+			hexBaseColor = hexBaseColor - (hexBaseColor * ((frequency - this.shadeCounter)/ frequency))
+			
+			if(this.shadeCounter >= frequency)
+			{
+				this.shadeCounter = 0;
+			}
+		}
+		
+		if(color == "Red")
+		{
+		  shade = hexBaseColor << 16;	
+		}
+		
+		if(color == "Green")
+		{
+		  shade = hexBaseColor << 8;	
+		}
+		
+		if(color == "Blue")
+		{
+		  shade = hexBaseColor;	
+		}
+		
+		return shade;
+	}
 };	
 
 game.Target.prototype.Set = function(target){
@@ -42,20 +78,24 @@ game.Target.prototype.Set = function(target){
 		}	
 };
 
-game.Target.prototype.Update = function(){
+game.Target.prototype.Update = function(camera){
 	
 	if(this.isObject3d(this.targetModel))
 	{
-		this.distance = this.targeter.position.distanceTo(this.targetModel.position);
-		
 		var targetBox = this.findElement(this.targetModel.children, "name", "target box");
 		if(!targetBox)
 		{
-			this.targetBox = this.graphics.CreateTargetBox(0x156289, 17.5, 17.5, 17.5);
+			this.targetBox = this.graphics.CreateTorus(10, 1,0xF20909);
 			this.targetBox.translateZ(1);
 			this.targetBox.name = "target box";
 			this.targetModel.add(this.targetBox);
 		}
+		
+		this.distance = this.targeter.position.distanceTo(this.targetModel.position);
+		this.targetBox.lookAt(camera.position);
+		
+		var targetShade = this.changeColorShade(0xFF, "Red", 60);
+		this.targetBox.material.color.setHex(targetShade);
 	}
 	
 };
