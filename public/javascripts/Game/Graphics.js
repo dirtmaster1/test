@@ -47,14 +47,15 @@ game.graphics = (function(){
 			
 			var model = new THREE.Object3D();
 			var geometry = new THREE.BoxBufferGeometry( width, height, depth );
-			var material = new THREE.MeshPhongMaterial( {
-															color: color,
-															emissive: 0x072534,
-															side: THREE.DoubleSide,
-															shading: THREE.FlatShading,
-															transparent: true,
-															opacity: .5,
-														} )
+			var material = new THREE.MeshPhongMaterial( 
+								{
+									color: color,
+									emissive: 0x072534,
+									side: THREE.DoubleSide,
+									shading: THREE.FlatShading,
+									transparent: true,
+									opacity: .5
+								} )
 			var	mesh = new THREE.Mesh( geometry, material );
 			
 			model.add(mesh);
@@ -73,11 +74,46 @@ game.graphics = (function(){
 			
 			return torus;
 		}
+		
+		var shadeCounter = 0;
+		function ChangeColorShade(hexBaseColor, color, frequency)
+		{
+			var shade = null;
+			
+			if(frequency > 0)
+			{
+				//change to use sine function
+				shadeCounter++;
+				hexBaseColor = hexBaseColor - (hexBaseColor * ((frequency - shadeCounter)/ frequency))
+				
+				if(shadeCounter >= frequency)
+				{
+					shadeCounter = 0;
+				}
+			}
+			
+			if(color == "Red")
+			{
+			  shade = hexBaseColor << 16;	
+			}
+			
+			if(color == "Green")
+			{
+			  shade = hexBaseColor << 8;	
+			}
+			
+			if(color == "Blue")
+			{
+			  shade = hexBaseColor;	
+			}
+			
+			return shade;
+		}
 			
 		return{
         CreateCone: CreateCone,
 		CreateTargetBox: CreateTargetBox,
-		CreateTorus: CreateTorus
-    }	
-	
+		CreateTorus: CreateTorus,
+		ChangeColorShade : ChangeColorShade
+    }		
 })();	

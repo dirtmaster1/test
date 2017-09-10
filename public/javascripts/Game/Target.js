@@ -9,7 +9,7 @@ game.Target = function(targeter){
 	this.name = '';
 	this.distance = null;
 	this.targetChanged = false;
-	this.targetBox = null;
+	this.targetCircle = null;
 	
 	this.isObject3d = function(object)
 	{
@@ -23,42 +23,6 @@ game.Target = function(targeter){
 	  
 	  return false;
 	}
-	
-	//todo move into another class
-	this.shadeCounter = 0;
-	this.changeColorShade = function(hexBaseColor, color, frequency)
-	{
-		var shade = null;
-		
-		if(frequency > 0)
-		{
-			//change to use sine function
-			this.shadeCounter++;
-			hexBaseColor = hexBaseColor - (hexBaseColor * ((frequency - this.shadeCounter)/ frequency))
-			
-			if(this.shadeCounter >= frequency)
-			{
-				this.shadeCounter = 0;
-			}
-		}
-		
-		if(color == "Red")
-		{
-		  shade = hexBaseColor << 16;	
-		}
-		
-		if(color == "Green")
-		{
-		  shade = hexBaseColor << 8;	
-		}
-		
-		if(color == "Blue")
-		{
-		  shade = hexBaseColor;	
-		}
-		
-		return shade;
-	}
 };	
 
 game.Target.prototype.Set = function(target){
@@ -68,7 +32,7 @@ game.Target.prototype.Set = function(target){
 			if((this.targetModel !== target) && this.isObject3d(this.targetModel))
 			{
 				this.targetChanged = true;
-				var index = this.targetModel.children.indexOf(this.targetBox);
+				var index = this.targetModel.children.indexOf(this.targetCircle);
 				this.targetModel.children.splice(index, 1);
 			}
 			
@@ -82,20 +46,20 @@ game.Target.prototype.Update = function(camera){
 	
 	if(this.isObject3d(this.targetModel))
 	{
-		var targetBox = this.findElement(this.targetModel.children, "name", "target box");
-		if(!targetBox)
+		var targetCircle = this.findElement(this.targetModel.children, "name", "target circle");
+		if(!targetCircle)
 		{
-			this.targetBox = this.graphics.CreateTorus(10, 1,0xF20909);
-			this.targetBox.translateZ(1);
-			this.targetBox.name = "target box";
-			this.targetModel.add(this.targetBox);
+			this.targetCircle = this.graphics.CreateTorus(10, 1,0xF20909);
+			this.targetCircle.translateZ(1);
+			this.targetCircle.name = "target circle";
+			this.targetModel.add(this.targetCircle);
 		}
 		
 		this.distance = this.targeter.position.distanceTo(this.targetModel.position);
-		this.targetBox.lookAt(camera.position);
+		this.targetCircle.lookAt(camera.position);
 		
-		var targetShade = this.changeColorShade(0xFF, "Red", 60);
-		this.targetBox.material.color.setHex(targetShade);
+		var targetShade = game.graphics.ChangeColorShade(0xFF, "Red", 60);
+		this.targetCircle.material.color.setHex(targetShade);
 	}
 	
 };
