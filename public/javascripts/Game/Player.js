@@ -5,6 +5,7 @@ game.player = (function(){
 	var tmpQuaternion = new THREE.Quaternion();
     var ship = new game.PlayerShip();
 	var camera = null;
+	var graphics = game.graphics;
 	
 	function Init(scene){
 		camera = scene.getObjectByName('camera');
@@ -23,6 +24,29 @@ game.player = (function(){
 	{
 		UpdateRotation(mouse, delta);
 		UpdateTarget(scene, mouse, gameObjects);
+		UpdateProjectiles(scene, mouse, gameObjects, delta);
+	}
+	
+	function UpdateProjectiles(scene, mouse, gameObjects, delta)
+	{
+		if(mouse.mouseRightClick)
+		{
+			Shoot(scene);
+		}
+		
+		ship.userData.projectileList.forEach(function(projectile){ 
+			
+			projectile.translateZ(-100 * delta);
+			
+		});
+	}
+	
+	function Shoot(scene)
+	{
+		var projectile = graphics.CreateEnergyProjectile(ship);
+			
+			scene.add(projectile);
+			ship.userData.projectileList.push(projectile);
 	}
 	
 	function UpdateRotation(mouse, delta)
@@ -54,7 +78,10 @@ game.player = (function(){
 
 			if (intersects.length > 0)
 			{
-				ship.userData.target.Set(intersects[0].object.parent);
+				if(intersects[0].object.parent.name != 'playerShip')
+				{
+					ship.userData.target.Set(intersects[0].object.parent);
+				}
 			}
 		}
 	}

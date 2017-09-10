@@ -11,6 +11,7 @@ game.Mouse = function(){
 	this.mouseDownY = 0;
 	this.mouseWheelDelta = 0;
 	this.mouseClick = false;
+	this.mouseRightClick = false;
 	this.mousePickVector = new THREE.Vector2();
 	this.mouseDownEventBind = function(event){ self.MouseDown(event, self); };
 	this.mouseMoveEventBind = function(event){ self.MouseMove(event, self); };
@@ -18,12 +19,25 @@ game.Mouse = function(){
 	this.mouseOutEventBind = function(event){ self.MouseOut(event, self); };
 	this.mouseWheelEventBind = function(event){ self.MouseWheel(event, self); };
 	this.mouseClickEventBind = function(event){ self.MouseClick(event, self); };
+	this.mouseRightClickEventBind = function(event){ self.MouseRightClick(event, self); };
 	this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
 	
     document.addEventListener('mousedown', self.mouseDownEventBind, false);
 	document.addEventListener('mousewheel', self.mouseWheelEventBind, false);
 	document.addEventListener('click', self.mouseClickEventBind, false);
+	document.addEventListener('contextmenu', self.mouseRightClickEventBind, false);
+}
+
+game.Mouse.prototype.MouseRightClick = function(event, scope)
+{
+	event.preventDefault();
+	event.stopPropagation();
+	
+	if(event.button == 2)
+	{
+		scope.mouseRightClick = true;
+	}
 }
 
 game.Mouse.prototype.MouseClick = function( event, scope ) {

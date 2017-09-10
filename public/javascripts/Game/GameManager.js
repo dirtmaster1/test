@@ -14,13 +14,15 @@ game.gameManager = (function ()
   var playerShip;
   var enemyShip;
   var gameObjects = [];
+  var projectileManager = game.projectileManager;
 
   function Init(keyboard, mouse){
      lighting.Init(scene);
      camera.Init(scene);
 	 player.Init(scene);
+	 //move into enemy factory
 	 enemy.Init(scene);
-	 testing.Init(scene)
+	 //testing.Init(scene)
 	 
 	 playerShip = scene.getObjectByName('playerShip');
 	 enemyShip = scene.getObjectByName('enemy_1');
@@ -32,12 +34,15 @@ game.gameManager = (function ()
         
 		player.Update(scene, delta, keyboard, mouse, gameObjects);				
 		camera.Update(player.ship, mouse);				
+		projectileManager.Update(scene, gameObjects);
+		
         ui.Update(scene, mouse);
   }
   
   function Reset(mouse) {
 
         mouse.mouseClick = false;
+		mouse.mouseRightClick = false;
 		mouse.mouseWheelDelta = 0;
   }
 

@@ -2,7 +2,19 @@ var game = game ||{};
 
 game.graphics = (function(){
     'use strict';
-
+		
+		var shadeCounter = 0;
+		
+		function CreateEnergyProjectile(obj)
+		{
+			var proj = CreateBox(0xFF00, 2, 2, 5);
+			proj.quaternion.set(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
+			proj.position.set(obj.position.x, obj.position.y, obj.position.z);
+			
+			return proj;
+		}
+		
+		
 		function CreateCone(radius, 
 			height, 
 			radialSegments, 
@@ -43,19 +55,17 @@ game.graphics = (function(){
 			return model;
 		}
 
-		function CreateTargetBox(color, width, height, depth){
+		function CreateBox(color, width, height, depth){
 			
 			var model = new THREE.Object3D();
 			var geometry = new THREE.BoxBufferGeometry( width, height, depth );
-			var material = new THREE.MeshPhongMaterial( 
-								{
+			var material = new THREE.MeshBasicMaterial( {
 									color: color,
-									emissive: 0x072534,
 									side: THREE.DoubleSide,
 									shading: THREE.FlatShading,
 									transparent: true,
 									opacity: .5
-								} )
+									} );
 			var	mesh = new THREE.Mesh( geometry, material );
 			
 			model.add(mesh);
@@ -75,7 +85,6 @@ game.graphics = (function(){
 			return torus;
 		}
 		
-		var shadeCounter = 0;
 		function ChangeColorShade(hexBaseColor, color, frequency)
 		{
 			var shade = null;
@@ -112,8 +121,9 @@ game.graphics = (function(){
 			
 		return{
         CreateCone: CreateCone,
-		CreateTargetBox: CreateTargetBox,
+		CreateBox: CreateBox,
 		CreateTorus: CreateTorus,
-		ChangeColorShade : ChangeColorShade
+		ChangeColorShade : ChangeColorShade,
+		CreateEnergyProjectile : CreateEnergyProjectile
     }		
 })();	

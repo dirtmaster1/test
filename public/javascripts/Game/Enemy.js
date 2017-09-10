@@ -7,6 +7,7 @@ game.enemy = (function(){
 	var enemy = graphics.CreateCone(6,18,5,0xC0C0C0);
 	enemy.name = 'enemy_1';
 	enemy.rotation.order = 'YZX'
+	enemy.userData.projectileList = [];
 	
 	function Init(scene){
         scene.add(enemy);
