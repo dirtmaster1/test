@@ -11,7 +11,6 @@ game.PlayerShip = function(){
 	ship.name = 'playerShip';
 	ship.rotation.order = 'YZX'
 	ship.userData.target = new game.Target(ship);
-	ship.userData.projectileList = [];
 	
 	return ship;
 };

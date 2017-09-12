@@ -5,9 +5,11 @@ game.player = (function(){
 	var tmpQuaternion = new THREE.Quaternion();
     var ship = new game.PlayerShip();
 	var camera = null;
-	var graphics = game.graphics;
+	var projectileManager = null;
 	
-	function Init(scene){
+	function Init(scene, manager){
+		projectileManager = manager;
+		
 		camera = scene.getObjectByName('camera');
 		scene.add(ship);
     }
@@ -33,20 +35,11 @@ game.player = (function(){
 		{
 			Shoot(scene);
 		}
-		
-		ship.userData.projectileList.forEach(function(projectile){ 
-			
-			projectile.translateZ(-100 * delta);
-			
-		});
 	}
 	
 	function Shoot(scene)
 	{
-		var projectile = graphics.CreateEnergyProjectile(ship);
-			
-			scene.add(projectile);
-			ship.userData.projectileList.push(projectile);
+		projectileManager.Add(ship, "light_laser", scene);
 	}
 	
 	function UpdateRotation(mouse, delta)

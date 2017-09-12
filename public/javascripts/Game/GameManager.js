@@ -10,16 +10,19 @@ game.gameManager = (function ()
   var lighting = game.lighting;
   var player  =  game.player;
   var enemy = game.enemy;
+  var projectileManager = game.projectileManager;
   var testing = game.testing;
+  
   var playerShip;
   var enemyShip;
+  
   var gameObjects = [];
-  var projectileManager = game.projectileManager;
+  
 
   function Init(keyboard, mouse){
      lighting.Init(scene);
      camera.Init(scene);
-	 player.Init(scene);
+	 player.Init(scene, projectileManager);
 	 //move into enemy factory
 	 enemy.Init(scene);
 	 //testing.Init(scene)
@@ -34,7 +37,7 @@ game.gameManager = (function ()
         
 		player.Update(scene, delta, keyboard, mouse, gameObjects);				
 		camera.Update(player.ship, mouse);				
-		projectileManager.Update(scene, gameObjects);
+		projectileManager.Update(scene, gameObjects, delta);
 		
         ui.Update(scene, mouse);
   }
