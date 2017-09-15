@@ -4,16 +4,21 @@ game.enemy = (function(){
     'use strict';
 
 	var graphics = game.graphics;
-	var enemy = graphics.CreateCone(6,18,5,0xC0C0C0);
-	enemy.name = 'enemy_1';
-	enemy.rotation.order = 'YZX'
-	enemy.userData.projectileList = [];
+	var counter = 1;
 	
-	function Init(scene){
-        scene.add(enemy);
-    }
+	function Create(scene, color)
+	{	
+		var enemy = graphics.CreateCone(6,18,5,color);
+		enemy.name = 'enemy_' + counter;
+		enemy.rotation.order = 'YZX'
+		enemy.userData.projectileList = [];
+		scene.add(enemy);
+		
+		counter++;
+		return enemy;
+	}
 	
 	return{
-        Init: Init
+        Create: Create,
     }	
 })();	

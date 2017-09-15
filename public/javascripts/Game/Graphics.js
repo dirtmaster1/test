@@ -7,13 +7,30 @@ game.graphics = (function(){
 		
 		function CreateEnergyProjectile(obj)
 		{
-			var proj = CreateBox(0xFF00, 2, 2, 5);
+			var proj = CreateCylinder(0x1a1aff, 1, 1, 5);
 			proj.quaternion.set(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
 			proj.position.set(obj.position.x, obj.position.y, obj.position.z);
 			
 			return proj;
 		}
 		
+		function CreateCylinder(color, topRadius, bottomRadius, height){
+			
+			var model = new THREE.Object3D();
+			var geometry = new THREE.CylinderGeometry( topRadius, bottomRadius, height, 32 );
+			var material = new THREE.MeshBasicMaterial( {
+									color: color,
+									side: THREE.DoubleSide,
+									shading: THREE.FlatShading,
+									transparent: true,
+									opacity: .5
+									} );
+			var	mesh = new THREE.Mesh( geometry, material );
+			
+			model.add(mesh);
+			
+			return model;
+		}
 		
 		function CreateCone(radius, 
 			height, 

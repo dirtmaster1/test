@@ -32,7 +32,7 @@ game.Mouse = function(){
 game.Mouse.prototype.MouseRightClick = function(event, scope)
 {
 	event.preventDefault();
-	event.stopPropagation();
+	//event.stopPropagation();
 	
 	if(event.button == 2)
 	{
@@ -42,10 +42,13 @@ game.Mouse.prototype.MouseRightClick = function(event, scope)
 
 game.Mouse.prototype.MouseClick = function( event, scope ) {
 
-        event.preventDefault();
+    event.preventDefault();
 
+	if(event.button == 0)
+	{
 		scope.mouseClick = true;
 		scope.MousePick(event, scope);
+	}
 }
 
 game.Mouse.prototype.MouseWheel = function( event, scope ) {
@@ -59,17 +62,20 @@ game.Mouse.prototype.MouseDown = function( event, scope ) {
 
         event.preventDefault();
 
-        document.addEventListener( 'mousemove', scope.mouseMoveEventBind, false );
-        document.addEventListener( 'mouseup', scope.mouseUpEventBind, false );
-        document.addEventListener( 'mouseout', scope.mouseOutEventBind, false );
-		
-		scope.mouseDownX = event.clientX - scope.windowHalfX;
-		scope.mouseDownY = event.clientY - scope.windowHalfY;
+        if(event.button == 0)
+		{
+			document.addEventListener( 'mousemove', scope.mouseMoveEventBind, false );
+			document.addEventListener( 'mouseup', scope.mouseUpEventBind, false );
+			document.addEventListener( 'mouseout', scope.mouseOutEventBind, false );
+			
+			scope.mouseDownX = event.clientX - scope.windowHalfX;
+			scope.mouseDownY = event.clientY - scope.windowHalfY;
+		}	
        
 }
 
 game.Mouse.prototype.MouseMove = function( event, scope ) {
-		
+	
 		scope.mouseDistanceX = (event.clientX - scope.windowHalfX) - scope.mouseDownX;
 		scope.mouseDistanceY = (event.clientY - scope.windowHalfY) - scope.mouseDownY; 
 		
@@ -80,12 +86,15 @@ game.Mouse.prototype.MouseMove = function( event, scope ) {
 
 game.Mouse.prototype.MouseUp = function( event, scope ) {
 		
-		scope.mouseDistanceX = 0;
-		scope.mouseDistanceY = 0;
-        
-		document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
-        document.removeEventListener( 'mouseup', scope.mouseUpEventBind, false );
-        document.removeEventListener( 'mouseout', scope.mouseOutEventBind, false );
+		if(event.button == 0)
+		{
+			scope.mouseDistanceX = 0;
+			scope.mouseDistanceY = 0;
+			
+			document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
+			document.removeEventListener( 'mouseup', scope.mouseUpEventBind, false );
+			document.removeEventListener( 'mouseout', scope.mouseOutEventBind, false );
+		}
 }
 
 game.Mouse.prototype.MouseOut = function( event, scope ) {

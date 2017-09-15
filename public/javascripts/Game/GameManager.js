@@ -14,7 +14,6 @@ game.gameManager = (function ()
   var testing = game.testing;
   
   var playerShip;
-  var enemyShip;
   
   var gameObjects = [];
   
@@ -23,14 +22,32 @@ game.gameManager = (function ()
      lighting.Init(scene);
      camera.Init(scene);
 	 player.Init(scene, projectileManager);
+	 
 	 //move into enemy factory
-	 enemy.Init(scene);
+	 var enemy1 = enemy.Create(scene, 0xC0C0C0);
+	 
+	 var enemy2 = enemy.Create(scene, 0xa366ff);
+	 enemy2.position.set(20, 20, 20);
+	 
+	 var enemy3 = enemy.Create(scene, 0x4dff4d);
+	 enemy3.position.set(40, 40, 40);
+	 
+	 var enemy4 = enemy.Create(scene, 0xffff33);
+	 enemy4.position.set(-20, -20, -20);
+	 
+	 var enemy5 = enemy.Create(scene, 0xff3333);
+	 enemy5.position.set(-40, -40, -40);
+	 
 	 //testing.Init(scene)
 	 
 	 playerShip = scene.getObjectByName('playerShip');
-	 enemyShip = scene.getObjectByName('enemy_1');
 	 gameObjects.push(playerShip);
-	 gameObjects.push(enemyShip);
+	 gameObjects.push(enemy1);
+	 gameObjects.push(enemy2);
+	 gameObjects.push(enemy3);
+	 gameObjects.push(enemy4);
+	 gameObjects.push(enemy5);
+	 
   };
 
   function Update(delta, keyboard, mouse){

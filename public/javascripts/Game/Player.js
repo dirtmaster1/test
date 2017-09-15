@@ -6,6 +6,7 @@ game.player = (function(){
     var ship = new game.PlayerShip();
 	var camera = null;
 	var projectileManager = null;
+	var moveForward = 0;
 	
 	function Init(scene, manager){
 		projectileManager = manager;
@@ -46,8 +47,8 @@ game.player = (function(){
 	{
 		if(mouse.mouseDistanceX != 0 || mouse.mouseDistanceY != 0)
 		{				
-			tmpQuaternion.set( (-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .2, 
-								(-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .2, 
+			tmpQuaternion.set( (-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .6, 
+								(-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .6, 
 								0, 
 								1 )
 								.normalize();
@@ -81,7 +82,6 @@ game.player = (function(){
 	
 	function UpdateKeyboardInput(keyboard, delta)
 	{
-		var moveForward = 0;
 		var moveRight = 0;
 		var moveUp = 0;
 		
@@ -117,7 +117,7 @@ game.player = (function(){
 		
 		ship.translateX(moveRight * delta * 50);
 		ship.translateY(moveUp * delta * 50);
-		ship.translateZ(moveForward * delta * 50);
+		ship.translateZ(moveForward * delta);
 		
 	}
 

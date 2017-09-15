@@ -27,7 +27,7 @@ game.camera = (function(){
 		  return;	
 		}
 		
-		var relativeCameraOffset = new THREE.Vector3(0,0,100 + CalculateZoomAmount(-mouse.mouseWheelDelta));
+		var relativeCameraOffset = new THREE.Vector3(0,50,100 + CalculateZoomAmount(-mouse.mouseWheelDelta));
 		
 		var cameraOffset = relativeCameraOffset.applyMatrix4(ship.matrixWorld);
 
