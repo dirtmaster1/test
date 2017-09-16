@@ -13,6 +13,7 @@ game.Mouse = function(){
 	this.mouseClick = false;
 	this.mouseRightClick = false;
 	this.mousePickVector = new THREE.Vector2();
+	this.mouseDistanceModifier = 0;
 	this.mouseDownEventBind = function(event){ self.MouseDown(event, self); };
 	this.mouseMoveEventBind = function(event){ self.MouseMove(event, self); };
 	this.mouseUpEventBind = function(event){ self.MouseUp(event, self); };
@@ -32,7 +33,6 @@ game.Mouse = function(){
 game.Mouse.prototype.MouseRightClick = function(event, scope)
 {
 	event.preventDefault();
-	//event.stopPropagation();
 	
 	if(event.button == 2)
 	{
@@ -70,9 +70,38 @@ game.Mouse.prototype.MouseDown = function( event, scope ) {
 			
 			scope.mouseDownX = event.clientX - scope.windowHalfX;
 			scope.mouseDownY = event.clientY - scope.windowHalfY;
+			scope.mouseDistanceModifier = scope.CalculateMouseModifier(scope.mouseDownX, scope.mouseDownY);
 		}	
        
 }
+
+game.Mouse.prototype.CalculateMouseModifier = function(x,y){
+	
+	var upperDistanceLimit = 250;
+	var lowerDistanceLimit = 25;
+	var modifier = 1;
+	
+	var distanceFromCenterOfScreen = Math.sqrt((Math.pow(x, 2) + Math.pow(y, 2)));
+	
+	if(distanceFromCenterOfScreen < upperDistanceLimit 
+		&& distanceFromCenterOfScreen > lowerDistanceLimit)
+	{
+		modifier = distanceFromCenterOfScreen/upperDistanceLimit;
+	}
+	
+	if(distanceFromCenterOfScreen >= upperDistanceLimit)
+	{
+		modifier = 1;
+	}
+	
+	if(distanceFromCenterOfScreen <= lowerDistanceLimit)
+	{
+		modifier = 0.1;
+	}
+	
+	return modifier;	
+}
+
 
 game.Mouse.prototype.MouseMove = function( event, scope ) {
 	
@@ -81,7 +110,7 @@ game.Mouse.prototype.MouseMove = function( event, scope ) {
 		
 		scope.mouseDownX = event.clientX - scope.windowHalfX;
 		scope.mouseDownY = event.clientY - scope.windowHalfY;
-		
+		scope.mouseDistanceModifier = scope.CalculateMouseModifier(scope.mouseDownX, scope.mouseDownY);	
 }
 
 game.Mouse.prototype.MouseUp = function( event, scope ) {

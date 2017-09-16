@@ -5,11 +5,11 @@ game.player = (function(){
 	var tmpQuaternion = new THREE.Quaternion();
     var ship = new game.PlayerShip();
 	var camera = null;
-	var projectileManager = null;
+	var gameObjectController = null;
 	var moveForward = 0;
 	
 	function Init(scene, manager){
-		projectileManager = manager;
+		gameObjectController = manager;
 		
 		camera = scene.getObjectByName('camera');
 		scene.add(ship);
@@ -17,38 +17,44 @@ game.player = (function(){
 	
 	function Update(scene, delta, keyboard, mouse, gameObjects)
 	{
-		UpdateKeyboardInput(keyboard, delta);
+		UpdateKeyboardInput(keyboard, delta, scene);
 		UpdateMouseInput(scene, mouse, delta, gameObjects)
 	
 		ship.userData.target.Update(camera);
+		ship.userData.speed = moveForward;
 	}
 	
 	function UpdateMouseInput(scene,mouse, delta, gameObjects)
 	{
 		UpdateRotation(mouse, delta);
 		UpdateTarget(scene, mouse, gameObjects);
-		UpdateProjectiles(scene, mouse, gameObjects, delta);
+		UpdateProjectiles(scene, mouse);
 	}
 	
-	function UpdateProjectiles(scene, mouse, gameObjects, delta)
+	function UpdateProjectiles(scene, mouse)
 	{
 		if(mouse.mouseRightClick)
 		{
-			Shoot(scene);
+			FireMissile(scene);
 		}
+	}
+	
+	function FireMissile(scene)
+	{
+		return "missle fired";
 	}
 	
 	function Shoot(scene)
 	{
-		projectileManager.Add(ship, "light_laser", scene);
+		gameObjectController.AddProjectile(ship, "projectile_light_laser", scene);
 	}
 	
 	function UpdateRotation(mouse, delta)
 	{
 		if(mouse.mouseDistanceX != 0 || mouse.mouseDistanceY != 0)
 		{				
-			tmpQuaternion.set( (-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .6, 
-								(-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .6, 
+			tmpQuaternion.set( ((-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .4) * mouse.mouseDistanceModifier, 
+								((-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .4) * mouse.mouseDistanceModifier,  
 								0, 
 								1 )
 								.normalize();
@@ -61,6 +67,8 @@ game.player = (function(){
 	{
 		if(mouse.mouseClick)
 		{
+			console.log(mouse.mouseDistanceModifier);
+			
 			var mousePickVector = mouse.mousePickVector;
 			var camera = scene.getObjectByName('camera');
 
@@ -68,7 +76,14 @@ game.player = (function(){
 			
 			raycaster.setFromCamera( mousePickVector, camera );
 		
-			var intersects = raycaster.intersectObjects( gameObjects, true );
+			var models = [];
+			
+			gameObjects.forEach(function(gameObject){ 
+			    
+				models.push(gameObject.model);
+			});			
+			
+			var intersects = raycaster.intersectObjects( models, true );
 
 			if (intersects.length > 0)
 			{
@@ -80,7 +95,7 @@ game.player = (function(){
 		}
 	}
 	
-	function UpdateKeyboardInput(keyboard, delta)
+	function UpdateKeyboardInput(keyboard, delta, scene)
 	{
 		var moveRight = 0;
 		var moveUp = 0;
@@ -114,6 +129,11 @@ game.player = (function(){
         {
             moveUp--;
         }
+		
+		if(keyboard.pressed("space"))
+		{
+			Shoot(scene);
+		}
 		
 		ship.translateX(moveRight * delta * 50);
 		ship.translateY(moveUp * delta * 50);

@@ -5,9 +5,9 @@ game.projectileFactory = (function ()
 	 
 	var graphics = game.graphics;
 	
-	function CreateProjectile(type, owner)
+	function Create(type, owner)
 	{
-		if(type == "light_laser")
+		if(type == "projectile_light_laser")
 		{
 			var model = CreateLightLaser(owner);
 			
@@ -17,16 +17,23 @@ game.projectileFactory = (function ()
 		}
 	}
 	
-	
 	function CreateLightLaser(owner)
 	{
-		var projectile = graphics.CreateEnergyProjectile(owner);
+		var projectile = CreateEnergyProjectile(owner);
 		return projectile			
 	}
 	
-	
+	function CreateEnergyProjectile(obj)
+	{
+			var proj = graphics.CreateCylinder(0x1a1aff, 1, 1, 5);
+			proj.quaternion.set(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
+			proj.position.set(obj.position.x, obj.position.y, obj.position.z);
+			
+			return proj;
+	}
+
   return{
-      CreateProjectile: CreateProjectile
+      Create: Create
   }
 })();
 

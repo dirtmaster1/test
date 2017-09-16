@@ -9,7 +9,7 @@ game.camera = (function(){
         35,
         window.innerWidth / window.innerHeight,
         1,
-        1000
+        10000
     );
     perspectiveCamera.position.set(0,0,100);
     perspectiveCamera.up = new THREE.Vector3(0,1,0);

@@ -3,24 +3,25 @@ game.userInterface = (function ()
 {
     "use strict";
 
-    function Update(scene, mouse){
+    function Update(scene, mouse, player){
         var playerShip = scene.getObjectByName('playerShip');
         var camera = scene.getObjectByName('camera');
 
         var shipPos = playerShip.position;
         var shipRot = playerShip.rotation;
+		var shipSpeed = playerShip.userData.speed;
 
         var cameraPos = camera.position;
         var cameraRot = camera.rotation;
 		var cameraUp = camera.up;
-		
 		
         document.querySelector('#shipPosition').innerHTML = 'Position: <br /> x = ' + shipPos.x + 
 																	', <br /> y = ' + shipPos.y + 
 																	', <br /> z = ' + shipPos.z;
         document.querySelector('#shipRotation').innerHTML = 'Rotation: <br /> x = ' + shipRot.x +
 																	', <br /> y = ' + shipRot.y + 
-																	', <br /> z = ' + shipRot.z;
+																	', <br /> z = ' + shipRot.z +
+															'<br /> Speed: <br /> forward = ' + (-1 * shipSpeed);
 		document.querySelector('#shipTarget').innerHTML = 'Target: ' + playerShip.userData.target.name;
 		document.querySelector('#shipDistanceToTarget').innerHTML = 'Distance: ' + playerShip.userData.target.distance;	
         document.querySelector('#cameraPosition').innerHTML = 'Position: <br /> x = ' + cameraPos.x + 

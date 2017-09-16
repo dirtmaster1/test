@@ -5,15 +5,6 @@ game.graphics = (function(){
 		
 		var shadeCounter = 0;
 		
-		function CreateEnergyProjectile(obj)
-		{
-			var proj = CreateCylinder(0x1a1aff, 1, 1, 5);
-			proj.quaternion.set(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
-			proj.position.set(obj.position.x, obj.position.y, obj.position.z);
-			
-			return proj;
-		}
-		
 		function CreateCylinder(color, topRadius, bottomRadius, height){
 			
 			var model = new THREE.Object3D();
@@ -141,6 +132,6 @@ game.graphics = (function(){
 		CreateBox: CreateBox,
 		CreateTorus: CreateTorus,
 		ChangeColorShade : ChangeColorShade,
-		CreateEnergyProjectile : CreateEnergyProjectile
+		CreateCylinder: CreateCylinder
     }		
 })();	
