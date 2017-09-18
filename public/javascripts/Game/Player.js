@@ -67,8 +67,6 @@ game.player = (function(){
 	{
 		if(mouse.mouseClick)
 		{
-			console.log(mouse.mouseDistanceModifier);
-			
 			var mousePickVector = mouse.mousePickVector;
 			var camera = scene.getObjectByName('camera');
 

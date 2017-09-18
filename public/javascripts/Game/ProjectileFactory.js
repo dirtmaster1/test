@@ -4,12 +4,13 @@ game.projectileFactory = (function ()
   "use strict";
 	 
 	var graphics = game.graphics;
+	var counter = 1;
 	
 	function Create(type, owner)
 	{
 		if(type == "projectile_light_laser")
 		{
-			var model = CreateLightLaser(owner);
+			var model = CreateLightLaser(owner, type);
 			
 			return { "model": model, 
 					 "owner" : owner.name,
@@ -17,21 +18,18 @@ game.projectileFactory = (function ()
 		}
 	}
 	
-	function CreateLightLaser(owner)
+	function CreateLightLaser(owner, type)
 	{
-		var projectile = CreateEnergyProjectile(owner);
-		return projectile			
+		var proj = graphics.CreateCylinder(0x1a1aff, 1, 1, 5);
+			proj.quaternion.set(owner.quaternion.x, owner.quaternion.y, owner.quaternion.z, owner.quaternion.w);
+			proj.position.set(owner.position.x, owner.position.y, owner.position.z);
+			
+			proj.name = type + '_' + counter;
+			counter++;
+			
+			return proj;			
 	}
 	
-	function CreateEnergyProjectile(obj)
-	{
-			var proj = graphics.CreateCylinder(0x1a1aff, 1, 1, 5);
-			proj.quaternion.set(obj.quaternion.x, obj.quaternion.y, obj.quaternion.z, obj.quaternion.w);
-			proj.position.set(obj.position.x, obj.position.y, obj.position.z);
-			
-			return proj;
-	}
-
   return{
       Create: Create
   }

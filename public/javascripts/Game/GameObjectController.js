@@ -40,33 +40,79 @@ game.gameObjectController = (function ()
 	
 	function Update(scene, delta){
 		
-		gameObjects.forEach(function(gameObject){ 
-			
-			if(gameObject.type.includes("projectile"))
-			{
-				gameObject.model.translateZ(-1000 * delta);
-			}
-			
-		});
+		var projectiles = GetAll('projectile', false);
+		var enemies = GetAll('enemy', true);
 		
-		// function Intersect(object, objectList) {
-
-			// for (var vertexIndex = 0; vertexIndex < 1; vertexIndex++) {
-				// //object.children[0].geometry.vertices.length
-				// var localVertex = object.children[0].geometry.vertices[vertexIndex].clone();
-				// var globalVertex = localVertex.applyMatrix4(object.matrix);
-				// var directionVector = globalVertex.sub(object.position);
-				
-				// var ray = new THREE.Raycaster(object.position, directionVector.clone().normalize());
-
-				// var collisionResults = ray.intersectObjects(objectList, true);
-
-				// if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
-					// console.log('Hit', collisionResults[0].object.parent.name);
-			// }
-		// }
+		projectiles.forEach(function(projectile){ 
+			Intersect(projectile.model, enemies, scene);
 			
+			projectile.model.translateZ(-500 * delta);
 			
+		});		
+	  }
+	  function Intersect(object, objectList, scene) {
+
+			object.updateMatrix();	 
+			var localVertex = object.children[0].geometry.vertices[0].clone();
+			var globalVertex = localVertex.applyMatrix4(object.matrix);
+			var directionVector = globalVertex.sub(object.position);
+			
+			//testing start
+				  // var shootVector = directionVector.add(object.position);
+				  // var xAxisMaterial = new THREE.LineBasicMaterial({ color: 0xffffff });
+					 // var xAxisGeometry = new THREE.Geometry();
+					// xAxisGeometry.vertices.push(shootVector);						 
+					// xAxisGeometry.vertices.push(object.position);
+					 // var xAxisLine = new THREE.Line(xAxisGeometry, xAxisMaterial);
+					 // scene.add(xAxisLine);
+				 //end testing
+			
+			var ray = new THREE.Raycaster(object.position, directionVector.clone().normalize());
+
+			var collisionResults = ray.intersectObjects(objectList, true);
+
+			if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) 
+			{
+				 var hitObject = collisionResults[0].object.parent;
+				 console.log('Hit', hitObject.name);
+					
+				RemoveGameObjectByName(gameObjects, hitObject.name);
+				RemoveGameObjectByName(gameObjects, object.name);
+				scene.remove( hitObject );
+				scene.remove( object );					
+			}
+		 }
+	  
+	  function RemoveGameObjectByName(gameObjects, name)
+	  {
+		  for (var i =0; i < gameObjects.length; i++)
+		   if (gameObjects[i].model.name === name) {
+			  gameObjects.splice(i,1);
+			  break;
+			}
+	  }
+	  
+	  
+	  function GetAll(type, onlyModels)
+	  {
+		  var objects = [];
+		  
+		  gameObjects.forEach(function(gameObject){ 
+			
+				if(gameObject.type.includes(type))
+				{
+					if(onlyModels)
+					{
+						objects.push(gameObject.model);	
+					} else 
+					{
+						objects.push(gameObject);
+					}
+				}
+			
+			});
+			
+			return objects;
 	  }
   
   return{
