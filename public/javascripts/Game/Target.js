@@ -8,7 +8,6 @@ game.Target = function(targeter){
 	this.targetModel = 'None';
 	this.name = '';
 	this.distance = null;
-	this.targetChanged = false;
 	this.targetCircle = null;
 	
 	this.isObject3d = function(object)
@@ -23,6 +22,15 @@ game.Target = function(targeter){
 	  
 	  return false;
 	}
+};
+
+game.Target.prototype.Remove = function(){
+	
+				var index = this.targetModel.children.indexOf(this.targetCircle);
+				this.targetModel.children.splice(index, 1);
+				this.targetModel = 'None';
+				this.name = '';
+				this.distance = null;
 };	
 
 game.Target.prototype.Set = function(target){
@@ -31,7 +39,6 @@ game.Target.prototype.Set = function(target){
 		{
 			if((this.targetModel !== target) && this.isObject3d(this.targetModel))
 			{
-				this.targetChanged = true;
 				var index = this.targetModel.children.indexOf(this.targetCircle);
 				this.targetModel.children.splice(index, 1);
 			}

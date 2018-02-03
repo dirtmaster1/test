@@ -53,8 +53,10 @@ game.player = (function(){
 	{
 		if(mouse.mouseDistanceX != 0 || mouse.mouseDistanceY != 0)
 		{				
-			tmpQuaternion.set( ((-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .4) * mouse.mouseDistanceModifier, 
-								((-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .4) * mouse.mouseDistanceModifier,  
+			tmpQuaternion.set( ((-mouse.mouseDistanceY/Math.abs(mouse.mouseDistanceY + .000001)) * delta * .4) 
+									* mouse.mouseDistanceModifier, 
+								((-mouse.mouseDistanceX/Math.abs(mouse.mouseDistanceX + .000001)) * delta * .4) 
+									* mouse.mouseDistanceModifier,  
 								0, 
 								1 )
 								.normalize();

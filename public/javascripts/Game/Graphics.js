@@ -126,12 +126,20 @@ game.graphics = (function(){
 			
 			return shade;
 		}
+		
+		function ExplosionAnimation()
+		{
+			var explosion =	CreateBox(0xeb2300, 5, 5, 5);
+			
+			return explosion;
+		}
 			
 		return{
         CreateCone: CreateCone,
 		CreateBox: CreateBox,
 		CreateTorus: CreateTorus,
 		ChangeColorShade : ChangeColorShade,
-		CreateCylinder: CreateCylinder
+		CreateCylinder: CreateCylinder,
+		ExplosionAnimation: ExplosionAnimation
     }		
 })();	

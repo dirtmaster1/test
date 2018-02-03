@@ -7,6 +7,7 @@ game.gameObjectController = (function ()
 	var graphics = game.graphics;
 	var projectileFactory = game.projectileFactory;
 	var enemyFactory = game.enemyFactory;
+	var playerShip = {};
 	
 	function Init(scene)
 	{
@@ -16,7 +17,7 @@ game.gameObjectController = (function ()
 		 AddEnemy(0xffff33,-20,-20,-20,scene);
 		 AddEnemy(0xff3333,-40,-40,-40,scene);
 		 
-		var playerShip = scene.getObjectByName('playerShip');
+		playerShip = scene.getObjectByName('playerShip');
 		gameObjects.push({ "model": playerShip, 
 						   "owner" : "self",
 						   "type" : "player_ship"});
@@ -33,7 +34,6 @@ game.gameObjectController = (function ()
 	function AddProjectile(owner, type, scene)
 	{
 		var projectile = projectileFactory.Create(type, owner)
-		
 		gameObjects.push(projectile);
 		scene.add(projectile.model);			
 	}
@@ -75,13 +75,33 @@ game.gameObjectController = (function ()
 			{
 				 var hitObject = collisionResults[0].object.parent;
 				 console.log('Hit', hitObject.name);
+				
+				if(playerShip.userData.target.name == hitObject.name)
+				{
+					playerShip.userData.target.Remove();
+				}					
 					
+				Explode(scene, hitObject);
+				
 				RemoveGameObjectByName(gameObjects, hitObject.name);
 				RemoveGameObjectByName(gameObjects, object.name);
 				scene.remove( hitObject );
-				scene.remove( object );					
+				scene.remove( object );
 			}
 		 }
+		 
+	  function Explode(scene, obj)
+	  {
+		var explosion = graphics.ExplosionAnimation();
+		explosion.position.set(obj.position.x, obj.position.y, obj.position.z);
+		
+	    scene.add(explosion); 
+
+		setTimeout(function()
+		{ 
+		   scene.remove(explosion);
+		}, 3000);
+	  }	  
 	  
 	  function RemoveGameObjectByName(gameObjects, name)
 	  {
