@@ -50,7 +50,9 @@ game.graphics = (function(){
 					color: color,
 					emissive: 0x072534,
 					side: THREE.DoubleSide,
-					shading: THREE.FlatShading
+					shading: THREE.FlatShading,
+					transparent: true,
+					opacity: 0.5
 				} )
 
 			) );

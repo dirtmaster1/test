@@ -7,10 +7,13 @@ game.gameObjectController = (function ()
 	var graphics = game.graphics;
 	var projectileFactory = game.projectileFactory;
 	var enemyFactory = game.enemyFactory;
+    var mapBuilder = game.mapBuilder;
 	var playerShip = {};
 	
 	function Init(scene)
 	{
+		mapBuilder.Init(scene, gameObjects); 
+		 
 		 AddEnemy(0xC0C0C0,0,0,0,scene);
 		 AddEnemy(0xa366ff,20,20,20,scene);
 		 AddEnemy(0x4dff4d,40,40,40,scene);
@@ -50,6 +53,7 @@ game.gameObjectController = (function ()
 			
 		});		
 	  }
+	  
 	  function Intersect(object, objectList, scene) {
 
 			object.updateMatrix();	 
