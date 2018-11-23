@@ -18,10 +18,14 @@ var port = process.env.PORT || 3000;
 //load and set up routes
 var cards = require('./routes/cards.js');
 var game = require('./routes/game.js');
+var mandelbrot = require('./routes/mandelbrot.js');
+var tbs = require('./routes/tbs.js');
 
 
 app.use('/api/cards', cards);
 app.use('/game', game);
+app.use('/mandelbrot', mandelbrot);
+app.use('/tbs', tbs);
 
 app.get('/', function(req, res){
     res.render('index.ejs');
