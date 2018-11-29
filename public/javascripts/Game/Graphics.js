@@ -5,6 +5,24 @@ game.graphics = (function(){
 		
 		var shadeCounter = 0;
 		
+		function createCircle()
+		{
+			var model = new THREE.Object3D();
+			var geometry = new THREE.CircleGeometry(50, 100);
+			var material = new THREE.MeshBasicMaterial( {
+									color: 0x0000ff, //blue
+									side: THREE.DoubleSide,
+									shading: THREE.FlatShading,
+									transparent: false,
+									opacity: 1
+									} );
+			var	mesh = new THREE.Mesh( geometry, material );
+			
+			model.add(mesh);
+			
+			return model;
+		}
+		
 		function CreateCylinder(color, topRadius, bottomRadius, height){
 			
 			var model = new THREE.Object3D();
@@ -142,6 +160,7 @@ game.graphics = (function(){
 		CreateTorus: CreateTorus,
 		ChangeColorShade : ChangeColorShade,
 		CreateCylinder: CreateCylinder,
-		ExplosionAnimation: ExplosionAnimation
+		ExplosionAnimation: ExplosionAnimation,
+		createCircle: createCircle
     }		
 })();	
