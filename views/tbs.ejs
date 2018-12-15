@@ -4,10 +4,29 @@
     <script src="/javascripts/three.js"></script>
 	<script src="/javascripts/Game/Graphics.js"></script>
 	<script src="/javascripts/Game/Keyboard.js"></script>
-	<script src="/javascripts/Game/Mouse.js"></script>
+  <script src="/javascripts/Game/Mouse.js"></script>
+  <script src="/javascripts/tbs/ui.js"></script>
+
+  <style>
+      body {
+        margin: 0;
+        color: #f7f5fa;
+      }
+
+      #UI {
+        position: absolute;
+      }
+      </style>
   </head>
   <body>
- <div id="container"></div>
+  <div id="container">
+    <div id="UI">
+      <span id="player"><b>Player Data:</b></span></br>
+      <span id="position_world"></span></br>
+      <br>
+      <span id="position_tile"></span></br>
+    </div>
+    <script src="/javascripts/tbs/tbs.js"></script>
+  </div>
   </body>
-  <script src="/javascripts/tbs/tbs.js"></script>
 </html>

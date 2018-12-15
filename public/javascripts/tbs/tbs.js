@@ -7,13 +7,17 @@ tbs.run = (function() {
 	var keyboard  = new THREEx.KeyboardState();
 	var mouse = new game.Mouse();
 	var clock = new THREE.Clock();
+	var ui = tbs.userInterface;
 	var graphics = game.graphics;
 	var scene = new THREE.Scene();
 	
 	var width = window.innerWidth;
 	var height = window.innerHeight;
 	var camera = new THREE.OrthographicCamera( -width, width, height, -height, 1, 1000 );
-    
+
+	var tileSet = {};
+	var player = {};
+	
     initialize();
     render();
 
@@ -22,22 +26,56 @@ tbs.run = (function() {
         document.getElementById("container").appendChild(renderer.domElement);
 		
 		scene.add(camera);
-		createTileSet(scene);
+
+		tileSet = createTileSet(scene);
+
+		var startTile = tileSet[0][0];
+		
+		player = createUnit("player", scene, startTile);
     }
 
     function render() {
-        var delta = clock.getDelta();
-		
-		updateGrid(scene, keyboard);
-        renderer.render(scene, camera);
+		var delta = clock.getDelta();
+
+		updatePlayer(player, tileSet, keyboard);
+		ui.Update(player);
+
+		renderer.render(scene, camera);
         requestAnimationFrame(render);
-    }
-	
-	function updateGrid(scene, keyboard)
-	{
-		
 	}
-	
+
+	var keyPressed = "";
+	// Update Entities
+	function updatePlayer(player, tileSet, keyboard)
+	{
+		if(keyboard.pressed("w")) 
+        {
+			keyPressed = "w";
+		}
+
+		if(!keyboard.pressed("w") && keyPressed == "w")
+		{ 
+			moveUnit("w", player, tileSet, keyboard);
+			keyPressed = "";
+		}
+	}
+
+	function moveUnit(direction, unit, tileSet)
+	{
+		if(direction == "w")
+		{
+			unit.position.y += 1;
+
+			var newTile = tileSet[unit.position.y][unit.position.x];
+			newTile.occupied_by = unit;
+
+			unit.model.position.set(newTile.model.position.x, 
+									  newTile.model.position.y,
+									  newTile.model.position.z + 1)
+		}
+	}
+
+	// Create Entities
 	function createTileSet(scene)
 	{
 		var tileSet = [
@@ -91,13 +129,11 @@ tbs.run = (function() {
 				scene.add(tile.model)	
 			}
 		}
-		
-		var startTile = tileSet[0][0];
-		
-		addUnit(scene, startTile);
+
+		return tileSet;
 	}
 	
-	function addUnit(scene, tile)
+	function createUnit(name, scene, tile)
 	{
 		var unitModel = graphics.createCircle();
 		unitModel.position.set(tile.model.position.x, 
@@ -105,6 +141,16 @@ tbs.run = (function() {
 							   tile.model.position.z + 1)
 		
 		scene.add(unitModel);
+
+		var unit = {
+			"model" : unitModel,
+			"position" : {"x" : tile.position.x, "y" : tile.position.y},
+			"name" : name
+		}
+
+		tile.occupied_by = unit;
+		
+		return unit; 
 	}
 	
 	function createTile(color, width, height)

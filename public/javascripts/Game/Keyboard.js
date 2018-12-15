@@ -60,6 +60,13 @@ THREEx.KeyboardState.prototype.destroy	= function()
     document.removeEventListener("keyup", this._onKeyUp, false);
 }
 
+THREEx.KeyboardState.prototype.listen	= function()
+{
+    // bind keyEvents
+    document.addEventListener("keydown", this._onKeyDown, false);
+    document.addEventListener("keyup", this._onKeyUp, false);
+}
+
 THREEx.KeyboardState.MODIFIERS	= ['shift', 'ctrl', 'alt', 'meta'];
 THREEx.KeyboardState.ALIAS	= {
     'left'		: 37,

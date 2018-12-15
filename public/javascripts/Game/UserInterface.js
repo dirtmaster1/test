@@ -3,7 +3,7 @@ game.userInterface = (function ()
 {
     "use strict";
 
-    function Update(scene, mouse, player){
+    function Update(scene, mouse){
         var playerShip = scene.getObjectByName('playerShip');
         var camera = scene.getObjectByName('camera');
 
