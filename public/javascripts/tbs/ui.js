@@ -3,7 +3,7 @@ tbs.userInterface = (function ()
 {
     "use strict";
 
-    function Update(player){
+    function update(player){
         
         document.querySelector('#position_world').innerHTML = 'world position: <br /> x = ' + player.model.position.x + 
 																	', <br /> y = ' + player.model.position.y + 
@@ -13,6 +13,6 @@ tbs.userInterface = (function ()
         }
 
     return{
-        Update: Update
+        update: update
     }
 })();
