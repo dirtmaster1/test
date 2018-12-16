@@ -11,7 +11,7 @@ tbs.player = (function() {
         _player = player;
     }
     
-    function update(tileSet, keyboard)
+    function update(tileSet)
 	{
 		controls.move(_player, tileSet);
     }

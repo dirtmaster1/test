@@ -29,7 +29,7 @@ tbs.run = (function() {
 		scene.add(camera);
 
 		tileSet = factory.createTileSet(scene);
-		var startTile = tileSet[0][0];
+		var startTile = tileSet.tiles[0][0];
 		
 		player.init(factory.createUnit("player", scene, startTile));
     }
@@ -37,7 +37,7 @@ tbs.run = (function() {
     function render() {
 		var delta = clock.getDelta();
 
-		player.update(tileSet, keyboard);
+		player.update(tileSet);
 		ui.update(player.info());
 
 		renderer.render(scene, camera);

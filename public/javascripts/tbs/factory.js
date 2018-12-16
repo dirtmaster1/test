@@ -7,7 +7,13 @@ tbs.factory = (function() {
 
     function createTileSet(scene)
 	{
-		var tileSet = [
+        var tileSet = {
+            "tiles" : {},
+            "max_rows" : 10,
+            "max_columns" : 10
+        };
+        
+        var tiles = [
 			[0,0,0,0,0,0,0,0,0,0],
 			[0,1,1,1,1,1,1,1,1,0],
 			[0,1,0,0,0,0,0,0,1,0],
@@ -35,12 +41,12 @@ tbs.factory = (function() {
 		{
 			for(var column = 0; column < maxColumns; column++)
 			{
-				if(tileSet[row][column] == 0)
+				if(tiles[row][column] == 0)
 				{
 					color = 0xff0000; //red
 				}
 			
-				if(tileSet[row][column] == 1)
+				if(tiles[row][column] == 1)
 				{
 					color = 0x00ff00; //green
 				}
@@ -49,7 +55,7 @@ tbs.factory = (function() {
 				tile.position.x = column;
 				tile.position.y = row;
 				
-				tileSet[row][column] = tile;
+				tiles[row][column] = tile;
 				
 				tile.model.position.set(tile_set_origin_x + (column * tileWidth),
 								  tile_set_origin_y + (row * tileHeight),
@@ -59,6 +65,7 @@ tbs.factory = (function() {
 			}
 		}
 
+        tileSet.tiles = tiles;
 		return tileSet;
 	}
 	
