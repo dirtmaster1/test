@@ -15,14 +15,14 @@ tbs.factory = (function() {
         
         var tiles = [
 			[0,0,0,0,0,0,0,0,0,0],
-			[0,1,1,1,1,1,1,1,1,0],
+			[0,1,1,1,0,0,1,1,1,0],
 			[0,1,0,0,0,0,0,0,1,0],
 			[0,1,0,1,1,1,1,0,1,0],
-			[0,1,0,1,0,0,1,0,1,0],
-			[0,1,0,1,0,0,1,0,1,0],
+			[0,1,0,1,0,0,0,0,1,0],
+			[0,1,0,0,0,0,1,0,1,0],
 			[0,1,0,1,1,1,1,0,1,0],
 			[0,1,0,0,0,0,0,0,1,0],
-			[0,1,1,1,1,1,1,1,1,0],
+			[0,1,1,0,0,0,0,1,1,0],
 			[0,0,0,0,0,0,0,0,0,0]
 		];
 		
@@ -35,23 +35,26 @@ tbs.factory = (function() {
 		var tile_set_origin_x = -400;
 		var tile_set_origin_y = -400;
 		
-		var color = 0xffffff;;
+		var color = 0xffffff;
 		
 		for(var row = 0; row < maxRows; row++)
 		{
 			for(var column = 0; column < maxColumns; column++)
 			{
+				var isAccessible = true;
+				
 				if(tiles[row][column] == 0)
 				{
-					color = 0xff0000; //red
+					color = 0x00ff00; //green
 				}
 			
 				if(tiles[row][column] == 1)
 				{
-					color = 0x00ff00; //green
+					color = 0xff0000; //red
+					isAccessible = false;
 				}
 				
-				var tile = createTile(color, tileWidth, tileHeight);
+				var tile = createTile(color, tileWidth, tileHeight, isAccessible);
 				tile.position.x = column;
 				tile.position.y = row;
 				
@@ -89,18 +92,19 @@ tbs.factory = (function() {
 		return unit; 
 	}
 	
-	function createTile(color, width, height)
+	function createTile(color, width, height, isAccessible)
 	{
 		var model3d = graphics.CreateBox(color, width, height, 1);
 		
 		return {
 			"model" : model3d,
 			"position" : {"x" : 0, "y" : 0},
-			"occupied_by" : null
+			"occupied_by" : null,
+			"is_accessible" : isAccessible
 		}
     }
     
-    return{
+    return {
         createTile: createTile,
         createUnit: createUnit,
         createTileSet: createTileSet
