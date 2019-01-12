@@ -25,15 +25,17 @@ tbs.player = (function() {
 
     function move(key, tileSet)
     {
+        var newTile = {};
+        var playerMoved = false;
+        
         //up
         if(key == "w")
 		{
-            if(!map.canUnitMoveToTile("up", _player, tileSet))
+            if(map.canUnitMoveToTile("up", _player, tileSet))
             {
-               return;
+                _player.position.y += 1;
+                playerMoved = true;
             }
-            
-            _player.position.y += 1;
         }
         
         //down
@@ -41,10 +43,9 @@ tbs.player = (function() {
 		{
             if(map.canUnitMoveToTile("down", _player, tileSet))
             {
-                return;
+                _player.position.y += -1;
+                playerMoved = true;
             }
-            
-            _player.position.y += -1;
         }
         
         //left
@@ -52,10 +53,9 @@ tbs.player = (function() {
 		{
             if(map.canUnitMoveToTile("left", _player, tileSet))
             {
-                return;
+                _player.position.x += -1;
+                playerMoved = true;
             }
-            
-            _player.position.x += -1;
         }
         
         //right
@@ -63,13 +63,16 @@ tbs.player = (function() {
 		{
             if(map.canUnitMoveToTile("right", _player, tileSet))
             {
-                return;
+                _player.position.x += 1;
+                playerMoved = true;
             }
-            
-            _player.position.x += -1;
         }
                 
-        setPlayerPositionAndTileState(newTile);
+        if(playerMoved)
+        {
+            newTile = tileSet.tiles[_player.position.y][_player.position.x];
+            setPlayerPositionAndTileState(newTile);
+        }
     }
 
     function setPlayerPositionAndTileState(tile)

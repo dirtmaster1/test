@@ -5,51 +5,62 @@ tbs.mapController = (function() {
 
     function canUnitMoveToTile(direction, unit, tileSet)
     {
+        var newTile = {};
+
         if(direction == "up")
         {
-            var newTile = tileSet.tiles[unit.position.y + 1][unit.position.x];
-            
-            if(unit.position.y + 1 > tileSet.max_rows - 1
-                || !newTile.is_accessible)
+            if(unit.position.y + 1 <= tileSet.max_rows - 1)
             {
-                return false;
+                var newTile = tileSet.tiles[unit.position.y + 1][unit.position.x];
+
+                if(newTile.is_accessible)
+                {
+                    return true;
+                }
             }
         }
 
         if(direction == "down")
         {
-            var newTile = tileSet.tiles[unit.position.y + -1][unit.position.x];
             
-            if(unit.position.y - 1 < 0
-                || !newTile.is_accessible)
+            if(unit.position.y - 1 >= 0)
             {
-                return false;
+                var newTile = tileSet.tiles[unit.position.y + -1][unit.position.x];
+            
+                if(newTile.is_accessible)
+                {
+                    return true;
+                }
             }
         }
 
         if(direction == "right")
         {
-            var newTile = tileSet.tiles[unit.position.y][unit.position.x + 1];
-            
-            if(unit.position.x + 1 > tileSet.max_rows - 1
-                || !newTile.is_accessible)
+            if(unit.position.x + 1 <= tileSet.max_rows - 1)
             {
-                return false;
+                var newTile = tileSet.tiles[unit.position.y][unit.position.x + 1];
+            
+                if(newTile.is_accessible)
+                {
+                    return true;
+                }
             }
         }
 
         if(direction == "left")
         {
-            var newTile = tileSet.tiles[unit.position.y][unit.position.x - 1];
-            
-            if(unit.position.x - 1 < 0
-                || !newTile.is_accessible)
+            if(unit.position.x - 1 >= 0)
             {
-                return false;
+                var newTile = tileSet.tiles[unit.position.y][unit.position.x - 1];
+            
+                if(newTile.is_accessible)
+                {
+                    return true;
+                }
             }
         }
 
-        return true;    
+        return false;    
     }
     
 
