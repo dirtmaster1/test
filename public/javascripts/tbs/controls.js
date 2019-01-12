@@ -5,6 +5,22 @@ tbs.controls = (function() {
 
     var keyboard  = new THREEx.KeyboardState();
     var keyPressed = "";
+    var mappings = {
+        "w" : "up",
+        "s" : "down",
+        "a" : "left",
+        "d" : "right",
+    };
+    
+    function getPlayerMoveDirection()
+    {
+        var keyPressedDownThenUp = whichKeyIsPressedDownThenUp(["w","s","a","d"]);
+
+        if(keyPressedDownThenUp)
+        {
+            return mappings[keyPressedDownThenUp];
+        }
+    }
     
     function isKeyPressedDownThenUp(key)
     {
@@ -43,7 +59,6 @@ tbs.controls = (function() {
     }
 
     return{
-        isKeyPressedDownThenUp: isKeyPressedDownThenUp,
-        whichKeyIsPressedDownThenUp: whichKeyIsPressedDownThenUp
+        getPlayerMoveDirection: getPlayerMoveDirection
     }
 })();    

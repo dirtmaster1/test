@@ -38,7 +38,7 @@ tbs.run = (function() {
 		var delta = clock.getDelta();
 
 		player.update(tileSet);
-		ui.update(player.info());
+		ui.update(player.info(), mouse);
 
 		renderer.render(scene, camera);
         requestAnimationFrame(render);

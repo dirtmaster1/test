@@ -7,6 +7,7 @@ tbs.player = (function() {
     var map = tbs.mapController;
 
     var _player = {};
+    var _tileSet = {};
     
     function init(player)
     {
@@ -15,64 +16,54 @@ tbs.player = (function() {
     
     function update(tileSet)
 	{
-        var keyPressedDownThenUp = controls.whichKeyIsPressedDownThenUp(["w","s","a","d"]);
-
-        if(keyPressedDownThenUp)
+        _tileSet = tileSet;
+        var direction = controls.getPlayerMoveDirection();
+        
+        if(direction)
         {
-            move(keyPressedDownThenUp, tileSet);
+            move(direction);
         }
     }
 
-    function move(key, tileSet)
+    function move(direction)
     {
         var newTile = {};
         var playerMoved = false;
         
-        //up
-        if(key == "w")
+        if(direction == "up" && playerCanMove("up"))
 		{
-            if(map.canUnitMoveToTile("up", _player, tileSet))
-            {
-                _player.position.y += 1;
-                playerMoved = true;
-            }
+            _player.position.y += 1;
+            playerMoved = true;
         }
         
-        //down
-        if(key == "s")
+        if(direction == "down" && playerCanMove("down"))
 		{
-            if(map.canUnitMoveToTile("down", _player, tileSet))
-            {
-                _player.position.y += -1;
-                playerMoved = true;
-            }
+            _player.position.y += -1;
+            playerMoved = true;
         }
         
-        //left
-        if(key == "a")
+        if(direction == "left" && playerCanMove("left"))
 		{
-            if(map.canUnitMoveToTile("left", _player, tileSet))
-            {
-                _player.position.x += -1;
-                playerMoved = true;
-            }
+            _player.position.x += -1;
+            playerMoved = true;
         }
         
-        //right
-        if(key == "d")
-		{
-            if(map.canUnitMoveToTile("right", _player, tileSet))
-            {
-                _player.position.x += 1;
-                playerMoved = true;
-            }
+        if(direction == "right" && playerCanMove("right"))
+        {
+            _player.position.x += 1;
+            playerMoved = true;
         }
                 
         if(playerMoved)
         {
-            newTile = tileSet.tiles[_player.position.y][_player.position.x];
+            newTile = _tileSet.tiles[_player.position.y][_player.position.x];
             setPlayerPositionAndTileState(newTile);
         }
+    }
+
+    function playerCanMove(direction)
+    {
+        return map.canUnitMoveToTile(direction, _player, _tileSet);
     }
 
     function setPlayerPositionAndTileState(tile)
