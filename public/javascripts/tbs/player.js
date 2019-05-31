@@ -8,6 +8,8 @@ tbs.player = (function() {
 
     var _player = {};
     var _tileSet = {};
+    var clickX = null;
+    var clickY = null;
     
     function init(player)
     {
@@ -18,6 +20,10 @@ tbs.player = (function() {
 	{
         _tileSet = tileSet;
         var direction = controls.getPlayerMoveDirection();
+        
+        var click = controls.getPlayerClickPosition();
+        clickX = click.x;
+        clickY = click.y;
         
         if(direction)
         {
@@ -30,25 +36,25 @@ tbs.player = (function() {
         var newTile = {};
         var playerMoved = false;
         
-        if(direction == "up" && playerCanMove("up"))
+        if(direction == "up" && canMove("up"))
 		{
             _player.position.y += 1;
             playerMoved = true;
         }
         
-        if(direction == "down" && playerCanMove("down"))
+        if(direction == "down" && canMove("down"))
 		{
             _player.position.y += -1;
             playerMoved = true;
         }
         
-        if(direction == "left" && playerCanMove("left"))
+        if(direction == "left" && canMove("left"))
 		{
             _player.position.x += -1;
             playerMoved = true;
         }
         
-        if(direction == "right" && playerCanMove("right"))
+        if(direction == "right" && canMove("right"))
         {
             _player.position.x += 1;
             playerMoved = true;
@@ -61,7 +67,7 @@ tbs.player = (function() {
         }
     }
 
-    function playerCanMove(direction)
+    function canMove(direction)
     {
         return map.canUnitMoveToTile(direction, _player, _tileSet);
     }
@@ -77,7 +83,10 @@ tbs.player = (function() {
 
     function info()
     {
-        return _player;
+        return { player : _player,
+            clickX : clickX,
+            clickY : clickY
+        };
     }
 	
     return{

@@ -5,7 +5,7 @@ tbs.factory = (function() {
 
     var graphics = game.graphics;
 
-    function createTileSet(scene)
+    function createTileSetOld(scene)
 	{
         var tileSet = {
             "tiles" : {},
@@ -32,8 +32,8 @@ tbs.factory = (function() {
 		var tileWidth = 100;
 		var tileHeight = 100;
 		
-		var tile_set_origin_x = -400;
-		var tile_set_origin_y = -400;
+		var tile_set_origin_x = 0;
+		var tile_set_origin_y = 0;
 		
 		var color = 0xffffff;
 		
@@ -67,14 +67,65 @@ tbs.factory = (function() {
 				scene.add(tile.model)	
 			}
 		}
-
+		
         tileSet.tiles = tiles;
 		return tileSet;
+	}
+
+	function createTileSet(maxColumns, maxRows, scene)
+	{
+        var tileSet = {
+            "tiles" : new Array(maxRows),
+            "max_rows" : maxColumns,
+            "max_columns" : maxRows
+		};
+		
+		var tileWidth = 50;
+		var tileHeight = 50;
+		
+		var tile_set_origin_x = 0;
+		var tile_set_origin_y = 0;
+		
+		var color = 0xffffff;
+
+		for(var row = 0; row < maxRows; row++)
+		{
+			tileSet.tiles[row] = new Array(maxColumns);
+			
+			for(var column = 0; column < maxColumns; column++)
+			{
+				var isAccessible = true;
+				var random = Math.floor(Math.random() * 10) + 1
+
+				if(random < 2)
+				{
+					color = 0xff0000; //red
+					isAccessible = false;
+				} 
+				else
+				{
+					color = 0x00ff00; //green
+				}
+
+				var tile = createTile(color, tileWidth, tileHeight, isAccessible);
+				tile.position.x = column;
+				tile.position.y = row;
+				tile.model.position.set(tile_set_origin_x + (column * tileWidth),
+								  tile_set_origin_y + (row * tileHeight),
+									-10);
+
+				tileSet.tiles[row][column] = tile;
+									
+				scene.add(tile.model)	
+			}
+		}
+		
+        return tileSet;
 	}
 	
 	function createUnit(name, scene, tile)
 	{
-		var unitModel = graphics.createCircle();
+		var unitModel = graphics.createCircle(20, 100);
 		unitModel.position.set(tile.model.position.x, 
 							   tile.model.position.y,
 							   tile.model.position.z + 1)

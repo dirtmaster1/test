@@ -4,6 +4,7 @@ tbs.controls = (function() {
     "use strict";
 
     var keyboard  = new THREEx.KeyboardState();
+    var mouse = new game.Mouse();
     var keyPressed = "";
     var mappings = {
         "w" : "up",
@@ -11,6 +12,17 @@ tbs.controls = (function() {
         "a" : "left",
         "d" : "right",
     };
+    
+    function getPlayerClickPosition()
+    {
+        var x = mouse.mouseDownX + 225;
+        var y = mouse.mouseDownY + 225;
+
+        return {
+            x : x,
+            y : y
+        };
+    }
     
     function getPlayerMoveDirection()
     {
@@ -59,6 +71,7 @@ tbs.controls = (function() {
     }
 
     return{
-        getPlayerMoveDirection: getPlayerMoveDirection
+        getPlayerMoveDirection: getPlayerMoveDirection,
+        getPlayerClickPosition: getPlayerClickPosition
     }
 })();    

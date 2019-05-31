@@ -4,7 +4,6 @@ tbs.run = (function() {
 	"use strict";
 	
     var renderer = new THREE.WebGLRenderer();
-	var keyboard  = new THREEx.KeyboardState();
 	var scene = new THREE.Scene();
 	var clock = new THREE.Clock();
 	
@@ -16,6 +15,7 @@ tbs.run = (function() {
 	var width = window.innerWidth;
 	var height = window.innerHeight;
 	var camera = new THREE.OrthographicCamera( -width, width, height, -height, 1, 1000 );
+	camera.position.set(400,400,1);
 
 	var tileSet = {};
 	
@@ -28,7 +28,7 @@ tbs.run = (function() {
 		
 		scene.add(camera);
 
-		tileSet = factory.createTileSet(scene);
+		tileSet = factory.createTileSet(20, 20, scene);
 		var startTile = tileSet.tiles[0][0];
 		
 		player.init(factory.createUnit("player", scene, startTile));
@@ -43,5 +43,4 @@ tbs.run = (function() {
 		renderer.render(scene, camera);
         requestAnimationFrame(render);
 	}
-
 })();

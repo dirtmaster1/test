@@ -5,10 +5,10 @@ game.graphics = (function(){
 		
 		var shadeCounter = 0;
 		
-		function createCircle()
+		function createCircle(radius, segments)
 		{
 			var model = new THREE.Object3D();
-			var geometry = new THREE.CircleGeometry(50, 100);
+			var geometry = new THREE.CircleGeometry(radius, segments);
 			var material = new THREE.MeshBasicMaterial( {
 									color: 0x0000ff, //blue
 									side: THREE.DoubleSide,

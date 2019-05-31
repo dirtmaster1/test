@@ -9,6 +9,8 @@ game.Mouse = function(){
 	this.mouseMoveY = 0;
 	this.mouseDownX = 0;
 	this.mouseDownY = 0;
+	this.eventX = 0;
+	this.eventY = 0;
 	this.mouseWheelDelta = 0;
 	this.mouseClick = false;
 	this.mouseRightClick = false;
@@ -21,6 +23,7 @@ game.Mouse = function(){
 	this.mouseWheelEventBind = function(event){ self.MouseWheel(event, self); };
 	this.mouseClickEventBind = function(event){ self.MouseClick(event, self); };
 	this.mouseRightClickEventBind = function(event){ self.MouseRightClick(event, self); };
+	
 	this.windowHalfX = window.innerWidth / 2;
     this.windowHalfY = window.innerHeight / 2;
 	
@@ -68,8 +71,11 @@ game.Mouse.prototype.MouseDown = function( event, scope ) {
 			document.addEventListener( 'mouseup', scope.mouseUpEventBind, false );
 			document.addEventListener( 'mouseout', scope.mouseOutEventBind, false );
 			
+			scope.eventX = event.clientX;
+			scope.eventY = event.clientY;
+			
 			scope.mouseDownX = event.clientX - scope.windowHalfX;
-			scope.mouseDownY = event.clientY - scope.windowHalfY;
+			scope.mouseDownY = scope.windowHalfY - event.clientY;
 			scope.mouseDistanceModifier = scope.CalculateMouseModifier(scope.mouseDownX, scope.mouseDownY);
 		}	
        
@@ -109,7 +115,7 @@ game.Mouse.prototype.MouseMove = function( event, scope ) {
 		scope.mouseDistanceY = (event.clientY - scope.windowHalfY) - scope.mouseDownY; 
 		
 		scope.mouseDownX = event.clientX - scope.windowHalfX;
-		scope.mouseDownY = event.clientY - scope.windowHalfY;
+		scope.mouseDownY = scope.windowHalfY - event.clientY;
 		scope.mouseDistanceModifier = scope.CalculateMouseModifier(scope.mouseDownX, scope.mouseDownY);	
 }
 
