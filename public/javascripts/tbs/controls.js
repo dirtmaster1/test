@@ -15,8 +15,8 @@ tbs.controls = (function() {
     
     function getPlayerClickPosition()
     {
-        var x = mouse.mouseDownX + 225;
-        var y = mouse.mouseDownY + 225;
+        var x = mouse.mouseDownX + 212;
+        var y = mouse.mouseDownY + 212;
 
         return {
             x : x,

@@ -8,8 +8,10 @@ tbs.player = (function() {
 
     var _player = {};
     var _tileSet = {};
-    var clickX = null;
-    var clickY = null;
+    var click_mouse_x = null;
+    var click_mouse_y = null;
+    var click_tile_x = null;
+    var click_tile_y = null;
     
     function init(player)
     {
@@ -19,16 +21,39 @@ tbs.player = (function() {
     function update(tileSet)
 	{
         _tileSet = tileSet;
-        var direction = controls.getPlayerMoveDirection();
         
-        var click = controls.getPlayerClickPosition();
-        clickX = click.x;
-        clickY = click.y;
+        setPlayerClickValues(tileSet);
+        
+        var direction = controls.getPlayerMoveDirection();
         
         if(direction)
         {
             move(direction);
         }
+    }
+
+    function setPlayerClickValues(tileSet)
+    {
+        var click = controls.getPlayerClickPosition();
+        click_mouse_x = click.x;
+        click_mouse_y = click.y;
+
+        //click_tile_x = (click_mouse_x - (click_mouse_x % (tileSet.tileWidth/2)))/(tileSet.tileWidth/2);
+        //click_tile_y = (click_mouse_y - (click_mouse_y % (tileSet.tileHeight/2)))/(tileSet.tileHeight/2);
+        click_tile_x = getClickedTile(click_mouse_x, tileSet.tileWidth, tileSet.max_columns);
+        click_tile_y = getClickedTile(click_mouse_y, tileSet.tileHeight, tileSet.max_rows);
+    }
+
+    function getClickedTile(mouse, length, maxCount)
+    {
+        var tileNumber = (mouse - (mouse % (length/2)))/(length/2);
+        
+        if(tileNumber > (maxCount-1) || tileNumber < 0)
+        {
+            return -1
+        }
+
+        return tileNumber;
     }
 
     function move(direction)
@@ -84,8 +109,10 @@ tbs.player = (function() {
     function info()
     {
         return { player : _player,
-            clickX : clickX,
-            clickY : clickY
+            click_mouse_x : click_mouse_x,
+            click_mouse_y : click_mouse_y,
+            click_tile_x : click_tile_x,
+            click_tile_y : click_tile_y
         };
     }
 	

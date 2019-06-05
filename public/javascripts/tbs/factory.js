@@ -74,17 +74,19 @@ tbs.factory = (function() {
 
 	function createTileSet(maxColumns, maxRows, scene)
 	{
-        var tileSet = {
-            "tiles" : new Array(maxRows),
-            "max_rows" : maxColumns,
-            "max_columns" : maxRows
-		};
-		
 		var tileWidth = 50;
 		var tileHeight = 50;
 		
 		var tile_set_origin_x = 0;
 		var tile_set_origin_y = 0;
+		
+		var tileSet = {
+            "tiles" : new Array(maxRows),
+            "max_rows" : maxColumns,
+			"max_columns" : maxRows,
+			"tileWidth" : tileWidth,
+			"tileHeight" : tileHeight
+		};
 		
 		var color = 0xffffff;
 

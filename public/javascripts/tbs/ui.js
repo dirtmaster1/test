@@ -17,8 +17,11 @@ tbs.userInterface = (function ()
         document.querySelector('#mouse_event_client').innerHTML = 'mouse event client coordinates : <br /> x = ' + mouse.eventX +
                                                                     ', <br /> y = ' + mouse.eventY;
                                                                     
-        document.querySelector('#player_click').innerHTML = 'player click : <br /> x = ' + info.clickX +
-																	', <br /> y = ' + info.clickY;                                                                    
+        document.querySelector('#player_click_mouse').innerHTML = 'player click mouse coords: <br /> x = ' + info.click_mouse_x +
+                                                                    ', <br /> y = ' + info.click_mouse_y;
+                                                                    
+        document.querySelector('#player_click_tile').innerHTML = 'player click tile coords: <br /> x = ' + info.click_tile_x +
+																	', <br /> y = ' + info.click_tile_y;                                                                                                                                        
         }
 
     return{
