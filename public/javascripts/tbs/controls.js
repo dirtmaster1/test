@@ -13,10 +13,23 @@ tbs.controls = (function() {
         "d" : "right",
     };
     
+    function playerMouseClicked()
+    {
+        return mouse.mouseClick;
+    }
+
     function getPlayerClickPosition()
     {
-        var x = mouse.mouseDownX + 212;
-        var y = mouse.mouseDownY + 212;
+        var offSetX = 212;
+        var offSetY = 212;
+        var x = null;
+        var y = null;
+        
+        if(mouse.mouseDownX != 0 || mouse.mouseDownY != 0)
+        {
+            x = mouse.mouseDownX + offSetX;
+            y = mouse.mouseDownY + offSetY;
+        }
 
         return {
             x : x,
@@ -72,6 +85,7 @@ tbs.controls = (function() {
 
     return{
         getPlayerMoveDirection: getPlayerMoveDirection,
-        getPlayerClickPosition: getPlayerClickPosition
+        getPlayerClickPosition: getPlayerClickPosition,
+        playerMouseClicked: playerMouseClicked
     }
 })();    

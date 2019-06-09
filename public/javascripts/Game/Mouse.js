@@ -29,7 +29,7 @@ game.Mouse = function(){
 	
     document.addEventListener('mousedown', self.mouseDownEventBind, false);
 	document.addEventListener('mousewheel', self.mouseWheelEventBind, false);
-	document.addEventListener('click', self.mouseClickEventBind, false);
+	document.addEventListener('click', self.mouseClickEventBind, false, {once : true});
 	document.addEventListener('contextmenu', self.mouseRightClickEventBind, false);
 }
 
@@ -125,6 +125,7 @@ game.Mouse.prototype.MouseUp = function( event, scope ) {
 		{
 			scope.mouseDistanceX = 0;
 			scope.mouseDistanceY = 0;
+			scope.mouseClick = false;
 			
 			document.removeEventListener( 'mousemove', scope.mouseMoveEventBind, false );
 			document.removeEventListener( 'mouseup', scope.mouseUpEventBind, false );

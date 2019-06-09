@@ -16,12 +16,12 @@ tbs.player = (function() {
     function init(player)
     {
         _player = player;
-    }
+    }   
     
     function update(tileSet)
 	{
         _tileSet = tileSet;
-        
+
         setPlayerClickValues(tileSet);
         
         var direction = controls.getPlayerMoveDirection();
@@ -35,17 +35,22 @@ tbs.player = (function() {
     function setPlayerClickValues(tileSet)
     {
         var click = controls.getPlayerClickPosition();
-        click_mouse_x = click.x;
-        click_mouse_y = click.y;
+        
+        if(click.x != null && click.y != null)
+        {
+            click_mouse_x = click.x;
+            click_mouse_y = click.y;
 
-        //click_tile_x = (click_mouse_x - (click_mouse_x % (tileSet.tileWidth/2)))/(tileSet.tileWidth/2);
-        //click_tile_y = (click_mouse_y - (click_mouse_y % (tileSet.tileHeight/2)))/(tileSet.tileHeight/2);
-        click_tile_x = getClickedTile(click_mouse_x, tileSet.tileWidth, tileSet.max_columns);
-        click_tile_y = getClickedTile(click_mouse_y, tileSet.tileHeight, tileSet.max_rows);
+            click_tile_x = getClickedTile(click_mouse_x, tileSet.tileWidth, tileSet.max_columns);
+            click_tile_y = getClickedTile(click_mouse_y, tileSet.tileHeight, tileSet.max_rows);
+
+            tileSet.selectTile(click_tile_x, click_tile_y);
+        }
     }
 
     function getClickedTile(mouse, length, maxCount)
     {
+        // todo not sure why threejs tile width 2x that of client tile width, need to figure that out 
         var tileNumber = (mouse - (mouse % (length/2)))/(length/2);
         
         if(tileNumber > (maxCount-1) || tileNumber < 0)
