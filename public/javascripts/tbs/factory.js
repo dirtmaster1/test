@@ -52,23 +52,19 @@ tbs.factory = (function() {
         return tileSet;
 	}
 	
-	function createUnit(name, scene, tile)
+	function createUnit(name, scene, start_x, start_y)
 	{
 		var unitModel = graphics.createCircle(20, 100);
-		unitModel.position.set(tile.model.position.x, 
-							   tile.model.position.y,
-							   tile.model.position.z + 1)
+		unitModel.position.set(start_x, start_y, -9)
 		
 		scene.add(unitModel);
 
 		var unit = {
 			"model" : unitModel,
-			"position" : {"x" : tile.position.x, "y" : tile.position.y},
+			"position" : {"x" : start_x, "y" : start_y},
 			"name" : name
 		}
-        
-		tile.occupied_by = unit;
-		
+
 		return unit; 
 	}
     

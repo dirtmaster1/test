@@ -46,22 +46,6 @@ tbs.controls = (function() {
             return mappings[keyPressedDownThenUp];
         }
     }
-    
-    function isKeyPressedDownThenUp(key)
-    {
-        if(keyboard.pressed(key)) 
-            {
-                keyPressed = key;
-            }
-
-		if(!keyboard.pressed(key) && keyPressed == key)
-            { 
-                keyPressed = "";
-                return true;
-            }
-            
-        return false;    
-    }
 
     function whichKeyIsPressedDownThenUp(keys)
     {
