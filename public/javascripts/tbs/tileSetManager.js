@@ -87,8 +87,65 @@ class TileSetManager {
             this.click_tile_y = this.getClickedTile(this.click_mouse_y, tileSet.tileHeight, tileSet.max_rows);
 
             this.selectTile(this.click_tile_x, this.click_tile_y);
+            
+            // add astar here
+            this.moveAStar();    
         }
     }
+
+    moveAStar()
+    {
+        var end = { x : this.click_tile_x , y : this.click_tile_y};
+        var start = { x : this.player.position.x , y : this.player.position.y};
+        
+        if(end.x != null && end.y != null)
+        {
+            var graph = this.creatGraphFromTileSet();
+            this.aStar(start, end);
+        }
+    }
+
+    //start a star code to move to algorithm.js
+    aStar(start, end, graph)
+    {
+        var closedSet = {};
+        var openSet = {start};
+        var cameFrom = {};
+        
+        var gScore = this.initializeGScores();
+        gScore[start] = 0;
+
+        var fScore = {};
+        fScore[start]
+    }
+
+    initializeGScores()
+    {
+        return {};
+    }
+
+    creatGraphFromTileSet()
+    {
+        var rows = this.tileSet.max_rows;
+        var cols = this.tileSet.max_columns;
+        var numberOfVertices = rows * cols;
+        
+        var graph = new Graph(numberOfVertices);
+
+        // adding vertices
+        for(var i = 0; i < cols; i++)
+		{
+			for(var j = 0; j < rows; j++)
+			{ 
+                graph.addVertex(this.tileSet.tiles[i][j]);
+                // add neighbors 
+            }
+        }
+
+        return graph;
+    }
+
+    //end a star code to move to algorithm.js
 
     getClickedTile(mouse, length, maxCount)
     {
@@ -97,7 +154,7 @@ class TileSetManager {
         
         if(tileNumber > (maxCount-1) || tileNumber < 0)
         {
-            return -1
+            return null
         }
 
         return tileNumber;
@@ -105,7 +162,7 @@ class TileSetManager {
 
     setPlayerPositionAndTileState()
     {
-        var tile = this.tileSet.tiles[this.player.position.y][this.player.position.x];
+        var tile = this.tileSet.tiles[this.player.position.x][this.player.position.y];
 
         this.player.model.position.set(tile.model.position.x, 
             tile.model.position.y,
@@ -119,7 +176,7 @@ class TileSetManager {
             
             if(this.selectedTile == null)
             {
-                this.selectedTile = this.tileSet.tiles[y][x];
+                this.selectedTile = this.tileSet.tiles[x][y];
                 this.selectedTile.model.children[0].material.color.set( this.selectedTileColor );
             }
             else
@@ -135,7 +192,7 @@ class TileSetManager {
                         this.selectedTile.model.children[0].material.color.set( this.closedTileColor );
                     }
                     
-                    this.selectedTile = this.tileSet.tiles[y][x];
+                    this.selectedTile = this.tileSet.tiles[x][y];
                     this.selectedTile.model.children[0].material.color.set( this.selectedTileColor );
                 }
             }
@@ -151,7 +208,7 @@ class TileSetManager {
             && x >= 0
             && y >= 0)
         {
-            if(this.tileSet.tiles[y][x].is_accessible)
+            if(this.tileSet.tiles[x][y].is_accessible)
                 return true;
         }
 
