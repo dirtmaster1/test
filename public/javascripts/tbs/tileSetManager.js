@@ -101,7 +101,8 @@ class TileSetManager {
         if(end.x != null && end.y != null)
         {
             var graph = this.creatGraphFromTileSet();
-            this.aStar(start, end);
+            graph.print();
+            this.aStar(start, end, graph);
         }
     }
 
@@ -133,12 +134,36 @@ class TileSetManager {
         var graph = new Graph(numberOfVertices);
 
         // adding vertices
-        for(var i = 0; i < cols; i++)
+        for(var x = 0; x < cols; x++)
 		{
-			for(var j = 0; j < rows; j++)
-			{ 
-                graph.addVertex(this.tileSet.tiles[i][j]);
-                // add neighbors 
+			for(var y = 0; y < rows; y++)
+			{   
+                if(this.isTileInbounds(x, y))
+                {
+                    var tile = this.tileSet.tiles[x][y];
+                    graph.addVertex(tile);
+                
+                    // add neighbors
+                    if(this.isTileInbounds(x + 1, y))
+                    {
+                        graph.addEdge(tile, this.tileSet.tiles[x + 1][y]);
+                    }
+                    
+                    if(this.isTileInbounds(x - 1, y))
+                    {
+                        graph.addEdge(tile, this.tileSet.tiles[x - 1][y]);
+                    }
+
+                    if(this.isTileInbounds(x, y + 1))
+                    {
+                        graph.addEdge(tile, this.tileSet.tiles[x][y + 1]);
+                    }
+
+                    if(this.isTileInbounds(x, y - 1))
+                    {
+                        graph.addEdge(tile, this.tileSet.tiles[x][y - 1]);
+                    }
+                }
             }
         }
 

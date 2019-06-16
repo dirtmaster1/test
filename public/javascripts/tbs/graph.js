@@ -3,20 +3,21 @@ class Graph {
     constructor(noOfVertices) 
     { 
         this.noOfVertices = noOfVertices; 
-        this.AdjList = new Map(); 
+        this.AdjList = new Map();
+        this.isDirected = true; 
     } 
   
     addVertex(v) 
     { 
         this.AdjList.set(v, []); 
-    }  
+    }
+
     addEdge(v, w) 
     { 
-        this.AdjList.get(v).push(w); 
-        this.AdjList.get(w).push(v); 
+        this.AdjList.get(v).push(w);
     } 
     
-    printGraph() 
+    print() 
     { 
         var get_keys = this.AdjList.keys(); 
     
