@@ -95,35 +95,77 @@ class TileSetManager {
 
     moveAStar()
     {
-        var end = { x : this.click_tile_x , y : this.click_tile_y};
-        var start = { x : this.player.position.x , y : this.player.position.y};
-        
-        if(end.x != null && end.y != null)
+        if(this.isTileInbounds(this.click_tile_x, this.click_tile_y))
         {
-            var graph = this.creatGraphFromTileSet();
-            graph.print();
-            this.aStar(start, end, graph);
+            var endTile = this.tileSet.tiles[this.click_tile_x][this.click_tile_y];
+            var startTile = this.tileSet.tiles[this.player.position.x][this.player.position.y];
+            
+            if(endTile.position.x != null && endTile.position.y != null)
+            {
+                var graph = this.creatGraphFromTileSet();
+                this.aStar(startTile, endTile, graph);
+            }
         }
     }
 
     //start a star code to move to algorithm.js
     aStar(start, end, graph)
     {
-        var closedSet = {};
-        var openSet = {start};
-        var cameFrom = {};
-        
-        var gScore = this.initializeGScores();
-        gScore[start] = 0;
+        var closedSet = [];
+        var openSet = [];
+        var current = start;
 
-        var fScore = {};
-        fScore[start]
+        start.f = this.getDistance(start.position, end.position);
+        openSet.push(start);
+
+        while(openSet.length > 0)
+        {
+            var low = 0;
+            for(var i = 0; i < openSet.length; i++)
+            {
+                if(openSet[i].f < openSet[low].f)
+                {
+                    low = i;
+                    current = openSet[i]; 
+                }
+            }
+
+            this.removeItemFromArray(openSet, current);
+
+            if(current == end)
+            {
+                return this.buildPath(current);
+            }
+        }
     }
 
-    initializeGScores()
+    buildPath(node)
     {
-        return {};
+        var current = node;
+        var path = [];
+        while(current.parent)
+        {
+            path.push(current);
+            current = current.parent;
+        }
+
+        return path.reverse();
     }
+
+    removeItemFromArray(arr, value)
+    {
+        var index = arr.indexOf(value);
+        if (index > -1) {
+        arr.splice(index, 1);
+        }
+    }
+    
+    getDistance(pos0, pos1) {
+        // This is the Manhattan distance
+        var d1 = Math.abs (pos1.x - pos0.x);
+        var d2 = Math.abs (pos1.y - pos0.y);
+        return d1 + d2;
+      }
 
     creatGraphFromTileSet()
     {
