@@ -8,11 +8,13 @@ class TileSetManager {
         this.openTileColor = 0x00ff00; //green
         this.closedTileColor = 0xff0000; //red
         this.selectedTileColor = 0xffffff; //grey
+        this.pathTileColor = 0x0000ff; //blue
         this.controls = tbs.controls;
         this.click_mouse_x = null;
         this.click_mouse_y = null;
         this.click_tile_x = null;
         this.click_tile_y = null; 
+        this.path = null;
     }
 
     update()
@@ -33,7 +35,8 @@ class TileSetManager {
             click_mouse_x : this.click_mouse_x,
             click_mouse_y : this.click_mouse_y,
             click_tile_x : this.click_tile_x,
-            click_tile_y : this.click_tile_y
+            click_tile_y : this.click_tile_y,
+            path: this.path
         };
     }
 
@@ -78,7 +81,8 @@ class TileSetManager {
         var tileSet = this.tileSet;
         var click = this.controls.getPlayerClickPosition();
         
-        if(click.x != null && click.y != null)
+        if(click.x != null && click.y != null 
+            && (click.x != this.click_mouse_x || click.y != this.click_mouse_y))
         {
             this.click_mouse_x = click.x;
             this.click_mouse_y = click.y;
@@ -88,8 +92,24 @@ class TileSetManager {
 
             this.selectTile(this.click_tile_x, this.click_tile_y);
             
-            // add astar here
-            this.moveAStar();    
+            if(this.path)
+            {
+                for (let i = 0; i < this.path.length; i++) {
+                    var tile = this.path[i];
+                    tile.model.children[0].material.color.set( this.openTileColor );
+                }
+            }
+            
+            this.path = this.moveAStar();
+
+            if(this.path)
+            {
+                for (let i = 0; i < this.path.length; i++) {
+                    var tile = this.path[i];
+                    tile.model.children[0].material.color.set( this.pathTileColor );
+                }
+                console.log(this.path)     
+            }
         }
     }
 
@@ -102,41 +122,99 @@ class TileSetManager {
             
             if(endTile.position.x != null && endTile.position.y != null)
             {
+                this.resetTileSet();
                 var graph = this.creatGraphFromTileSet();
-                this.aStar(startTile, endTile, graph);
+
+                var path = this.aStar(startTile, endTile, graph);
+
+                return path;
             }
         }
     }
 
-    //start a star code to move to algorithm.js
+    resetTileSet()
+    {
+        var rows = this.tileSet.max_rows;
+        var cols = this.tileSet.max_columns;
+
+        for(var x = 0; x < cols; x++)
+		{
+			for(var y = 0; y < rows; y++)
+			{
+                var tile = this.tileSet.tiles[x][y];
+                tile.reset();
+            }
+        }
+    }
+
     aStar(start, end, graph)
     {
         var closedSet = [];
         var openSet = [];
-        var current = start;
-
-        start.f = this.getDistance(start.position, end.position);
+        
+        start.f = this.getManhattanDistance(start.position, end.position);
         openSet.push(start);
 
-        while(openSet.length > 0)
+        var current = start;
+
+        // Am I still searching?
+        while(openSet.length > 0) 
         {
+            // Best next option
             var low = 0;
             for(var i = 0; i < openSet.length; i++)
             {
                 if(openSet[i].f < openSet[low].f)
                 {
                     low = i;
-                    current = openSet[i]; 
                 }
             }
 
-            this.removeItemFromArray(openSet, current);
+            current = openSet[low]; 
 
-            if(current == end)
-            {
+            // Did I finish?
+            if (current === end) {
                 return this.buildPath(current);
-            }
-        }
+              }
+
+            // Best option moves from openSet to closedSet
+            this.removeItemFromArray(openSet, current);
+            closedSet.push(current);
+
+            // Check all the neighbors
+            var neighbors = graph.AdjList.get(current);
+            for (var i = 0; i < neighbors.length; i++) {
+            var neighbor = neighbors[i];
+
+            // Valid next spot?
+            if (!closedSet.includes(neighbor) && neighbor.is_accessible) {
+                var tempG = current.g + this.getManhattanDistance(neighbor.position, current.position);
+                console.log(tempG)
+
+                // Is this a better path than before?
+                var newPath = false;
+                if (openSet.includes(neighbor)) {
+                    if (tempG < neighbor.g) {
+                        neighbor.g = tempG;
+                        newPath = true;
+                    }
+                } else {
+                    neighbor.g = tempG;
+                    newPath = true;
+                    openSet.push(neighbor);
+                }
+
+                    // Yes, it's a better path
+                    if (newPath) {
+                        neighbor.h = this.getManhattanDistance(neighbor.position, current.position);
+                        neighbor.f = neighbor.g + neighbor.h;
+                        neighbor.parent = current;
+                    }
+                }
+            }   
+        } 
+
+        return null;
     }
 
     buildPath(node)
@@ -160,7 +238,7 @@ class TileSetManager {
         }
     }
     
-    getDistance(pos0, pos1) {
+    getManhattanDistance(pos0, pos1) {
         // This is the Manhattan distance
         var d1 = Math.abs (pos1.x - pos0.x);
         var d2 = Math.abs (pos1.y - pos0.y);

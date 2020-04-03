@@ -17,38 +17,6 @@ tbs.factory = (function() {
 		
 		var color = null;
 
-		// for(var row = 0; row < maxRows; row++)
-		// {
-		// 	tileSet.tiles[row] = new Array(maxColumns);
-			
-		// 	for(var column = 0; column < maxColumns; column++)
-		// 	{
-		// 		var isAccessible = true;
-		// 		var random = Math.floor(Math.random() * 10) + 1
-
-		// 		if(random < 2)
-		// 		{
-		// 			color = tileSet.closedTileColor; 
-		// 			isAccessible = false;
-		// 		} 
-		// 		else
-		// 		{
-		// 			color = tileSet.openTileColor;
-		// 		}
-
-		// 		var tile = new Tile(graphics.CreateBox(color, tileWidth, tileHeight, 1), isAccessible)
-		// 		tile.position.x = column;
-		// 		tile.position.y = row;
-		// 		tile.model.position.set(tile_set_origin_x + (column * tileWidth),
-		// 						  tile_set_origin_y + (row * tileHeight),
-		// 							-10);
-
-		// 		tileSet.tiles[row][column] = tile;
-									
-		// 		scene.add(tile.model)	
-		// 	}
-		// }
-
 		for(var column = 0; column < maxColumns; column++)
 		{
 			tileSet.tiles[column] = new Array(maxRows);

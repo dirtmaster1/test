@@ -49,7 +49,7 @@ tbs.controls = (function() {
 
     function whichKeyIsPressedDownThenUp(keys)
     {
-        var _key = null;
+        var _temp_key = null;
         
         keys.forEach(key => {
             if(keyboard.pressed(key)) 
@@ -60,11 +60,11 @@ tbs.controls = (function() {
 		if(!keyboard.pressed(key) && keyPressed == key)
             { 
                 keyPressed = "";
-                _key = key;
+                _temp_key = key;
             }    
         });
 
-        return _key;
+        return _temp_key;
     }
 
     return{

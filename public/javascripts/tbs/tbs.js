@@ -10,7 +10,6 @@ tbs.run = (function() {
 	var mouse = new game.Mouse();
 	var ui = tbs.userInterface;
 	var factory = tbs.factory;
-	var player = tbs.player;
 	var tileSetManager;
 	
 	var width = window.innerWidth;
