@@ -1,6 +1,0 @@
-class TextureLoader {
-    loadTexture()
-    {
-        
-    }
-}

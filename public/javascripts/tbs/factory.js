@@ -38,7 +38,8 @@ class Factory {
 					color = tileSet.openTileColor;
 				}
 
-				var tile = new Tile(this.graphics.CreateBox(color, tileWidth, tileHeight, 1), isAccessible)
+				//var tile = new Tile(this.graphics.CreateBox(color, tileWidth, tileHeight, 1), isAccessible)
+				var tile = new Tile(this.graphics.CreateBoxWithTexture(tileWidth, tileHeight, 1, "../assets/terrain_tiles.png"), isAccessible)
 				tile.position.x = column;
 				tile.position.y = row;
 				tile.model.position.set(tile_set_origin_x + (column * tileWidth),
