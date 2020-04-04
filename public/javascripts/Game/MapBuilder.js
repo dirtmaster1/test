@@ -3,7 +3,7 @@ game.mapBuilder = (function ()
 {
   "use strict";
 	 
-	var graphics = game.graphics;
+	var graphics = new Graphics();
 	
 	function Init(scene, gameObjects)
 	{

@@ -9,7 +9,8 @@ tbs.run = (function() {
 	
 	var mouse = new game.Mouse();
 	var ui = tbs.userInterface;
-	var factory = tbs.factory;
+
+	var factory = new Factory();
 	var tileSetManager;
 	
 	var width = window.innerWidth;
@@ -27,7 +28,7 @@ tbs.run = (function() {
 		scene.add(camera);
 
 		var tileSet = factory.createTileSet(20, 20, scene);
-		var player = factory.createUnit("player", scene, 0, 0); 
+		var player = factory.createPlayer("player", scene, 0, 0); 
 		
 		tileSetManager = new TileSetManager(tileSet, player);
     }

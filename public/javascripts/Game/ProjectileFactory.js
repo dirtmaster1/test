@@ -3,7 +3,7 @@ game.projectileFactory = (function ()
 {
   "use strict";
 	 
-	var graphics = game.graphics;
+	var graphics = new Graphics();
 	var counter = 1;
 	
 	function Create(type, owner)

@@ -4,7 +4,7 @@ game.gameObjectController = (function ()
   "use strict";
 	 
 	var gameObjects = [];
-	var graphics = game.graphics;
+	var graphics = new Graphics();
 	var projectileFactory = game.projectileFactory;
 	var enemyFactory = game.enemyFactory;
     var mapBuilder = game.mapBuilder;

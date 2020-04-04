@@ -1,11 +1,12 @@
-var game = game ||{};
-
-game.graphics = (function(){
-    'use strict';
+class Graphics {
 		
-		var shadeCounter = 0;
+	constructor()
+	{
+		this.shadeCounter = 0;
+	}	
+	
 		
-		function createCircle(radius, segments)
+		createCircle(radius, segments)
 		{
 			var model = new THREE.Object3D();
 			var geometry = new THREE.CircleGeometry(radius, segments);
@@ -23,7 +24,7 @@ game.graphics = (function(){
 			return model;
 		}
 		
-		function CreateCylinder(color, topRadius, bottomRadius, height){
+		CreateCylinder(color, topRadius, bottomRadius, height){
 			
 			var model = new THREE.Object3D();
 			var geometry = new THREE.CylinderGeometry( topRadius, bottomRadius, height, 32 );
@@ -41,7 +42,7 @@ game.graphics = (function(){
 			return model;
 		}
 		
-		function CreateCone(radius, 
+		CreateCone(radius, 
 			height, 
 			radialSegments, 
 			color) {
@@ -83,7 +84,7 @@ game.graphics = (function(){
 			return model;
 		}
 
-		function CreateBox(color, width, height, depth){
+		CreateBox(color, width, height, depth){
 			
 			var model = new THREE.Object3D();
 			var geometry = new THREE.BoxBufferGeometry( width, height, depth );
@@ -101,7 +102,7 @@ game.graphics = (function(){
 			return model;
 		}	
 		
-		function CreateTorus(radius, tubeDiameter, color)
+		CreateTorus(radius, tubeDiameter, color)
 		{
 			var geometry = new THREE.TorusGeometry( radius, tubeDiameter, 16, 100 );
 			var material = new THREE.MeshBasicMaterial( {
@@ -113,19 +114,19 @@ game.graphics = (function(){
 			return torus;
 		}
 		
-		function ChangeColorShade(hexBaseColor, color, frequency)
+		ChangeColorShade(hexBaseColor, color, frequency)
 		{
 			var shade = null;
 			
 			if(frequency > 0)
 			{
 				//change to use sine function
-				shadeCounter++;
-				hexBaseColor = hexBaseColor - (hexBaseColor * ((frequency - shadeCounter)/ frequency))
+				this.shadeCounter++;
+				hexBaseColor = hexBaseColor - (hexBaseColor * ((frequency - this.shadeCounter)/ frequency))
 				
-				if(shadeCounter >= frequency)
+				if(this.shadeCounter >= frequency)
 				{
-					shadeCounter = 0;
+					this.shadeCounter = 0;
 				}
 			}
 			
@@ -147,20 +148,10 @@ game.graphics = (function(){
 			return shade;
 		}
 		
-		function ExplosionAnimation()
+		ExplosionAnimation()
 		{
-			var explosion =	CreateBox(0xeb2300, 5, 5, 5);
+			var explosion =	this.CreateBox(0xeb2300, 5, 5, 5);
 			
 			return explosion;
 		}
-			
-		return{
-        CreateCone: CreateCone,
-		CreateBox: CreateBox,
-		CreateTorus: CreateTorus,
-		ChangeColorShade : ChangeColorShade,
-		CreateCylinder: CreateCylinder,
-		ExplosionAnimation: ExplosionAnimation,
-		createCircle: createCircle
-    }		
-})();	
+    };	

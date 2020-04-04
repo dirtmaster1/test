@@ -1,11 +1,13 @@
 var tbs = tbs ||{};
 
-tbs.factory = (function() {
-    "use strict";
+class Factory {
 
-    var graphics = game.graphics;
+	constructor()
+	{
+		this.graphics = new Graphics();
+	}
 
-	function createTileSet(maxColumns, maxRows, scene)
+	createTileSet(maxColumns, maxRows, scene)
 	{
 		var tileWidth = 50;
 		var tileHeight = 50;
@@ -24,9 +26,9 @@ tbs.factory = (function() {
 			for(var row = 0; row < maxRows; row++)
 			{
 				var isAccessible = true;
-				var random = Math.floor(Math.random() * 10) + 1
+				var random = Math.floor(Math.random() * 100)
 
-				if(random < 2)
+				if(random < 30)
 				{
 					color = tileSet.closedTileColor; 
 					isAccessible = false;
@@ -36,7 +38,7 @@ tbs.factory = (function() {
 					color = tileSet.openTileColor;
 				}
 
-				var tile = new Tile(graphics.CreateBox(color, tileWidth, tileHeight, 1), isAccessible)
+				var tile = new Tile(this.graphics.CreateBox(color, tileWidth, tileHeight, 1), isAccessible)
 				tile.position.x = column;
 				tile.position.y = row;
 				tile.model.position.set(tile_set_origin_x + (column * tileWidth),
@@ -51,10 +53,22 @@ tbs.factory = (function() {
 		
         return tileSet;
 	}
-	
-	function createUnit(name, scene, start_x, start_y)
+
+	createPlayer(name, scene, start_x, start_y)
 	{
-		var unitModel = graphics.createCircle(20, 100);
+		var playerModel = this.graphics.createCircle(20, 100);
+		playerModel.position.set(start_x, start_y, -9)
+		
+		scene.add(playerModel);
+
+		var player = new Player(playerModel, {"x" : start_x, "y" : start_y}, name);
+
+		return player; 
+	}
+	
+	createUnit(name, scene, start_x, start_y)
+	{
+		var unitModel = this.graphics.createCircle(20, 100);
 		unitModel.position.set(start_x, start_y, -9)
 		
 		scene.add(unitModel);
@@ -67,10 +81,4 @@ tbs.factory = (function() {
 
 		return unit; 
 	}
-    
-    return {
-        createUnit: createUnit,
-        createTileSet: createTileSet
-    }
-
-})();    
+};    

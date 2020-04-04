@@ -3,7 +3,7 @@ var game = game ||{};
 game.PlayerShip = function(){
     'use strict';
 	
-	var graphics = game.graphics;
+	var graphics = new Graphics();
 	var ship = graphics.CreateCone(6,18,5,0x156289);
 	var axisHelper = new THREE.AxisHelper( 25 );
 	

@@ -3,7 +3,7 @@ var game = game ||{};
 game.Target = function(targeter){
     'use strict';
 	
-	this.graphics = game.graphics;
+	this.graphics = new Graphics();
 	this.targeter = targeter;
 	this.targetModel = 'None';
 	this.name = '';
@@ -65,7 +65,7 @@ game.Target.prototype.Update = function(camera){
 		this.distance = this.targeter.position.distanceTo(this.targetModel.position);
 		this.targetCircle.lookAt(camera.position);
 		
-		var targetShade = game.graphics.ChangeColorShade(0xFF, "Red", 60);
+		var targetShade = this.graphics.ChangeColorShade(0xFF, "Red", 60);
 		this.targetCircle.material.color.setHex(targetShade);
 	}
 	

@@ -3,7 +3,7 @@ var game = game ||{};
 game.enemyFactory = (function(){
     'use strict';
 
-	var graphics = game.graphics;
+	var graphics = new Graphics();
 	var counter = 1;
 	
 	function Create(color, x, y, z)
