@@ -84,16 +84,23 @@ class Graphics {
 			return model;
 		}
 
-		CreateBoxWithTexture(width, height, depth, path){
+		CreateBoxWithTexture(width, height, depth, texture){
 			
 			var model = new THREE.Object3D();
 			var geometry = new THREE.BoxBufferGeometry( width, height, depth );
-			var material = this.loadTexture(path);
-			var	mesh = new THREE.Mesh( geometry, material );
+			var	mesh = new THREE.Mesh( geometry, texture );
 			
 			model.add(mesh);
 			
 			return model;
+		}
+
+		loadTexture(path)
+		{
+			const loader = new THREE.TextureLoader();
+			const material = new THREE.MeshBasicMaterial({map: loader.load(path),
+				side: THREE.DoubleSide});
+		    return material;
 		}
 
 		CreateBox(color, width, height, depth){
@@ -165,17 +172,5 @@ class Graphics {
 			var explosion =	this.CreateBox(0xeb2300, 5, 5, 5);
 			
 			return explosion;
-		}
-
-		loadTexture(path)
-		{
-			const loader = new THREE.TextureLoader();
-	
-			const material = new THREE.MeshBasicMaterial({
-				color: 0xFFFFFF,
-				map: loader.load(path)
-			});
-
-			return material;
 		}
     };	

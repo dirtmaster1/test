@@ -7,6 +7,21 @@ class Factory {
 		this.graphics = new Graphics();
 	}
 
+	initialize()
+	{
+		const loader = new THREE.TextureLoader();
+
+		this.terrain_grass = new THREE.MeshBasicMaterial({
+			map: loader.load('http://localhost:8000/images/terrain_grass.png'),
+			side: THREE.DoubleSide,
+		});
+
+		this.terrain_mountain = new THREE.MeshBasicMaterial({
+			map: loader.load('http://localhost:8000/images/terrain_mountain.png'),
+			side: THREE.DoubleSide,
+		});
+	}
+
 	createTileSet(maxColumns, maxRows, scene)
 	{
 		var tileWidth = 50;
@@ -17,7 +32,7 @@ class Factory {
 		
 		var tileSet = new TileSet(maxRows, maxColumns, tileWidth, tileHeight);
 		
-		var color = null;
+		var texture = null;
 
 		for(var column = 0; column < maxColumns; column++)
 		{
@@ -30,21 +45,20 @@ class Factory {
 
 				if(random < 30)
 				{
-					color = tileSet.closedTileColor; 
+					texture = this.terrain_mountain; 
 					isAccessible = false;
 				} 
 				else
 				{
-					color = tileSet.openTileColor;
+					texture = this.terrain_grass;
 				}
 
-				//var tile = new Tile(this.graphics.CreateBox(color, tileWidth, tileHeight, 1), isAccessible)
-				var tile = new Tile(this.graphics.CreateBoxWithTexture(tileWidth, tileHeight, 1, "../assets/terrain_tiles.png"), isAccessible)
+				var tile = new Tile(this.graphics.CreateBoxWithTexture(tileWidth, tileHeight, 1, texture), isAccessible)
 				tile.position.x = column;
 				tile.position.y = row;
 				tile.model.position.set(tile_set_origin_x + (column * tileWidth),
 								  tile_set_origin_y + (row * tileHeight),
-									-10);
+									0);
 
 				tileSet.tiles[column][row] = tile;
 									
@@ -58,7 +72,7 @@ class Factory {
 	createPlayer(name, scene, start_x, start_y)
 	{
 		var playerModel = this.graphics.createCircle(20, 100);
-		playerModel.position.set(start_x, start_y, -9)
+		playerModel.position.set(start_x, start_y, 1)
 		
 		scene.add(playerModel);
 

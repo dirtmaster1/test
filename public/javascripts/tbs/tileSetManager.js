@@ -15,10 +15,13 @@ class TileSetManager {
         this.click_tile_x = null;
         this.click_tile_y = null; 
         this.path = null;
+        this.elapsedTime = 0.0;
     }
 
-    update()
+    update(delta)
 	{
+        this.elapsedTime += delta;
+        
         this.setPlayerClickValues();
         
         var playerMoveDirection = this.controls.getPlayerMoveDirection();
@@ -26,6 +29,20 @@ class TileSetManager {
         if(playerMoveDirection)
         {
             this.movePlayer(playerMoveDirection);
+        }
+
+        if(this.path)
+        {
+           for (let i = 0; i < this.path.length; i++) {
+               const tile = this.path[i];
+               
+               this.player.position.x = tile.position.x;
+               this.player.position.y = tile.position.y;
+
+               this.setPlayerPositionAndTileState();
+           } 
+
+           this.path = null;
         }
     }
 
@@ -92,24 +109,7 @@ class TileSetManager {
 
             this.selectTile(this.click_tile_x, this.click_tile_y);
             
-            if(this.path)
-            {
-                for (let i = 0; i < this.path.length; i++) {
-                    var tile = this.path[i];
-                    tile.model.children[0].material.color.set( this.openTileColor );
-                }
-            }
-            
             this.path = this.moveAStar();
-
-            if(this.path)
-            {
-                for (let i = 0; i < this.path.length; i++) {
-                    var tile = this.path[i];
-                    tile.model.children[0].material.color.set( this.pathTileColor );
-                }
-                console.log(this.path)     
-            }
         }
     }
 
@@ -183,13 +183,18 @@ class TileSetManager {
 
             // Check all the neighbors
             var neighbors = graph.AdjList.get(current);
+
+            if(!neighbors)
+            {
+                continue;
+            }
+
             for (var i = 0; i < neighbors.length; i++) {
             var neighbor = neighbors[i];
 
             // Valid next spot?
             if (!closedSet.includes(neighbor) && neighbor.is_accessible) {
                 var tempG = current.g + this.getManhattanDistance(neighbor.position, current.position);
-                console.log(tempG)
 
                 // Is this a better path than before?
                 var newPath = false;
