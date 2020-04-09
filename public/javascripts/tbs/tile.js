@@ -8,6 +8,7 @@ class Tile {
         this.h = 0;
         this.f = this.g + this.h;
         this.parent = null;
+        this.neighbors = [];
     }
 
     reset()

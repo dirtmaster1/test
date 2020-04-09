@@ -65,8 +65,48 @@ class Factory {
 				scene.add(tile.model)	
 			}
 		}
+
+		this.createNeighbors(tileSet);
 		
         return tileSet;
+	}
+
+	createNeighbors(tileSet)
+	{
+		var rows = tileSet.max_rows;
+		var cols = tileSet.max_columns;
+		
+		for(var x = 0; x < cols; x++)
+		{
+			for(var y = 0; y < rows; y++)
+			{   
+				if(tileSet.isTileInbounds(x, y))
+				{
+					var tile = tileSet.tiles[x][y];
+					
+					// add neighbors
+					if(tileSet.isTileInbounds(x + 1, y))
+					{
+						tile.neighbors.push(tileSet.tiles[x + 1][y]);
+					}
+					
+					if(tileSet.isTileInbounds(x - 1, y))
+					{
+						tile.neighbors.push(tileSet.tiles[x - 1][y]);
+					}
+
+					if(tileSet.isTileInbounds(x, y + 1))
+					{
+						tile.neighbors.push(tileSet.tiles[x][y + 1]);
+					}
+
+					if(tileSet.isTileInbounds(x, y - 1))
+					{
+						tile.neighbors.push(tileSet.tiles[x][y - 1]);
+					}
+				}
+			}
+		}
 	}
 
 	createPlayer(name, scene, start_x, start_y)
