@@ -4,6 +4,6 @@ class Player {
         this.model = model,
         this.position = position,
         this.name = name,
-        this.speed = 1.0;
+        this.speed = 3.0;
     }
 }

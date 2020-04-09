@@ -16,6 +16,8 @@ class TileSetManager {
         this.click_tile_y = null; 
         this.path = null;
         this.elapsedTime = 0.0;
+        this.pathCounter = 0;
+        this.pathChanged = false;
     }
 
     update(delta)
@@ -33,16 +35,31 @@ class TileSetManager {
 
         if(this.path)
         {
-           for (let i = 0; i < this.path.length; i++) {
-               const tile = this.path[i];
-               
-               this.player.position.x = tile.position.x;
-               this.player.position.y = tile.position.y;
+           if(this.pathChanged)
+           {
+               this.pathCounter = 0;
+               this.pathChanged = false;
+           }
+           
+            if(this.elapsedTime * this.player.speed > 1)
+           {
+                const tile = this.path[this.pathCounter];
+                
+                this.player.position.x = tile.position.x;
+                this.player.position.y = tile.position.y;
 
-               this.setPlayerPositionAndTileState();
-           } 
+                this.setPlayerPositionAndTileState();
 
-           this.path = null;
+                this.pathCounter++;
+                this.elapsedTime = 0;
+                
+                if(this.pathCounter >= this.path.length)
+                {
+                    this.path = null;
+                    this.pathCounter = 0;
+                }
+           }
+
         }
     }
 
@@ -52,8 +69,7 @@ class TileSetManager {
             click_mouse_x : this.click_mouse_x,
             click_mouse_y : this.click_mouse_y,
             click_tile_x : this.click_tile_x,
-            click_tile_y : this.click_tile_y,
-            path: this.path
+            click_tile_y : this.click_tile_y
         };
     }
 
@@ -110,6 +126,7 @@ class TileSetManager {
             this.selectTile(this.click_tile_x, this.click_tile_y);
             
             this.path = this.moveAStar();
+            this.pathChanged = true;
         }
     }
 
