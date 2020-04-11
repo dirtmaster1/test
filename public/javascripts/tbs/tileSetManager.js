@@ -1,11 +1,13 @@
 class TileSetManager {
 
-    constructor(tileSet, player)
+    constructor(factory, scene)
     {
         this.algorithm = new Algorithm();
+        this.factory = factory;
         
-        this.tileSet = tileSet,
-        this.player = player,
+        this.tileSet = this.factory.createTileSet(20, 20, scene);
+		this.player = this.factory.createPlayer("player", scene, 0, 0);
+		
         this.selectedTile = null,
         this.openTileColor = 0x00ff00; //green
         this.closedTileColor = 0xff0000; //red
@@ -32,9 +34,14 @@ class TileSetManager {
         
         if(playerMoveDirection)
         {
-            this.movePlayer(playerMoveDirection);
+            this.player.move(playerMoveDirection, this.tileSet);
         }
 
+        this.updatePath();
+    }
+
+    updatePath()
+    {
         if(this.path)
         {
            if(this.pathChanged)
@@ -50,7 +57,7 @@ class TileSetManager {
                 this.player.position.x = tile.position.x;
                 this.player.position.y = tile.position.y;
 
-                this.setPlayerPositionAndTileState();
+                this.player.setPosition(this.tileSet);
 
                 this.pathCounter++;
                 this.elapsedTime = 0;
@@ -73,42 +80,6 @@ class TileSetManager {
             click_tile_x : this.click_tile_x,
             click_tile_y : this.click_tile_y
         };
-    }
-
-    movePlayer(direction)
-    {
-        var playerMoved = false;
-        var x = this.player.position.x;
-        var y = this.player.position.y;
-        
-        if(direction == "up" && this.tileSet.isTileInbounds(x, y + 1))
-		{
-            this.player.position.y += 1;
-            playerMoved = true;
-        }
-        
-        if(direction == "down" && this.tileSet.isTileInbounds(x, y - 1))
-		{
-            this.player.position.y += -1;
-            playerMoved = true;
-        }
-        
-        if(direction == "left" && this.tileSet.isTileInbounds(x - 1, y))
-		{
-            this.player.position.x += -1;
-            playerMoved = true;
-        }
-        
-        if(direction == "right" && this.tileSet.isTileInbounds(x + 1, y))
-        {
-            this.player.position.x += 1;
-            playerMoved = true;
-        }
-                
-        if(playerMoved)
-        {
-            this.setPlayerPositionAndTileState();
-        }
     }
 
     setPlayerClickValues()
@@ -176,15 +147,6 @@ class TileSetManager {
         }
 
         return tileNumber;
-    }
-
-    setPlayerPositionAndTileState()
-    {
-        var tile = this.tileSet.tiles[this.player.position.x][this.player.position.y];
-
-        this.player.model.position.set(tile.model.position.x, 
-            tile.model.position.y,
-            tile.model.position.z + 1)
     }
 
     selectTile(x,y)

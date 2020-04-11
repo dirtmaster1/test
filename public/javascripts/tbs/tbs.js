@@ -8,16 +8,12 @@ tbs.run = (function() {
 	var mouse = new game.Mouse();
 	var ui = tbs.userInterface;
 
-	var factory = new Factory();
 	var tileSetManager;
 	
 	var width = window.innerWidth;
 	var height = window.innerHeight;
 	var camera = new THREE.OrthographicCamera( -width, width, height, -height, 1, 1000 );
 	camera.position.set(400,400,20);
-
-	var player = null;
-	var tileSet = null;
 	
     initialize();
     render();
@@ -28,12 +24,10 @@ tbs.run = (function() {
 		
 		scene.add(camera);
 
+		var factory = new Factory();
 		factory.initialize();
-		
-		tileSet = factory.createTileSet(20, 20, scene);
-		player = factory.createPlayer("player", scene, 0, 0);
-		
-		tileSetManager = new TileSetManager(tileSet, player);
+
+		tileSetManager = new TileSetManager(factory, scene);
     }
 
     function render() {
