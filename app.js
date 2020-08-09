@@ -21,6 +21,7 @@ var game = require('./routes/game.js');
 var mandelbrot = require('./routes/mandelbrot.js');
 var tbs = require('./routes/tbs.js');
 var block_jumper = require('./routes/block_jumper.js');
+var sandbox = require('./routes/sandbox.js');
 
 
 app.use('/api/cards', cards);
@@ -28,6 +29,7 @@ app.use('/game', game);
 app.use('/mandelbrot', mandelbrot);
 app.use('/tbs', tbs);
 app.use('/block_jumper', block_jumper);
+app.use('/sandbox', sandbox);
 
 app.get('/', function(req, res){
     res.render('index.ejs');
