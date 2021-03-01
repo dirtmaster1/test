@@ -22,7 +22,7 @@
     "mongoose": "^4.1.5",
     "should": "^7.1.1",
     "sinon": "^1.17.2",
-    "three": "^0.84.0"
+    "three": "^0.125.0"
   },
   "devDependencies": {
     "karma-fixture": "^0.2.5",
