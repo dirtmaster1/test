@@ -24,8 +24,8 @@ class Factory {
 
 	createTileSet(maxColumns, maxRows, scene)
 	{
-		var tileWidth = 50;
-		var tileHeight = 50;
+		var tileWidth = 100;
+		var tileHeight = 100;
 		
 		var tile_set_origin_x = 0;
 		var tile_set_origin_y = 0;

@@ -1,79 +1,92 @@
 class Algorithm {
 
-    aStarSearch(start, end)
+aStarSearch(start, end)
+{
+    // Track nodes we've already evaluated
+    var closedSet = [];
+    // Track nodes we're considering
+    var openSet = [];
+    
+    // Initialize the starting node with its heuristic distance to the goal
+    start.f = this.getManhattanDistance(start.position, end.position);
+    openSet.push(start);
+
+    var current = start;
+
+    // Continue searching until we've checked all possible paths
+    while(openSet.length > 0) 
     {
-        var closedSet = [];
-        var openSet = [];
-        
-        start.f = this.getManhattanDistance(start.position, end.position);
-        openSet.push(start);
-
-        var current = start;
-
-        // Am I still searching?
-        while(openSet.length > 0) 
+        // Find the node in openSet with the lowest f-score (most promising path)
+        var low = 0;
+        for(var i = 0; i < openSet.length; i++)
         {
-            // Best next option
-            var low = 0;
-            for(var i = 0; i < openSet.length; i++)
+            if(openSet[i].f < openSet[low].f)
             {
-                if(openSet[i].f < openSet[low].f)
-                {
-                    low = i;
-                }
+                low = i;
             }
+        }
 
-            current = openSet[low]; 
+        // Set current to the most promising node
+        current = openSet[low]; 
 
-            // Did I finish?
-            if (current === end) {
-                return this.buildPath(current);
-              }
+        // Check if we've reached the goal
+        if (current === end) {
+            return this.buildPath(current);
+        }
 
-            // Best option moves from openSet to closedSet
-            this.removeItemFromArray(openSet, current);
-            closedSet.push(current);
+        // Move the current node from openSet (to explore) to closedSet (already explored)
+        this.removeItemFromArray(openSet, current);
+        closedSet.push(current);
 
-            // Check all the neighbors
-            var neighbors = current.neighbors;
+        // Get all neighboring nodes from the current node
+        var neighbors = current.neighbors;
 
-            if(!neighbors)
-            {
-                continue;
-            }
+        // Skip if this node has no neighbors
+        if(!neighbors)
+        {
+            continue;
+        }
 
-            for (var i = 0; i < neighbors.length; i++) {
+        // Evaluate each neighbor
+        for (var i = 0; i < neighbors.length; i++) {
             var neighbor = neighbors[i];
 
-            // Valid next spot?
+            // Only consider neighbors that haven't been explored and are accessible
             if (!closedSet.includes(neighbor) && neighbor.is_accessible) {
+                // Calculate the cost to reach this neighbor through the current node
                 var tempG = current.g + this.getManhattanDistance(neighbor.position, current.position);
 
-                // Is this a better path than before?
+                // Check if this is a better path to the neighbor than previously found
                 var newPath = false;
                 if (openSet.includes(neighbor)) {
+                    // Neighbor is already in openSet, check if we found a better path
                     if (tempG < neighbor.g) {
                         neighbor.g = tempG;
                         newPath = true;
                     }
                 } else {
+                    // Neighbor hasn't been added to openSet yet
                     neighbor.g = tempG;
                     newPath = true;
                     openSet.push(neighbor);
                 }
 
-                    // Yes, it's a better path
-                    if (newPath) {
-                        neighbor.h = this.getManhattanDistance(neighbor.position, current.position);
-                        neighbor.f = neighbor.g + neighbor.h;
-                        neighbor.parent = current;
-                    }
+                // If we found a better path, update the neighbor's scores
+                if (newPath) {
+                    // h = heuristic distance from neighbor to goal
+                    neighbor.h = this.getManhattanDistance(neighbor.position, end.position);
+                    // f = g (cost so far) + h (estimated cost to goal)
+                    neighbor.f = neighbor.g + neighbor.h;
+                    // Track where we came from for path reconstruction
+                    neighbor.parent = current;
                 }
-            }   
-        } 
+            }
+        }   
+    } 
 
-        return null;
-    }
+    // No path found
+    return null;
+}
     
 
     buildPath(node)
